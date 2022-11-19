@@ -1,0 +1,37 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  overflow-x: hidden;
+}
+
+li {
+  list-style: none;
+}
+
+a {
+  display: inline-block;
+  text-decoration: none;
+}
+
+img {
+  display: inline-block;
+}
+
+.App {
+  position: relative;
+  text-align: center;
+  background-color: cadetblue;
+  min-height: 100vh;
+  height: max-content;
+}
+
+.container {
+  max-width: 1200px;
+  padding: 20px 30px;
+  margin: 0 auto;
+}
+
