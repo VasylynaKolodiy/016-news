@@ -1,4 +1,7 @@
 .articleDetailPage{
   text-align: left;
-
+  &__favorites svg{
+    width: 30px;
+    height: 30px;
+  }
 }

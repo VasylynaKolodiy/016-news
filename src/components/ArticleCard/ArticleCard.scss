@@ -1,52 +1,56 @@
 .articleCard {
   position: relative;
   text-align: left;
+  border-bottom: 2px solid gray;
+  width: 100%;
+  transition: .3s linear;
 
   &:hover {
+    box-shadow: rgba(255, 0, 0, 0.07) 0 1px 2px, rgba(0, 0, 0, 0.07) 0 2px 4px, rgba(0, 0, 0, 0.07) 0 4px 8px, rgba(0, 0, 0, 0.07) 0 8px 16px, rgba(0, 0, 0, 0.07) 0 16px 32px, rgba(0, 0, 0, 0.07) 0 32px 64px;
     .articleCard__overlay {
       background-color: rgba(0, 0, 0, 0.5);
     }
   }
 
-  &__imageWrapper {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-
-  &__image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-
-  &__infoWrapper {
-    position: absolute;
-    top: 0;
-    left: 0;
+  &__info {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
     justify-content: space-between;
     gap: 20px;
     width: 100%;
     height: 100%;
-    padding: 30px 20px;
+    padding: 20px;
   }
 
   &__info-top {
+    width: 100%;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    font-size: 12px;
+    align-self: center;
+  }
+  &__info-top div {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    width: 100%;
+    gap: 10px;
   }
-
+  &__info-top div div{
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+  }
   &__favorites {
     position: relative;
 
     & svg {
-      width: 50px;
-      height: 50px;
+      width: 40px;
+      height: 40px;
+    }
+
+    & svg path {
+      fill: gray;
     }
 
     &-count {
@@ -58,36 +62,61 @@
     }
   }
 
-  &__author-link {
-    position: relative;
-    color: black;
+  &__info-bottom {
+    width: 100%;
+  }
+
+  &__data,
+  &__author-name {
+    color: gray;
+    line-height: 0.6;
+  }
+  &__author-name {
     transition: .3s linear;
-    z-index: 30;
-    border-radius: 10px;
-    padding: 5px 0;
+    border-bottom: 1px solid transparent;
+    padding-bottom: 3px;
+    position: relative;
+    z-index: 20;
+  }
+  &__author-name:hover {
+    border-bottom: 1px solid gray;
+  }
+
+  &__author-link {
+    transition: .3s linear;
+    padding: 5px;
+    position: relative;
+    z-index: 20;
+
     &:hover {
-      background-color: white;
-      padding: 5px;
+      transform: scale(1.1);
     }
   }
 
-
-  &__overlay {
+  &__link.overlay{
     position: absolute;
     top: 0;
-    right: 0;
     left: 0;
+    right: 0;
     bottom: 0;
-    background-color: rgba(0, 0, 0, 0);
-    transition: .3s linear;
+    z-index: 10;
   }
 
   &__link {
-    position: absolute;
-    top: 0;
-    right: 0;
-    left: 0;
-    bottom: 0;
-    z-index: 5;
+    font-size: 16px;
+  }
+  &__description{
+    margin-bottom: 8px;
+  }
+  &__taglist{
+    text-align: right;
+  }
+  &__tagitem{
+    font-size: 12px;
+    padding: 3px;
+    border: 1px solid gray;
+    border-radius: 3px;
+    margin-right: 10px;
+    align-self: flex-end;
   }
 }
