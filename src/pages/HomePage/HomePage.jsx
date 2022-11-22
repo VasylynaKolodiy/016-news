@@ -13,7 +13,7 @@ const HomePage = () => {
   const articlesFullResult = useSelector((state) => state['articles']['articles']);
 
   const totalCount = articlesFullResult.articlesCount
-  let [limit, setLimit] = useState(10)
+  const limit = 10;
   let [offset, setOffset] = useState(1)
   let countOfPages = totalCount && Math.ceil(totalCount / limit)
   let [pageNumber, setPageNumber] = useState(1);
@@ -37,23 +37,26 @@ const HomePage = () => {
     <main className='homePage'>
       {isArticlesLoading
         ? <Loader/>
-        : <div className='articlesList'>
-          {articlesFullResult.articles?.map((article, index) => <ArticleCard article={article} key={index}/>)}
+        : <div>
+          <div className='articlesList'>
+            {articlesFullResult.articles?.map((article, index) => (
+              <ArticleCard article={article} key={index}/>)
+            )}
+          </div>
+          {countOfPages > 1 &&
+          (<Pagination
+            className='pagination'
+            count={countOfPages}
+            size="large"
+            page={pageNumber}
+            onChange={handlePageChange}
+          />)
+          }
         </div>
       }
 
-      {countOfPages > 1 &&
-      (<Pagination
-        className='pagination'
-        count={countOfPages}
-        size="large"
-        page={pageNumber}
-        onChange={handlePageChange}
-      />)
-      }
+
     </main>
-
-
   );
 };
 

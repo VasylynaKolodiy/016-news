@@ -1,16 +1,11 @@
 .articleCard {
   position: relative;
   text-align: left;
-  border-bottom: 2px solid gray;
   width: 100%;
   transition: .3s linear;
-
-  &:hover {
-    box-shadow: rgba(255, 0, 0, 0.07) 0 1px 2px, rgba(0, 0, 0, 0.07) 0 2px 4px, rgba(0, 0, 0, 0.07) 0 4px 8px, rgba(0, 0, 0, 0.07) 0 8px 16px, rgba(0, 0, 0, 0.07) 0 16px 32px, rgba(0, 0, 0, 0.07) 0 32px 64px;
-    .articleCard__overlay {
-      background-color: rgba(0, 0, 0, 0.5);
-    }
-  }
+  color: black;
+  box-shadow: rgba(0, 0, 0, 0.24) 0 3px 8px;
+  background: url("../../assets/img/HomePage/background.webp") top left no-repeat;
 
   &__info {
     display: flex;
@@ -31,16 +26,7 @@
     font-size: 12px;
     align-self: center;
   }
-  &__info-top div {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-  &__info-top div div{
-    display: flex;
-    align-items: flex-start;
-    flex-direction: column;
-  }
+
   &__favorites {
     position: relative;
 
@@ -58,7 +44,8 @@
       top: 40%;
       left: 50%;
       transform: translate(-50%, -40%);
-      color: white;
+      color: black;
+      cursor: pointer;
     }
   }
 
@@ -66,57 +53,36 @@
     width: 100%;
   }
 
-  &__data,
-  &__author-name {
-    color: gray;
-    line-height: 0.6;
-  }
-  &__author-name {
-    transition: .3s linear;
-    border-bottom: 1px solid transparent;
-    padding-bottom: 3px;
-    position: relative;
-    z-index: 20;
-  }
-  &__author-name:hover {
-    border-bottom: 1px solid gray;
-  }
-
-  &__author-link {
-    transition: .3s linear;
-    padding: 5px;
-    position: relative;
-    z-index: 20;
-
-    &:hover {
-      transform: scale(1.1);
-    }
-  }
-
-  &__link.overlay{
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    z-index: 10;
-  }
-
-  &__link {
-    font-size: 16px;
-  }
-  &__description{
+  &__description {
     margin-bottom: 8px;
   }
-  &__taglist{
-    text-align: right;
+
+  &__wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
   }
-  &__tagitem{
+
+  &__tagitem {
     font-size: 12px;
-    padding: 3px;
+    color: black;
+    padding: 3px 5px;
     border: 1px solid gray;
     border-radius: 3px;
     margin-right: 10px;
     align-self: flex-end;
+  }
+
+  &__link {
+    color: black;
+    padding: 2px 20px;
+    border-radius: 10px;
+    transition: .3s linear;
+    border: 1px solid gray;
+
+    &:hover {
+      background-color: gray;
+    }
   }
 }

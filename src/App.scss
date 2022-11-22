@@ -6,6 +6,9 @@
 
 html {
   overflow-x: hidden;
+  //background-image: linear-gradient(to right, #DECBA4, #3E5151);
+  background: url("/assets/img/HomePage/background.webp") top left no-repeat fixed;
+  background-size: cover;
 }
 
 li {
@@ -24,7 +27,6 @@ img {
 .App {
   position: relative;
   text-align: center;
-  //background-color: cadetblue;
   min-height: 100vh;
   height: max-content;
 }
