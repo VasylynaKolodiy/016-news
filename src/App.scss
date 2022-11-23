@@ -33,7 +33,30 @@ img {
 
 .container {
   max-width: 1200px;
-  padding: 50px;
+  padding: 20px 50px;
   margin: 0 auto;
 }
 
+.hoverLink{
+  transition: .3s linear;
+  color: gray;
+  position: relative;
+
+  &::after {
+    content: '';
+    display: block;
+    height: 1px;
+    width: 0;
+    background-color: gray;
+    transition: .3s linear;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+  }
+  &:hover {
+    &::after,
+    &::after {
+      width: 100%;
+    }
+  }
+}

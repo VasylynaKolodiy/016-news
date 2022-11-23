@@ -9,6 +9,7 @@ const ArticleCard = ({article}) => {
   return (
     <div className='articleCard'>
       <div className='articleCard__info'>
+        <Link className='articleCard__link-overlay' to={`/articles/${article.slug}`}/>
 
         <div className='articleCard__info-top'>
           <AuthorInfo author={article.author} dateAuthorInfo={dateArticle}/>
@@ -19,7 +20,7 @@ const ArticleCard = ({article}) => {
         </div>
 
         <div className='articleCard__info-bottom'>
-          <p className='articleCard__description'>{article.description}</p>
+          <p className='articleCard__description'>{article.title}</p>
           <div className='articleCard__wrapper'>
             <Link className='articleCard__link' to={`/articles/${article.slug}`}>Read more</Link>
             <div className='articleCard__taglist'>

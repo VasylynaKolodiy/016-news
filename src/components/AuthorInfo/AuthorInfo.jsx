@@ -13,7 +13,7 @@ const AuthorInfo = ({author = {}, dateAuthorInfo}) => {
           alt={author.username}
           sx={{height: '60px', width: '60px'}}
         />
-        <p className='authorInfo__name'>{author.username}</p>
+        <p className='authorInfo__name hoverLink'>{author.username}</p>
       </Link>
 
       <p className='authorInfo__date'>

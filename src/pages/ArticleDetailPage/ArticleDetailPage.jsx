@@ -7,6 +7,7 @@ import Loader from "../../components/Loader/Loader";
 import {ReactComponent as FavoritesIcon} from "../../assets/img/HomePage/ArticleCard/heart.svg";
 import Comments from "../../components/Comments/Comments";
 import AuthorInfo from "../../components/AuthorInfo/AuthorInfo";
+import BreadCrumbs from "../../components/BreadCrumbs/BreadCrumbs";
 
 const ArticleDetailPage = () => {
   const params = useParams();
@@ -33,6 +34,8 @@ const ArticleDetailPage = () => {
         ? <Loader/>
         : <div className='articleDetailPage__content'>
 
+          <BreadCrumbs name={article.slug?.slice(0, 20)+'...'}/>
+
           <div className='articleDetailPage__top'>
             <AuthorInfo author={article.author} dateAuthorInfo={dateArticle}/>
 
@@ -47,13 +50,11 @@ const ArticleDetailPage = () => {
                 <a className='articleDetailPage__favorites-count' href='#'>{article?.favoritesCount}</a>
               </div>
             </div>
-
-
           </div>
 
-
-          <h3 className='articleDetailPage__description'>{article.description}</h3>
+          <p className='articleDetailPage__title'>{article.title}</p>
           <p className='articleDetailPage__body'>{String(article.body).replaceAll('\\n', ' ')}</p>
+          <p className='articleDetailPage__description'>{article.description}</p>
 
           <div className='articleDetailPage__taglist'>
             {article.tagList?.map((tag, index) => (

@@ -13,24 +13,6 @@
     top: -23px;
     left: 83px;
   }
-
-  &__name {
-    transition: .3s linear;
-    position: relative;
-    color: gray;
-    &::after{
-      content: '';
-      display: block;
-      height: 1px;
-      width: 0;
-      background-color: gray;
-      transition: .3s linear;
-      position: absolute;
-      bottom: 0;
-      left: 0;
-    }
-  }
-
   &__link {
     display: flex;
     align-items: center;
@@ -49,7 +31,6 @@
       .authorInfo__name::after{
         width: 100%;
       }
-
     }
   }
   &__photo{

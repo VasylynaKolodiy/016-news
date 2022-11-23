@@ -1,0 +1,28 @@
+.breadcrumbs {
+  display: flex;
+  align-items: center;
+  margin-bottom: 30px;
+
+  &__list {
+    display: flex;
+    gap: 20px;
+  }
+
+  &__item-link, &__first-item-link {
+    display: inline-block;
+    text-transform: capitalize;
+    color: black;
+  }
+
+  &__item:last-child {
+    & span {
+      cursor: alias;
+      color: gray;
+    }
+  }
+
+  &__item:not(:first-child):before {
+    content: '/';
+    padding-right: 16px;
+  }
+}
