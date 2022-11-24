@@ -32,7 +32,6 @@ function* getComments(action) {
   }
 }
 
-
 export default all([
   takeLatest(articlesActions.GET_ARTICLES_REQUEST, getArticles),
   takeLatest(articlesActions.GET_ARTICLE_REQUEST, getArticle),

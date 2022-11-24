@@ -3,6 +3,7 @@ import './ArticleCard.scss'
 import {ReactComponent as FavoritesIcon} from '../../assets/img/HomePage/ArticleCard/heart.svg';
 import AuthorInfo from "../AuthorInfo/AuthorInfo";
 import {Link} from "react-router-dom";
+import Button from "@mui/material/Button";
 
 const ArticleCard = ({article}) => {
   let dateArticle = new Date(article.updatedAt)
@@ -22,7 +23,9 @@ const ArticleCard = ({article}) => {
         <div className='articleCard__info-bottom'>
           <p className='articleCard__description'>{article.title}</p>
           <div className='articleCard__wrapper'>
-            <Link className='articleCard__link' to={`/articles/${article.slug}`}>Read more</Link>
+            <Link className='articleCard__link' to={`/articles/${article.slug}`}>
+              <Button>Read more</Button>
+            </Link>
             <div className='articleCard__taglist'>
               {article.tagList?.map((tag, index) => (
                 <Link className='articleCard__tagitem' to='#' key={index}>{tag} </Link>)

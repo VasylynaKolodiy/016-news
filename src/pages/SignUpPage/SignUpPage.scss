@@ -1,3 +1,23 @@
-.signUpPage{
-  margin-top: 200px;
+.signUpPage {
+  .signup__form{
+    width: 600px;
+    margin: 150px auto 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    justify-content: center;
+    flex-direction: column;
+    background: url("../../assets/img/HomePage/background.webp");
+    padding: 50px;
+  }
+
+
+  .formControl {
+    width: 400px;
+  }
+
+  .formControl__password .MuiFormLabel-root {
+    left: -14px;
+  }
+
 }

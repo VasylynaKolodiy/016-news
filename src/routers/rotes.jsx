@@ -2,6 +2,7 @@ import React from "react";
 import HomePage from "../pages/HomePage/HomePage";
 import ArticleDetailPage from "../pages/ArticleDetailPage/ArticleDetailPage";
 import SignUpPage from "../pages/SignUpPage/SignUpPage";
+import SignInPage from "../pages/SignInPage/SignInPage";
 
 export const privateRoutes = [
   {
@@ -23,6 +24,12 @@ export const privateRoutes = [
   {
     path: "/signup",
     component: <SignUpPage/>,
+    exact: true,
+  },
+
+  {
+    path: "/signin",
+    component: <SignInPage/>,
     exact: true,
   },
 ]

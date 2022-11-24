@@ -14,12 +14,12 @@ const Header = () => {
 
         <ul className='sign'>
           <li>
-            <NavLink className='signIn hoverLink' to='/signin'>
+            <NavLink className='signLink hoverLink' to='/signin'>
               Sign In
             </NavLink>
           </li>
           <li>
-            <NavLink className='signUp hoverLink' to='/signup'>
+            <NavLink className='signLink hoverLink' to='/signup'>
               Sign Up
             </NavLink>
           </li>
