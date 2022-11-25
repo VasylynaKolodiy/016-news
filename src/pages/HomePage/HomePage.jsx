@@ -33,26 +33,60 @@ const HomePage = () => {
     setOffset(limit * (value - 1))
   }
 
+  const [userToken, setUserToken] = useState(localStorage.getItem('userToken'));
+
+  let openFeed = (feed) => {
+    let i;
+    let x = document.getElementsByClassName("feeds__tabs-inner");
+    let btn = document.getElementsByClassName('feeds__tabs-button')
+    for (i = 0; i < x.length; i++) {
+      x[i].style.display = "none";
+      btn[i].classList.toggle("active");
+    }
+    document.getElementById(feed).style.display = "block";
+  }
+
+
   return (
     <main className='homePage'>
       {isArticlesLoading
         ? <Loader/>
         : <div>
-          <div className='articlesList'>
-            {articlesFullResult.articles?.map((article, index) => (
-              <ArticleCard article={article} key={index}/>)
-            )}
+
+          <div className="feeds__tabs">
+            <button className="feeds__tabs-button Global hoverLink active" onClick={() => userToken && openFeed('Global')}>
+              Global Feeds
+            </button>
+            {userToken && <button className="feeds__tabs-button Your hoverLink " onClick={() => openFeed('Your')}>
+              Your Feeds
+            </button>}
           </div>
-          {countOfPages > 1 &&
-          (<Pagination
-            className='pagination'
-            count={countOfPages}
-            size="large"
-            page={pageNumber}
-            onChange={handlePageChange}
-          />)
-          }
+
+          <div id="Global" className="feeds__tabs-inner">
+            <div className=' articlesList'>
+              {articlesFullResult.articles?.map((article, index) => (
+                <ArticleCard article={article} key={index}/>)
+              )}
+            </div>
+            {countOfPages > 1 &&
+            (<Pagination
+              className=' pagination'
+              count={countOfPages}
+              size="large"
+              page={pageNumber}
+              onChange={handlePageChange}
+            />)
+            }
+          </div>
+
+
+          <div id="Your" className="feeds__tabs-inner">
+            lalalala
+          </div>
+
         </div>
+
+
       }
 
 

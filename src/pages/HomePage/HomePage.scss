@@ -2,6 +2,34 @@
   margin-bottom: 30px;
   margin-top: 100px;
 
+
+  .feeds__tabs{
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+
+    &-button{
+      background: transparent;
+      padding: 10px;
+      border: none;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      color: rgba(0, 0, 0, 0.4);
+    }
+    &-button.active{
+      color: black;
+      &.hoverLink::after{
+        width: 100%;
+      }
+    }
+    &-button.hoverLink::after{
+      height: 3px;
+    }
+  }
+  #Your{
+    display: none;
+  }
   .articlesList {
     display: grid;
     grid-template-columns: repeat(1, 1fr);

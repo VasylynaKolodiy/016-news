@@ -37,7 +37,7 @@ const SignInPage = () => {
       const {data: response} = await axios.post('https://api.realworld.io/api/users/login', data);
       localStorage.setItem('userToken', JSON.stringify(response.user.token));
       navigate("/")
-      window.location.reload()
+      // window.location.reload()
     } catch (error) {
       setSystemError(error)
     }

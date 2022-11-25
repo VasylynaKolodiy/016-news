@@ -1,4 +1,4 @@
-.header{
+.header {
     background: url("../../assets/img/HomePage/background.webp") top left no-repeat;
     box-shadow: 0 4px 2px -2px gray;
     position: fixed;
@@ -35,14 +35,16 @@
     }
   }
 
-  .sign {
+  .sign,
+  .login{
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 30px;
   }
 
-  .signLink.active{
+  .signLink.active,
+  .loginLink.active{
     color: black;
   }
 }
