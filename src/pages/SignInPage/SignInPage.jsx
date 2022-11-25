@@ -9,65 +9,80 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import InputLabel from "@mui/material/InputLabel";
 import Input from "@mui/material/Input";
 import Button from "@mui/material/Button";
+import {useNavigate} from "react-router-dom";
+import axios from "axios";
 
 const SignInPage = () => {
-  const [values, setValues] = useState({
-    amount: '',
-    password: '',
-    weight: '',
-    weightRange: '',
-    showPassword: false,
-  });
 
-  const handleChange = (prop) => (event) => {
-    setValues({...values, [prop]: event.target.value});
-  };
-
+  const [showPassword, setShowPassword] = useState(false);
   const handleClickShowPassword = () => {
-    setValues({
-      ...values,
-      showPassword: !values.showPassword,
-    });
+    setShowPassword(!showPassword);
   };
 
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
   };
+
+  let [systemError, setSystemError] = useState('');
+  const navigate = useNavigate();
+
+  let [myUser, setMyUser] = useState({
+    email: '',
+    password: '',
+  })
+
+  let data = {user: myUser}
+  const createUser = async (data) => {
+    try {
+      const {data: response} = await axios.post('https://api.realworld.io/api/users/login', data);
+      localStorage.setItem('userToken', JSON.stringify(response.user.token));
+      navigate("/")
+      window.location.reload()
+    } catch (error) {
+      setSystemError(error)
+    }
+  };
+
   return (
-    <main className='signInPage'>
+    <main className='signPage'>
+      <form className='sign__form' onSubmit={(event) => event.preventDefault()}>
 
-      <FormControl className='formControl__email formControl'>
-        <TextField
-          id="email"
-          label="Email"
-          type="email"
-          variant="standard"
-          hiddenLabel
-        />
-      </FormControl>
+        <FormControl className='formControl__email formControl'>
+          <TextField
+            label="Email"
+            type="email"
+            variant="standard"
+            value={myUser.email}
+            onChange={(event) => setMyUser({...myUser, email: event.target.value})}
+          />
+        </FormControl>
 
-      <FormControl className='formControl__password formControl'>
-        <InputLabel htmlFor="password">Password</InputLabel>
-        <Input
-          id="password"
-          type={values.showPassword ? 'text' : 'password'}
-          value={values.password}
-          onChange={handleChange('password')}
-          endAdornment={
-            <InputAdornment position="end">
-              <IconButton
-                aria-label="toggle password visibility"
-                onClick={handleClickShowPassword}
-                onMouseDown={handleMouseDownPassword}
-              >
-                {values.showPassword ? <VisibilityOff/> : <Visibility/>}
-              </IconButton>
-            </InputAdornment>
-          }
-        />
-      </FormControl>
+        <FormControl className='formControl__password formControl'>
+          <InputLabel htmlFor="signInUserPassword">Password</InputLabel>
+          <Input
+            id="signInUserPassword"
+            type={showPassword ? 'text' : 'password'}
+            onChange={(event) => setMyUser({...myUser, password: event.target.value})}
+            value={myUser.password}
+            endAdornment={
+              <InputAdornment position="end">
+                <IconButton
+                  aria-label="toggle password visibility"
+                  onClick={handleClickShowPassword}
+                  onMouseDown={handleMouseDownPassword}
+                >
+                  {showPassword ? <VisibilityOff/> : <Visibility/>}
+                </IconButton>
+              </InputAdornment>
+            }
+          />
+        </FormControl>
 
-      <Button>Sign In</Button>
+        <Button
+          type='submit'
+          variant="outlined"
+          onClick={() => createUser(data)}>Sign In</Button>
+      </form>
     </main>
   );
 };

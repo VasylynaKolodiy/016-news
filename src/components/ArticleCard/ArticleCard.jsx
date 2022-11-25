@@ -24,7 +24,7 @@ const ArticleCard = ({article}) => {
           <p className='articleCard__description'>{article.title}</p>
           <div className='articleCard__wrapper'>
             <Link className='articleCard__link' to={`/articles/${article.slug}`}>
-              <Button>Read more</Button>
+              <Button variant="outlined">Read more</Button>
             </Link>
             <div className='articleCard__taglist'>
               {article.tagList?.map((tag, index) => (
