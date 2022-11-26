@@ -9,8 +9,8 @@ import Pagination from "@mui/material/Pagination";
 const HomePage = () => {
 
   const dispatch = useDispatch();
-  const isArticlesLoading = useSelector((state) => state['articles'].loading);
-  const articlesFullResult = useSelector((state) => state['articles']['articles']);
+  const isArticlesLoading = useSelector((state) => state.articles.loading);
+  const articlesFullResult = useSelector((state) => state.articles.articles);
 
   const totalCount = articlesFullResult.articlesCount
   const limit = 10;

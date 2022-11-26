@@ -1,5 +1,4 @@
 import React, {useState} from 'react';
-import './SignInPage.scss'
 import TextField from "@mui/material/TextField";
 import FormControl from "@mui/material/FormControl";
 import InputAdornment from "@mui/material/InputAdornment";
@@ -10,10 +9,10 @@ import InputLabel from "@mui/material/InputLabel";
 import Input from "@mui/material/Input";
 import Button from "@mui/material/Button";
 import {useNavigate} from "react-router-dom";
-import axios from "axios";
+import {useDispatch, useSelector} from "react-redux";
+import {POST_LOGIN_USER_REQUEST, POST_NEW_USER_REQUEST} from "../../actions/users";
 
 const SignInPage = () => {
-
   const [showPassword, setShowPassword] = useState(false);
   const handleClickShowPassword = () => {
     setShowPassword(!showPassword);
@@ -23,25 +22,43 @@ const SignInPage = () => {
     event.preventDefault();
   };
 
-  let [systemError, setSystemError] = useState('');
-  const navigate = useNavigate();
+  // let [systemError, setSystemError] = useState('');
+  // const navigate = useNavigate();
+  //
+  // let [myLoginUser, setMyLoginUser] = useState({
+  //   email: '',
+  //   password: '',
+  // })
+  //
+  // let data = {user: myLoginUser}
+  // const createUser = async (data) => {
+  //   try {
+  //     const {data: response} = await axios.post('https://api.realworld.io/api/users/login', data);
+  //     localStorage.setItem('userToken', JSON.stringify(response.user.token));
+  //     navigate("/")
+  //     // window.location.reload()
+  //   } catch (error) {
+  //     setSystemError(error)
+  //   }
+  // };
 
-  let [myUser, setMyUser] = useState({
+
+  const navigate = useNavigate();
+  let [myLoginUser, setMyLoginUser] = useState({
     email: '',
     password: '',
   })
+  let data = {user: myLoginUser}
+  
+  const dispatch = useDispatch();
+  let isLoginUserLoading = useSelector((state) => state.users.loading);
+  let loginUserFullResult = useSelector((state) => state.users.user);
+  const clickOnButton = () => {
+    dispatch({type: POST_LOGIN_USER_REQUEST, payload: data}) && navigate("/");
+  }
 
-  let data = {user: myUser}
-  const createUser = async (data) => {
-    try {
-      const {data: response} = await axios.post('https://api.realworld.io/api/users/login', data);
-      localStorage.setItem('userToken', JSON.stringify(response.user.token));
-      navigate("/")
-      // window.location.reload()
-    } catch (error) {
-      setSystemError(error)
-    }
-  };
+  console.log(loginUserFullResult, 'newUserFullResult')
+  
 
   return (
     <main className='signPage'>
@@ -52,8 +69,8 @@ const SignInPage = () => {
             label="Email"
             type="email"
             variant="standard"
-            value={myUser.email}
-            onChange={(event) => setMyUser({...myUser, email: event.target.value})}
+            value={myLoginUser.email}
+            onChange={(event) => setMyLoginUser({...myLoginUser, email: event.target.value})}
           />
         </FormControl>
 
@@ -62,8 +79,8 @@ const SignInPage = () => {
           <Input
             id="signInUserPassword"
             type={showPassword ? 'text' : 'password'}
-            onChange={(event) => setMyUser({...myUser, password: event.target.value})}
-            value={myUser.password}
+            onChange={(event) => setMyLoginUser({...myLoginUser, password: event.target.value})}
+            value={myLoginUser.password}
             endAdornment={
               <InputAdornment position="end">
                 <IconButton
@@ -81,7 +98,7 @@ const SignInPage = () => {
         <Button
           type='submit'
           variant="outlined"
-          onClick={() => createUser(data)}>Sign In</Button>
+          onClick={() => clickOnButton(data)}>Sign In</Button>
       </form>
     </main>
   );

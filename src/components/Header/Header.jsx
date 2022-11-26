@@ -2,14 +2,15 @@ import React, {useState} from 'react';
 import './Header.scss'
 import {NavLink} from "react-router-dom";
 import logoIcon from '../../assets/img/logo.png'
+import {useSelector} from "react-redux";
 
 const Header = () => {
-  const [userToken, setUserToken] = useState(localStorage.getItem('userToken'));
+  const [user, setUser] = useState(localStorage.getItem('user'));
+  let loginUserFullResult = useSelector((state) => state.users.user);
 
   function exitUser() {
-    localStorage.removeItem('userToken');
-    setUserToken(null);
-    window.location.reload()
+    localStorage.removeItem('user');
+    setUser(null);
   }
 
   return (
@@ -20,7 +21,7 @@ const Header = () => {
           <NavLink className='logo__link' to='/'/>
         </div>
 
-        {!userToken
+        {!loginUserFullResult
           ? <ul className='sign'>
             <li>
               <NavLink className='signLink hoverLink' to='/signin'>

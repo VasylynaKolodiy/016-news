@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import './SignUpPage.scss'
 import TextField from "@mui/material/TextField";
 import FormControl from "@mui/material/FormControl";
@@ -9,8 +9,10 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import InputLabel from "@mui/material/InputLabel";
 import Input from "@mui/material/Input";
 import Button from "@mui/material/Button";
-import {useNavigate} from "react-router-dom";
-import axios from "axios";
+import {useDispatch, useSelector} from "react-redux";
+import {POST_NEW_USER_REQUEST} from "../../actions/users";
+import {useNavigate} from "react-router";
+
 
 const SignUpPage = () => {
 
@@ -23,26 +25,38 @@ const SignUpPage = () => {
     event.preventDefault();
   };
 
-  let [systemError, setSystemError] = useState('');
-  const navigate = useNavigate();
+  // let [systemError, setSystemError] = useState('');
 
-  let [myUser, setMyUser] = useState({
+  // const createUser = async (data) => {
+  //   try {
+  //     const {data: response} = await axios.post('https://api.realworld.io/api/users', data);
+  //     localStorage.setItem('userToken', JSON.stringify(response.user.token));
+  //     navigate("/")
+  //     window.location.reload()
+  //   } catch (error) {
+  //     setSystemError(error)
+  //   }
+  // };
+
+  const navigate = useNavigate();
+  let [myNewUser, setMyNewUser] = useState({
     username: '',
     email: '',
     password: '',
   })
 
-  let data = {user: myUser}
-  const createUser = async (data) => {
-    try {
-      const {data: response} = await axios.post('https://api.realworld.io/api/users', data);
-      localStorage.setItem('userToken', JSON.stringify(response.user.token));
-      navigate("/")
-      window.location.reload()
-    } catch (error) {
-      setSystemError(error)
-    }
-  };
+  let data = {user: myNewUser}
+  const dispatch = useDispatch();
+  let isNewUserLoading = useSelector((state) => state.users.loading);
+  let newUserFullResult = useSelector((state) => state.users.newUser);
+  const [user, setUser] = useState(localStorage.getItem('user'));
+  const clickOnButton = () => {
+    dispatch({type: POST_NEW_USER_REQUEST, payload: data});
+    user && navigate("/");
+  }
+
+  console.log(newUserFullResult, 'newUserFullResult')
+
 
   return (
     <main className='signPage'>
@@ -52,8 +66,8 @@ const SignUpPage = () => {
             label="Name"
             type="text"
             variant="standard"
-            value={myUser.username}
-            onChange={(event) => setMyUser({...myUser, username: event.target.value})}
+            value={myNewUser.username}
+            onChange={(event) => setMyNewUser({...myNewUser, username: event.target.value})}
           />
         </FormControl>
 
@@ -62,8 +76,8 @@ const SignUpPage = () => {
             label="Email"
             type="email"
             variant="standard"
-            value={myUser.email}
-            onChange={(event) => setMyUser({...myUser, email: event.target.value})}
+            value={myNewUser.email}
+            onChange={(event) => setMyNewUser({...myNewUser, email: event.target.value})}
           />
         </FormControl>
 
@@ -72,8 +86,8 @@ const SignUpPage = () => {
           <Input
             id="signUpUserPassword"
             type={showPassword ? 'text' : 'password'}
-            onChange={(event) => setMyUser({...myUser, password: event.target.value})}
-            value={myUser.password}
+            onChange={(event) => setMyNewUser({...myNewUser, password: event.target.value})}
+            value={myNewUser.password}
             endAdornment={
               <InputAdornment position="end">
                 <IconButton
@@ -91,7 +105,7 @@ const SignUpPage = () => {
         <Button
           type='submit'
           variant="outlined"
-          onClick={() => createUser(data)}>Sign Up</Button>
+          onClick={() => clickOnButton()}>Sign Up</Button>
       </form>
     </main>
   );
