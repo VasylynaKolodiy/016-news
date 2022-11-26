@@ -2,17 +2,20 @@ import React, {useState} from 'react';
 import './Header.scss'
 import {NavLink} from "react-router-dom";
 import logoIcon from '../../assets/img/logo.png'
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
+import {POST_HEADER_REQUEST} from "../../actions/users";
 
 const Header = () => {
+  const dispatch = useDispatch();
   const [user, setUser] = useState(localStorage.getItem('user'));
   let loginUserFullResult = useSelector((state) => state.users.user);
 
   function exitUser() {
-    localStorage.removeItem('user');
+    dispatch({type: POST_HEADER_REQUEST, payload: loginUserFullResult});
     setUser(null);
   }
 
+  console.log(loginUserFullResult, 'loginUserFullResult')
   return (
     <nav className='header'>
       <div className='header__container container'>
@@ -22,7 +25,7 @@ const Header = () => {
         </div>
 
         {!loginUserFullResult
-          ? <ul className='sign'>
+          ? !loginUserFullResult && <ul className='sign'>
             <li>
               <NavLink className='signLink hoverLink' to='/signin'>
                 Sign In
@@ -35,7 +38,7 @@ const Header = () => {
             </li>
           </ul>
 
-          : <ul className='login'>
+          : loginUserFullResult && <ul className='login'>
             <li>
               <NavLink className='loginLink hoverLink' to='/editor'>
                 New Article

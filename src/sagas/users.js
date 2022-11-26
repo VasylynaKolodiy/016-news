@@ -22,7 +22,18 @@ function* postLoginUser(action) {
   }
 }
 
+function* postHeaderUser(action) {
+  try {
+    const res = yield call(Api.users.postHeaderUser, action.payload);
+    yield put({type: usersActions.POST_HEADER_SUCCESS, payload: null});
+    localStorage.removeItem('user');
+  } catch (err) {
+    yield put({ type: usersActions.POST_HEADER_FAIL, payload: { error: err.message } });
+  }
+}
+
 export default all([
   takeLatest(usersActions.POST_NEW_USER_REQUEST, postNewUser),
   takeLatest(usersActions.POST_LOGIN_USER_REQUEST, postLoginUser),
+  takeLatest(usersActions.POST_HEADER_REQUEST, postHeaderUser),
 ])

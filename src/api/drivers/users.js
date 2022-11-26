@@ -10,5 +10,9 @@ export const users = {
     return axios.post('https://api.realworld.io/api/users/login', data);
   },
 
+  postHeaderUser: (data) => {
+    return null;
+  },
+
 };
 
