@@ -1,4 +1,5 @@
 .signPage {
+  margin-top: 150px;
   .sign__form{
     width: 600px;
     margin: 150px auto 0 auto;
@@ -15,13 +16,13 @@
     width: 400px;
   }
 
-  .formControl__password .MuiFormLabel-root {
+  .formControl__password .MuiFormLabel-root{
     left: -14px;
   }
 
-  .error{
-    color: red;
-    text-align: left;
+  .MuiFormHelperText-root.helperText{
+    position: relative;
+    left: -14px;
   }
 }
 

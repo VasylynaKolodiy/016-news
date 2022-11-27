@@ -27,7 +27,7 @@ const HomePage = () => {
         offset: offset,
       }
     })
-  }, [pageNumber, offset])
+  }, [pageNumber, offset, user])
 
   const handlePageChange = (event, value) => {
     setPageNumber(value);
@@ -45,7 +45,6 @@ const HomePage = () => {
     document.getElementsByClassName(feed)[0].classList.add('active')
     document.getElementById(feed).style.display = "block";
   }
-
 
   return (
     <main className='homePage'>
@@ -80,9 +79,10 @@ const HomePage = () => {
           </div>
 
 
+          {user &&
           <div id="Your" className="feeds__tabs-inner">
             lalalala
-          </div>
+          </div>}
 
         </div>
 

@@ -11,6 +11,7 @@ import Button from "@mui/material/Button";
 import {useNavigate} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {LOGIN_USER_REQUEST} from "../../actions/users";
+import FormHelperText from "@mui/material/FormHelperText";
 
 const SignInPage = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -38,41 +39,46 @@ const SignInPage = () => {
   }
 
   useEffect(() => {
-    if(loginUserFullResult){
+    if (loginUserFullResult) {
       navigate("/")
     }
   }, [loginUserFullResult])
 
   return (
     <main className='signPage'>
-      <form className='sign__form' onSubmit={(event) => event.preventDefault()}>
 
+      <form className='sign__form' onSubmit={(event) => event.preventDefault()}>
         <FormControl className='formControl__email formControl'>
           <TextField
-            error={Boolean(loginError)}
+            error={
+              Boolean(loginError) ||
+              (myLoginUser.email.length >= 1 && myLoginUser.email.length <= 7) ||
+              myLoginUser.email.length >= 100 ||
+              !myLoginUser.email.includes('@') ||
+              !myLoginUser.email.includes('.')
+            }
             label="Email"
             type="email"
             variant="standard"
             value={myLoginUser.email}
             onChange={(event) => setMyLoginUser({...myLoginUser, email: event.target.value})}
+            helperText={
+              Boolean(loginError) ? (Object.keys(loginError)[0] === 'email') &&  Object.keys(loginError) + ' ' + Object.values(loginError)
+                : (myLoginUser.email.length >= 1 && myLoginUser.email.length <= 7) ? 'min length 8 symbols'
+                : myLoginUser.email.length >= 100 ? 'max length 100 symbols'
+                  : !myLoginUser.email.includes('@') ? 'incorrect email address'
+                    : !myLoginUser.email.includes('.') ? "incorrect email address" : ""
+            }
           />
-
-
-          {
-            loginError !== "" && (
-              <p className='error'>
-                {Object.keys(loginError)[0]}
-                {Object.values(loginError)[0][0]}
-              </p>
-            )
-          }
-
         </FormControl>
 
         <FormControl className='formControl__password formControl'>
           <InputLabel htmlFor="signInUserPassword">Password</InputLabel>
           <Input
-            error={Boolean(loginError)}
+            error={
+              Boolean(loginError) ||
+              (myLoginUser.password.length >= 1 && myLoginUser.password.length <= 4) ||
+              myLoginUser.password.length >= 12}
             id="signInUserPassword"
             type={showPassword ? 'text' : 'password'}
             onChange={(event) => setMyLoginUser({...myLoginUser, password: event.target.value})}
@@ -89,6 +95,11 @@ const SignInPage = () => {
               </InputAdornment>
             }
           />
+          <FormHelperText error className='helperText'>
+            {Boolean(loginError) ? (Object.keys(loginError)[0] !== 'email') &&  Object.keys(loginError) + ' ' + Object.values(loginError)
+              : (myLoginUser.password.length >= 1 && myLoginUser.password.length <= 3) ? 'min length 4 symbols'
+                : myLoginUser.password.length >= 12 ? 'max length 12 symbols' : ''}
+          </FormHelperText>
         </FormControl>
 
         <Button
@@ -96,6 +107,8 @@ const SignInPage = () => {
           variant="outlined"
           onClick={() => clickOnButton(data)}>Sign In</Button>
       </form>
+
+
     </main>
   );
 };
