@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useState} from 'react';
 import './SignUpPage.scss'
 import TextField from "@mui/material/TextField";
 import FormControl from "@mui/material/FormControl";
@@ -10,7 +10,7 @@ import InputLabel from "@mui/material/InputLabel";
 import Input from "@mui/material/Input";
 import Button from "@mui/material/Button";
 import {useDispatch, useSelector} from "react-redux";
-import {POST_NEW_USER_REQUEST} from "../../actions/users";
+import {CREATE_NEW_USER_REQUEST} from "../../actions/users";
 import {useNavigate} from "react-router";
 
 
@@ -25,19 +25,6 @@ const SignUpPage = () => {
     event.preventDefault();
   };
 
-  // let [systemError, setSystemError] = useState('');
-
-  // const createUser = async (data) => {
-  //   try {
-  //     const {data: response} = await axios.post('https://api.realworld.io/api/users', data);
-  //     localStorage.setItem('userToken', JSON.stringify(response.user.token));
-  //     navigate("/")
-  //     window.location.reload()
-  //   } catch (error) {
-  //     setSystemError(error)
-  //   }
-  // };
-
   const navigate = useNavigate();
   let [myNewUser, setMyNewUser] = useState({
     username: '',
@@ -47,11 +34,10 @@ const SignUpPage = () => {
 
   let data = {user: myNewUser}
   const dispatch = useDispatch();
-  let isNewUserLoading = useSelector((state) => state.users.loading);
-  let newUserFullResult = useSelector((state) => state.users.newUser);
+  let newUserFullResult = useSelector((state) => state.users.user);
   const [user, setUser] = useState(localStorage.getItem('user'));
   const clickOnButton = () => {
-    dispatch({type: POST_NEW_USER_REQUEST, payload: data});
+    dispatch({type: CREATE_NEW_USER_REQUEST, payload: data});
     user && navigate("/");
   }
 

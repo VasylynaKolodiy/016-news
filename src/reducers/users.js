@@ -1,79 +1,69 @@
 import {
-  POST_NEW_USER_REQUEST,
-  POST_NEW_USER_SUCCESS,
-  POST_NEW_USER_FAIL,
-  POST_LOGIN_USER_REQUEST,
-  POST_LOGIN_USER_SUCCESS,
-  POST_LOGIN_USER_FAIL,
-  POST_HEADER_REQUEST,
-  POST_HEADER_SUCCESS,
-  POST_HEADER_FAIL
+  CREATE_NEW_USER_REQUEST,
+  CREATE_NEW_USER_SUCCESS,
+  CREATE_NEW_USER_FAIL,
+  LOGIN_USER_REQUEST,
+  LOGIN_USER_SUCCESS,
+  LOGIN_USER_FAIL,
+  LOGOUT,
 } from "../actions/users";
 
 const user = localStorage.getItem('user');
 const initialState = {
   loading: false,
   user: user,
+  error: '',
 };
 
 export default function users(state = initialState, action) {
   switch (action.type) {
-    case POST_NEW_USER_REQUEST:
+    case CREATE_NEW_USER_REQUEST:
       return {
         ...state,
         loading: true
       };
 
-    case POST_NEW_USER_SUCCESS:
+    case CREATE_NEW_USER_SUCCESS:
       return {
         ...state,
         user: action.payload,
         loading: false,
       };
 
-    case POST_NEW_USER_FAIL:
+    case CREATE_NEW_USER_FAIL:
       return {
         ...state,
         loading: false,
       };
 
-    case POST_LOGIN_USER_REQUEST:
+    case LOGIN_USER_REQUEST:
       return {
         ...state,
         loading: true
       };
 
-    case POST_LOGIN_USER_SUCCESS:
+    case LOGIN_USER_SUCCESS:
       return {
         ...state,
         user: action.payload,
         loading: false,
+        error: '',
       };
 
-    case POST_LOGIN_USER_FAIL:
+    case LOGIN_USER_FAIL:
       return {
         ...state,
+        error: action.payload,
         loading: false,
       };
 
-    case POST_HEADER_REQUEST:
-      return {
-        ...state,
-        loading: true,
-      };
-
-    case POST_HEADER_SUCCESS:
+    case LOGOUT:
+      console.log(state, 'state')
       return {
         ...state,
         user: null,
-        loading: false,
       };
 
-    case POST_HEADER_FAIL:
-      return {
-        ...state,
-        loading: false,
-      };
     default:
       return state;
   }

@@ -3,7 +3,7 @@ import './Header.scss'
 import {NavLink} from "react-router-dom";
 import logoIcon from '../../assets/img/logo.png'
 import {useDispatch, useSelector} from "react-redux";
-import {POST_HEADER_REQUEST} from "../../actions/users";
+import {LOGOUT} from "../../actions/users";
 
 const Header = () => {
   const dispatch = useDispatch();
@@ -11,8 +11,9 @@ const Header = () => {
   let loginUserFullResult = useSelector((state) => state.users.user);
 
   function exitUser() {
-    dispatch({type: POST_HEADER_REQUEST, payload: loginUserFullResult});
+    dispatch({type: LOGOUT, payload: loginUserFullResult});
     setUser(null);
+    localStorage.removeItem('user')
   }
 
   console.log(loginUserFullResult, 'loginUserFullResult')

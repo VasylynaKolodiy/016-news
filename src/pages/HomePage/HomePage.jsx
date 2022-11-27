@@ -8,6 +8,7 @@ import Pagination from "@mui/material/Pagination";
 
 const HomePage = () => {
 
+  let user = localStorage.getItem('user');
   const dispatch = useDispatch();
   const isArticlesLoading = useSelector((state) => state.articles.loading);
   const articlesFullResult = useSelector((state) => state.articles.articles);
@@ -33,16 +34,15 @@ const HomePage = () => {
     setOffset(limit * (value - 1))
   }
 
-  const [userToken, setUserToken] = useState(localStorage.getItem('userToken'));
-
   let openFeed = (feed) => {
     let i;
     let x = document.getElementsByClassName("feeds__tabs-inner");
     let btn = document.getElementsByClassName('feeds__tabs-button')
     for (i = 0; i < x.length; i++) {
       x[i].style.display = "none";
-      btn[i].classList.toggle("active");
+      btn[i].classList.remove("active")
     }
+    document.getElementsByClassName(feed)[0].classList.add('active')
     document.getElementById(feed).style.display = "block";
   }
 
@@ -54,10 +54,10 @@ const HomePage = () => {
         : <div>
 
           <div className="feeds__tabs">
-            <button className="feeds__tabs-button Global hoverLink active" onClick={() => userToken && openFeed('Global')}>
+            <button className="feeds__tabs-button Global hoverLink active" onClick={() => user && openFeed('Global')}>
               Global Feeds
             </button>
-            {userToken && <button className="feeds__tabs-button Your hoverLink " onClick={() => openFeed('Your')}>
+            {user && <button className="feeds__tabs-button Your hoverLink " onClick={() => openFeed('Your')}>
               Your Feeds
             </button>}
           </div>

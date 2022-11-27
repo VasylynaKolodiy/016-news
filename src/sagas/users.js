@@ -2,38 +2,27 @@ import { call, put, all, takeLatest } from "redux-saga/effects";
 import * as usersActions from "../actions/users";
 import {Api} from "../api";
 
-function* postNewUser(action) {
+function* createNewUser(action) {
   try {
-    const res = yield call(Api.users.postNewUser, action.payload);
-    yield put({type: usersActions.POST_NEW_USER_SUCCESS, payload: res.data});
+    const res = yield call(Api.users.createNewUser, action.payload);
+    yield put({type: usersActions.CREATE_NEW_USER_SUCCESS, payload: res.data});
     localStorage.setItem('user', JSON.stringify(res.data));
   } catch (err) {
-    yield put({ type: usersActions.POST_NEW_USER_FAIL, payload: { error: err.message } });
+    yield put({ type: usersActions.CREATE_NEW_USER_FAIL, payload: { error: err.message } });
   }
 }
 
-function* postLoginUser(action) {
+function* loginUser(action) {
   try {
-    const res = yield call(Api.users.postLoginUser, action.payload);
-    yield put({type: usersActions.POST_LOGIN_USER_SUCCESS, payload: res.data});
+    const res = yield call(Api.users.loginUser, action.payload);
+    yield put({type: usersActions.LOGIN_USER_SUCCESS, payload: res.data});
     localStorage.setItem('user', JSON.stringify(res.data));
   } catch (err) {
-    yield put({ type: usersActions.POST_LOGIN_USER_FAIL, payload: { error: err.message } });
-  }
-}
-
-function* postHeaderUser(action) {
-  try {
-    const res = yield call(Api.users.postHeaderUser, action.payload);
-    yield put({type: usersActions.POST_HEADER_SUCCESS, payload: null});
-    localStorage.removeItem('user');
-  } catch (err) {
-    yield put({ type: usersActions.POST_HEADER_FAIL, payload: { error: err.message } });
+    yield put({ type: usersActions.LOGIN_USER_FAIL, payload: err.response.data.errors});
   }
 }
 
 export default all([
-  takeLatest(usersActions.POST_NEW_USER_REQUEST, postNewUser),
-  takeLatest(usersActions.POST_LOGIN_USER_REQUEST, postLoginUser),
-  takeLatest(usersActions.POST_HEADER_REQUEST, postHeaderUser),
+  takeLatest(usersActions.CREATE_NEW_USER_REQUEST, createNewUser),
+  takeLatest(usersActions.LOGIN_USER_REQUEST, loginUser),
 ])

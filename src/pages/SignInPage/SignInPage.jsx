@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import TextField from "@mui/material/TextField";
 import FormControl from "@mui/material/FormControl";
 import InputAdornment from "@mui/material/InputAdornment";
@@ -10,7 +10,7 @@ import Input from "@mui/material/Input";
 import Button from "@mui/material/Button";
 import {useNavigate} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
-import {POST_LOGIN_USER_REQUEST, POST_NEW_USER_REQUEST} from "../../actions/users";
+import {LOGIN_USER_REQUEST} from "../../actions/users";
 
 const SignInPage = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -22,43 +22,26 @@ const SignInPage = () => {
     event.preventDefault();
   };
 
-  // let [systemError, setSystemError] = useState('');
-  // const navigate = useNavigate();
-  //
-  // let [myLoginUser, setMyLoginUser] = useState({
-  //   email: '',
-  //   password: '',
-  // })
-  //
-  // let data = {user: myLoginUser}
-  // const createUser = async (data) => {
-  //   try {
-  //     const {data: response} = await axios.post('https://api.realworld.io/api/users/login', data);
-  //     localStorage.setItem('userToken', JSON.stringify(response.user.token));
-  //     navigate("/")
-  //     // window.location.reload()
-  //   } catch (error) {
-  //     setSystemError(error)
-  //   }
-  // };
-
-
   const navigate = useNavigate();
   let [myLoginUser, setMyLoginUser] = useState({
     email: '',
     password: '',
   })
   let data = {user: myLoginUser}
-  
   const dispatch = useDispatch();
-  let isLoginUserLoading = useSelector((state) => state.users.loading);
   let loginUserFullResult = useSelector((state) => state.users.user);
-  const clickOnButton = () => {
-    dispatch({type: POST_LOGIN_USER_REQUEST, payload: data}) && navigate("/");
+  let loginError = useSelector((state) => state.users.error);
+
+  loginError && console.log(Object.keys(loginError)[0], Object.values(loginError)[0][0], 'loginError')
+  const clickOnButton = async () => {
+    dispatch({type: LOGIN_USER_REQUEST, payload: data})
   }
 
-  console.log(loginUserFullResult, 'newUserFullResult')
-  
+  useEffect(() => {
+    if(loginUserFullResult){
+      navigate("/")
+    }
+  }, [loginUserFullResult])
 
   return (
     <main className='signPage'>
@@ -66,17 +49,30 @@ const SignInPage = () => {
 
         <FormControl className='formControl__email formControl'>
           <TextField
+            error={Boolean(loginError)}
             label="Email"
             type="email"
             variant="standard"
             value={myLoginUser.email}
             onChange={(event) => setMyLoginUser({...myLoginUser, email: event.target.value})}
           />
+
+
+          {
+            loginError !== "" && (
+              <p className='error'>
+                {Object.keys(loginError)[0]}
+                {Object.values(loginError)[0][0]}
+              </p>
+            )
+          }
+
         </FormControl>
 
         <FormControl className='formControl__password formControl'>
           <InputLabel htmlFor="signInUserPassword">Password</InputLabel>
           <Input
+            error={Boolean(loginError)}
             id="signInUserPassword"
             type={showPassword ? 'text' : 'password'}
             onChange={(event) => setMyLoginUser({...myLoginUser, password: event.target.value})}
