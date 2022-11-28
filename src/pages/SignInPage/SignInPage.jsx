@@ -29,9 +29,10 @@ const SignInPage = () => {
     email: '',
     password: '',
   })
+
   let data = {user: myLoginUser}
   const dispatch = useDispatch();
-  let loginUserFullResult = useSelector((state) => state.users.user);
+  let loginUserState = useSelector((state) => state.users.user)?.user;
   let loginError = useSelector((state) => state.users.error);
 
   loginError && console.log(Object.keys(loginError)[0], Object.values(loginError)[0][0], 'loginError')
@@ -40,10 +41,10 @@ const SignInPage = () => {
   }
 
   useEffect(() => {
-    if (loginUserFullResult) {
+    if (loginUserState) {
       navigate("/")
     }
-  }, [loginUserFullResult])
+  }, [loginUserState])
 
   return (
     <main className='signPage'>

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import './Header.scss'
 import {NavLink} from "react-router-dom";
 import logoIcon from '../../assets/img/logo.png'
@@ -7,16 +7,12 @@ import {LOGOUT} from "../../actions/users";
 
 const Header = () => {
   const dispatch = useDispatch();
-  const [user, setUser] = useState(localStorage.getItem('user'));
-  let loginUserFullResult = useSelector((state) => state.users.user);
+  let loginUserState = useSelector((state) => state.users.user);
 
   function exitUser() {
-    dispatch({type: LOGOUT, payload: loginUserFullResult});
-    setUser(null);
-    localStorage.removeItem('user')
+    dispatch({type: LOGOUT, payload: loginUserState});
   }
 
-  console.log(loginUserFullResult, 'loginUserFullResult')
   return (
     <nav className='header'>
       <div className='header__container container'>
@@ -25,8 +21,8 @@ const Header = () => {
           <NavLink className='logo__link' to='/'/>
         </div>
 
-        {!loginUserFullResult
-          ? !loginUserFullResult && <ul className='sign'>
+        {!loginUserState
+          ? !loginUserState && <ul className='sign'>
             <li>
               <NavLink className='signLink hoverLink' to='/signin'>
                 Sign In
@@ -39,7 +35,7 @@ const Header = () => {
             </li>
           </ul>
 
-          : loginUserFullResult && <ul className='login'>
+          : loginUserState && <ul className='login'>
             <li>
               <NavLink className='loginLink hoverLink' to='/editor'>
                 New Article

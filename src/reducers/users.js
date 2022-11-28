@@ -58,7 +58,7 @@ export default function users(state = initialState, action) {
       };
 
     case LOGOUT:
-      console.log(state, 'state')
+      localStorage.removeItem('user')
       return {
         ...state,
         user: null,

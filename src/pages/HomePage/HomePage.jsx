@@ -5,15 +5,16 @@ import ArticleCard from "../../components/ArticleCard/ArticleCard";
 import Loader from "../../components/Loader/Loader";
 import {GET_ARTICLES_REQUEST} from "../../actions/articles";
 import Pagination from "@mui/material/Pagination";
+import Tags from "../../components/Tags/Tags";
 
 const HomePage = () => {
 
-  let user = localStorage.getItem('user');
+  let user = useSelector((state) => state.users.user)?.user;
   const dispatch = useDispatch();
   const isArticlesLoading = useSelector((state) => state.articles.loading);
-  const articlesFullResult = useSelector((state) => state.articles.articles);
+  const articlesState = useSelector((state) => state.articles.articles);
 
-  const totalCount = articlesFullResult.articlesCount
+  const totalCount = articlesState.articlesCount
   const limit = 10;
   let [offset, setOffset] = useState(1)
   let countOfPages = totalCount && Math.ceil(totalCount / limit)
@@ -27,7 +28,8 @@ const HomePage = () => {
         offset: offset,
       }
     })
-  }, [pageNumber, offset, user])
+  }, [pageNumber, offset])
+
 
   const handlePageChange = (event, value) => {
     setPageNumber(value);
@@ -46,43 +48,75 @@ const HomePage = () => {
     document.getElementById(feed).style.display = "block";
   }
 
+  const [tagName, setTagName] = useState('')
+  let tagsArticles = articlesState.articles?.filter(article => (
+    article.tagList?.includes(tagName)))
+
+
+
+  {console.log('tagsArticles - ', tagsArticles)}
   return (
     <main className='homePage'>
       {isArticlesLoading
         ? <Loader/>
-        : <div>
+        : <div className='homePage__wrapper'>
 
-          <div className="feeds__tabs">
-            <button className="feeds__tabs-button Global hoverLink active" onClick={() => user && openFeed('Global')}>
-              Global Feeds
-            </button>
-            {user && <button className="feeds__tabs-button Your hoverLink " onClick={() => openFeed('Your')}>
-              Your Feeds
-            </button>}
-          </div>
+          <div>
+            <div className="feeds__tabs">
+              <button className="feeds__tabs-button Global hoverLink active" onClick={() => openFeed('Global')}>
+                Global Feeds
+              </button>
+              {user && <button className="feeds__tabs-button Your hoverLink " onClick={() => openFeed('Your')}>
+                Your Feeds
+              </button>}
 
-          <div id="Global" className="feeds__tabs-inner">
-            <div className=' articlesList'>
-              {articlesFullResult.articles?.map((article, index) => (
-                <ArticleCard article={article} key={index}/>)
-              )}
+              {tagName && <button className="feeds__tabs-button Tags hoverLink" onClick={() => openFeed('Tags')}>
+                Tags Feeds
+              </button>}
+
             </div>
-            {countOfPages > 1 &&
-            (<Pagination
-              className=' pagination'
-              count={countOfPages}
-              size="large"
-              page={pageNumber}
-              onChange={handlePageChange}
-            />)
-            }
+
+            <div id="Global" className="feeds__tabs-inner">
+              <div className=' articlesList'>
+                {articlesState.articles?.map((article, index) => (
+                  <ArticleCard article={article} key={index}/>)
+                )}
+              </div>
+              {countOfPages > 1 &&
+              (<Pagination
+                className=' pagination'
+                count={countOfPages}
+                size="large"
+                page={pageNumber}
+                onChange={handlePageChange}
+              />)
+              }
+            </div>
+
+
+            {user &&
+            <div id="Your" className="feeds__tabs-inner">
+              <div>
+                lalalala
+              </div>
+            </div>}
+
+            {tagName &&
+            <div>
+              <div id="Tags" className="feeds__tabs-inner">
+                <div className=' articlesList'>
+
+                  {tagsArticles?.map((article, index) => (
+                    <ArticleCard article={article} key={index}/>)
+                  )}
+                </div>
+
+              </div>
+            </div>}
+
           </div>
 
-
-          {user &&
-          <div id="Your" className="feeds__tabs-inner">
-            lalalala
-          </div>}
+          <Tags setTagName={setTagName}/>
 
         </div>
 
