@@ -2,8 +2,10 @@ import axios from "axios";
 
 export const articles = {
 
-  getArticles: ({limit, offset}) => {
-    return axios.get('https://api.realworld.io/api/articles?limit=' + limit + '&offset=' + offset);
+  getArticles: ({limit, offset, tag}) => {
+    return axios.get('https://api.realworld.io/api/articles?limit=' + limit
+      + '&offset=' + offset
+      + `${tag ? ('&tag=' + tag) : ''}`);
   },
 
   getArticle: (slug) => {

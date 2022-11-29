@@ -1,11 +1,16 @@
 .tags{
-  position: sticky;
-  top: 177px;
-  right: 0;
+  //position: sticky;
+  //top: 177px;
+  //right: 0;
+  position: fixed;
+  top: 178px;
+  right: 165px;
+  width: 200px;
   height: max-content;
   background: rgba(255, 255, 255, 0.4);
   padding: 20px;
   box-shadow: rgba(0, 0, 0, 0.24) 0 3px 8px;
+
 
   &__title{
     font-weight: bold;
@@ -26,8 +31,11 @@
     width: 100%;
     transition: .3s linear;
     position: relative;
+    &.selected{
+      background: rgba(0, 0, 0, 0.5);
+    }
     &:hover{
-      background: rgba(0, 0, 0, 0.4);
+      background: rgba(0, 0, 0, 0.5);
     }
   }
   &__link{
@@ -38,5 +46,6 @@
     bottom: 0;
     left: 0;
     transform: translateY(-40%);
+    cursor: pointer;
   }
 }
