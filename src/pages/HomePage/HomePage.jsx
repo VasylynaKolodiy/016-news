@@ -143,7 +143,6 @@ const HomePage = () => {
         setFeedName={setFeedName}
         setPageNumber={setPageNumber}
       />
-
     </main>
   );
 };
