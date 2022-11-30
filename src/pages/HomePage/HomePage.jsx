@@ -6,7 +6,6 @@ import Loader from "../../components/Loader/Loader";
 import {GET_ARTICLES_REQUEST} from "../../actions/articles";
 import Pagination from "@mui/material/Pagination";
 import Tags from "../../components/Tags/Tags";
-import {GET_TAGS_REQUEST} from "../../actions/generals";
 
 const HomePage = () => {
 
@@ -16,9 +15,9 @@ const HomePage = () => {
   const articlesState = useSelector((state) => state.articles.articles);
 
   const totalCount = articlesState.articlesCount
-  const limit = 10;
+  const LIMIT = 10;
   let [offset, setOffset] = useState(0)
-  let countOfPages = totalCount && Math.ceil(totalCount / limit)
+  let countOfPages = totalCount && Math.ceil(totalCount / LIMIT)
   let [pageNumber, setPageNumber] = useState(1);
   const [tagName, setTagName] = useState('')
   const [feedName, setFeedName] = useState('Global')
@@ -27,116 +26,66 @@ const HomePage = () => {
     dispatch({
       type: GET_ARTICLES_REQUEST,
       payload: {
-        limit: limit,
+        limit: LIMIT,
         offset: offset,
-        tag: '',
-      }
-    })
-  }, [limit, pageNumber, offset,])
-
-
-
-
-
-  const tagsState = useSelector((state) => state.generals.tags).tags;
-  useEffect(() => {
-    dispatch({
-      type: GET_TAGS_REQUEST,
-    })
-  }, [])
-
-
-
-  const getAllArticles = () => {
-    setOffset(0)
-    dispatch({
-      type: GET_ARTICLES_REQUEST,
-      payload: {
-        limit: limit,
-        offset: offset,
-        tag: '',
-      }
-    })
-  }
-  const filterArticlesByTag = (tagName) => {
-    setOffset(0);
-    dispatch({
-      type: GET_ARTICLES_REQUEST,
-      payload: {
-        limit: limit,
-        offset:offset,
         tag: tagName,
       }
     })
-  }
+  }, [pageNumber, offset, tagName, feedName])
 
   const handlePageChange = (event, value) => {
     setPageNumber(value);
-    setOffset(limit * (value) - limit)
+    setOffset(LIMIT * (value) - LIMIT)
   }
-
-  let openFeed = (feed) => {
-    let i;
-    let x = document.getElementsByClassName("feeds__tabs-inner");
-    let btn = document.getElementsByClassName('feeds__tabs-button')
-    for (i = 0; i < x.length; i++) {
-      x[i].style.display = "none";
-      btn[i]?.classList?.remove("active")
-    }
-    document.getElementsByClassName(feed)[0].classList.add('active')
-    document.getElementById(feed).style.display = "block"
-  }
-
-
 
   return (
     <main className='homePage'>
       <div className="feeds__tabs">
 
         <button
-          className="feeds__tabs-button Global hoverLink"
+          className={`feeds__tabs-button Global hoverLink ${feedName === 'Global' ? 'active' : ''}`}
           onClick={() => {
-            openFeed('Global');
+            setTagName('')
             setFeedName('Global');
-            getAllArticles()
-          }}>
+            setPageNumber(1);
+          }}
+        >
           Global Feeds
         </button>
 
-
         {user &&
         <button
-          className="feeds__tabs-button Your hoverLink "
+          className={`feeds__tabs-button Your hoverLink ${feedName === 'Your' ? 'active' : ''}`}
           onClick={() => {
-            openFeed('Your');
             setFeedName('Your');
-          }}>
+          }}
+        >
           Your Feeds
-        </button>}
+        </button>
+        }
 
         {tagName &&
         <button
-          className="feeds__tabs-button Tags hoverLink"
+          className={`feeds__tabs-button Tags hoverLink ${feedName === 'Tags' ? 'active' : ''}`}
           onClick={() => {
-            openFeed('Tags')
-            filterArticlesByTag(tagName);
+            setOffset(0);
             setFeedName('Tags');
-          }}>
-          Tags Feeds
-        </button>}
+            setPageNumber(1)
+          }}
+        >
+          Tags Feeds <span>(#{tagName})</span>
+        </button>
+        }
       </div>
-
-
 
       {isArticlesLoading
         ? <Loader/>
         : <div className='homePage__wrapper'>
-
           <div>
 
+            {feedName === "Global" &&
             <div id="Global" className="feeds__tabs-inner">
               <div className=' articlesList'>
-                {console.log(articlesState,'Global State')}
                 {articlesState.articles?.map((article, index) => (
                   <ArticleCard article={article} key={index}/>)
                 )}
@@ -151,62 +100,49 @@ const HomePage = () => {
               />)
               }
             </div>
+            }
 
-
-
-
-
+            {feedName === "Your" &&
             <div id="Your" className="feeds__tabs-inner">
-              <div>
+              <div className='articlesList'>
+                lalalala
+                lalalalalalalalalalalala
+                lalalala
                 lalalala
               </div>
             </div>
+            }
 
-
-
-
-
+            {feedName === "Tags" &&
             <div id="Tags" className="feeds__tabs-inner">
               <div className='articlesList'>
-                {console.log(articlesState,'Tags State')}
                 {articlesState.articles?.map((article, index) => (
                   <ArticleCard article={article} key={index}/>)
                 )}
               </div>
+              {countOfPages > 1 &&
+              (<Pagination
+                className=' pagination'
+                count={countOfPages}
+                size="large"
+                page={pageNumber}
+                onChange={handlePageChange}
+              />)
+              }
             </div>
+            }
+
           </div>
         </div>
       }
 
-
-
-        {/*<Tags tagName={tagName} setTagName={setTagName} openFeed={openFeed}/>*/}
-
-        <section className='tags'>
-          <p className='tags__title'>
-            General tags:
-          </p>
-
-          <ul className="tags__list">
-            {tagsState?.map((tag, index) => (
-              <li
-                className={`tags__item ${tag === tagName ? 'selected' : ''}`}
-                key={index}>
-                <p
-                  className='tags__link'
-                  onClick={() =>  {
-                    setTagName(tag);
-                    openFeed('Tags')
-                    filterArticlesByTag(tagName);
-                  }}>
-                  {tag}
-                </p>
-              </li>
-            ))}
-          </ul>
-
-        </section>
-
+      <Tags
+        tagName={tagName}
+        setTagName={setTagName}
+        setOffset={setOffset}
+        setFeedName={setFeedName}
+        setPageNumber={setPageNumber}
+      />
 
     </main>
   );

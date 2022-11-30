@@ -3,7 +3,7 @@ import './Tags.scss'
 import {useDispatch, useSelector} from "react-redux";
 import {GET_TAGS_REQUEST} from "../../actions/generals";
 
-const Tags = ({tagName, setTagName,openFeed}) => {
+const Tags = ({tagName, setTagName, setOffset, setFeedName, setPageNumber}) => {
 
   const dispatch = useDispatch();
   const tagsState = useSelector((state) => state.generals.tags).tags;
@@ -12,7 +12,6 @@ const Tags = ({tagName, setTagName,openFeed}) => {
       type: GET_TAGS_REQUEST,
     })
   }, [])
-
 
   return (
     <section className='tags'>
@@ -27,13 +26,17 @@ const Tags = ({tagName, setTagName,openFeed}) => {
             key={index}>
             <p
               className='tags__link'
-              onClick={() =>  {setTagName(tag); openFeed('Tags')}}>
+              onClick={() =>  {
+                setTagName(tag);
+                setOffset(0);
+                setFeedName('Tags')
+                setPageNumber(1)
+              }}>
               {tag}
             </p>
           </li>
         ))}
       </ul>
-
     </section>
   );
 };
