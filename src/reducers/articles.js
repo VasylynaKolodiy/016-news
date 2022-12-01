@@ -8,6 +8,9 @@ import {
   GET_COMMENTS_FAIL,
   GET_COMMENTS_SUCCESS,
   GET_COMMENTS_REQUEST,
+  CREATE_NEW_ARTICLE_REQUEST,
+  CREATE_NEW_ARTICLE_SUCCESS,
+  CREATE_NEW_ARTICLE_FAIL
 } from "../actions/articles";
 
 const initialState = {
@@ -15,6 +18,7 @@ const initialState = {
   articles: {},
   article: {},
   comments: {},
+  newArticle: {},
 };
 
 export default function articles(state = initialState, action) {
@@ -74,6 +78,27 @@ export default function articles(state = initialState, action) {
       return {
         ...state,
         loading: false,
+      };
+
+    case CREATE_NEW_ARTICLE_REQUEST:
+      return {
+        ...state,
+        loading: true
+      };
+
+    case CREATE_NEW_ARTICLE_SUCCESS:
+      return {
+        ...state,
+        newArticle: action.payload,
+        loading: false,
+        error: '',
+      };
+
+    case CREATE_NEW_ARTICLE_FAIL:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
       };
 
     default:

@@ -8,7 +8,7 @@ import {
   LOGOUT,
 } from "../actions/users";
 
-const user = localStorage.getItem('user');
+const user = JSON.parse(localStorage.getItem('user'));
 const initialState = {
   loading: false,
   user: user,

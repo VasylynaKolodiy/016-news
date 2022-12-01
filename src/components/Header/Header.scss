@@ -47,4 +47,16 @@
   .loginLink.active{
     color: black;
   }
+
+  .loginLink-user{
+    display: flex;
+    gap: 5px;
+    align-items: center;
+
+  }
+  .loginLink-user img{
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+  }
 }

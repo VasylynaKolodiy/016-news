@@ -1,9 +1,10 @@
 import axios from "axios";
+import {URL} from "../../helpers/constants"
 
 export const generals = {
 
   getTags: () => {
-    return axios.get('https://api.realworld.io/api/tags');
+    return axios.get(`${URL}tags`);
   },
 
 };

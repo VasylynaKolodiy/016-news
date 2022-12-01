@@ -9,6 +9,8 @@ const Header = () => {
   const dispatch = useDispatch();
   let loginUserState = useSelector((state) => state.users.user);
 
+  console.log(loginUserState, 'loginUserState')
+  console.log(typeof(loginUserState), 'type')
   function exitUser() {
     dispatch({type: LOGOUT, payload: loginUserState});
   }
@@ -23,36 +25,42 @@ const Header = () => {
 
         {!loginUserState
           ? !loginUserState && <ul className='sign'>
-            <li>
-              <NavLink className='signLink hoverLink' to='/signin'>
-                Sign In
-              </NavLink>
-            </li>
-            <li>
-              <NavLink className='signLink hoverLink' to='/signup'>
-                Sign Up
-              </NavLink>
-            </li>
-          </ul>
+          <li>
+            <NavLink className='signLink hoverLink' to='/signin'>
+              Sign In
+            </NavLink>
+          </li>
+          <li>
+            <NavLink className='signLink hoverLink' to='/signup'>
+              Sign Up
+            </NavLink>
+          </li>
+        </ul>
 
-          : loginUserState && <ul className='login'>
-            <li>
-              <NavLink className='loginLink hoverLink' to='/editor'>
-                New Article
-              </NavLink>
-            </li>
-            <li>
-              <NavLink className='loginLink hoverLink' to='/settings'>
-                Setting
-              </NavLink>
-            </li>
-            <li>
-              <NavLink className='loginLink hoverLink' to='/articles' onClick={() => exitUser()}>
-                Exit
-              </NavLink>
-            </li>
-
-          </ul>
+          : loginUserState &&
+          (<ul className='login'>
+          <li>
+            <NavLink className='loginLink hoverLink' to='/editor'>
+              New Article
+            </NavLink>
+          </li>
+          <li>
+            <NavLink className='loginLink hoverLink' to='/settings'>
+              Setting
+            </NavLink>
+          </li>
+          <li>
+            <NavLink className='loginLink hoverLink loginLink-user' to={`/${loginUserState.user?.username}`}>
+              <img src={loginUserState.user?.image} alt="user"/>
+              {loginUserState.user?.username}
+            </NavLink>
+          </li>
+          <li>
+            <NavLink className='loginLink hoverLink' to='/articles' onClick={() => exitUser()}>
+              Exit
+            </NavLink>
+          </li>
+        </ul>)
         }
       </div>
 

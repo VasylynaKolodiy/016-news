@@ -1,0 +1,1 @@
+export const URL = 'https://api.realworld.io/api/'

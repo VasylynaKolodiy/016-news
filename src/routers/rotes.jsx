@@ -3,6 +3,7 @@ import HomePage from "../pages/HomePage/HomePage";
 import ArticleDetailPage from "../pages/ArticleDetailPage/ArticleDetailPage";
 import SignUpPage from "../pages/SignUpPage/SignUpPage";
 import SignInPage from "../pages/SignInPage/SignInPage";
+import NewArticle from "../pages/NewArticle/NewArticle";
 
 export const privateRoutes = [
   {
@@ -30,6 +31,12 @@ export const privateRoutes = [
   {
     path: "/signin",
     component: <SignInPage/>,
+    exact: true,
+  },
+
+  {
+    path: "/editor",
+    component: <NewArticle/>,
     exact: true,
   },
 ]
