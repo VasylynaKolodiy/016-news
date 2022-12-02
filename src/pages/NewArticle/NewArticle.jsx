@@ -15,15 +15,14 @@ const NewArticle = () => {
     body: '',
     tagList: [],
   })
-  let data = {article: newArticle}
+
 
   const dispatch = useDispatch();
   let newArticleState = useSelector((state) => state.articles.newArticle);
   let newArticleError = useSelector((state) => state.articles.error);
 
-  let loginUserState = useSelector((state) => state.users.user).user;
-
-
+  let loginUserState = useSelector((state) => state.users.user);
+  let data = {article: newArticle}
   const clickOnButton = async () => {
     dispatch({
       type: CREATE_NEW_ARTICLE_REQUEST,
@@ -41,7 +40,7 @@ const NewArticle = () => {
   //   }
   // }, [newArticleState])
 
-  console.log('articleTitle - ', newArticle.title)
+
   return (
     <main className="newArticle">
 

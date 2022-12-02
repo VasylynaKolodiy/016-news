@@ -3,8 +3,15 @@ import {URL} from "../../helpers/constants"
 
 export const articles = {
 
-  getArticles: ({limit, offset, tag}) => {
-    return axios.get(`${URL}articles?limit='${limit}&offset=${offset}${tag ? '&tag=' + tag : ''}`);
+  getArticles: ({limit, offset, tag, token}) => {
+    let headers
+    if (token) {
+      headers = {
+        'Authorization': `Token ${token}`,
+      }
+    }
+
+    return axios.get(`${URL}articles?limit=${limit}&offset=${offset}${tag ? '&tag=' + tag : ''}`, token && {headers} );
   },
 
   getArticle: (slug) => {
@@ -17,7 +24,7 @@ export const articles = {
 
   createNewArticle: ({data, token}) => {
     const headers = {
-      'Authorization': `Token ${token}` ,
+      'Authorization': `Token ${token}`,
     }
     return axios.post(`${URL}articles`, data, {headers});
   },

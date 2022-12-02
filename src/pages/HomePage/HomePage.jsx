@@ -9,7 +9,8 @@ import Tags from "../../components/Tags/Tags";
 
 const HomePage = () => {
 
-  let user = useSelector((state) => state.users.user)?.user;
+  let user = useSelector((state) => state.users.user);
+
   const dispatch = useDispatch();
   const isArticlesLoading = useSelector((state) => state.articles.loading);
   const articlesState = useSelector((state) => state.articles.articles);
@@ -29,6 +30,7 @@ const HomePage = () => {
         limit: LIMIT,
         offset: offset,
         tag: tagName,
+        token: user?.token,
       }
     })
   }, [pageNumber, offset, tagName, feedName])

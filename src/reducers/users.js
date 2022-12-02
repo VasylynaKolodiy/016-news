@@ -8,10 +8,11 @@ import {
   LOGOUT,
 } from "../actions/users";
 
-const user = JSON.parse(localStorage.getItem('user'));
+
+
 const initialState = {
   loading: false,
-  user: user,
+  user: JSON.parse(localStorage.getItem('user')),
   error: '',
 };
 
@@ -26,7 +27,7 @@ export default function users(state = initialState, action) {
     case CREATE_NEW_USER_SUCCESS:
       return {
         ...state,
-        user: action.payload,
+        user: action.payload.user,
         loading: false,
       };
 
@@ -45,7 +46,7 @@ export default function users(state = initialState, action) {
     case LOGIN_USER_SUCCESS:
       return {
         ...state,
-        user: action.payload,
+        user: action.payload.user,
         loading: false,
         error: '',
       };

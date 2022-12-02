@@ -50,9 +50,9 @@ const Header = () => {
             </NavLink>
           </li>
           <li>
-            <NavLink className='loginLink hoverLink loginLink-user' to={`/${loginUserState.user?.username}`}>
-              <img src={loginUserState.user?.image} alt="user"/>
-              {loginUserState.user?.username}
+            <NavLink className='loginLink hoverLink loginLink-user' to={`/${loginUserState?.username}`}>
+              <img src={loginUserState?.image} alt="user"/>
+              {loginUserState?.username}
             </NavLink>
           </li>
           <li>

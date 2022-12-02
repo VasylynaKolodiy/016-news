@@ -30,14 +30,13 @@ const SignInPage = () => {
     password: '',
   })
 
-  let data = {user: myLoginUser}
   const dispatch = useDispatch();
-  let loginUserState = useSelector((state) => state.users.user)?.user;
+  let loginUserState = useSelector((state) => state.users.user);
   let loginError = useSelector((state) => state.users.error);
 
   loginError && console.log(Object.keys(loginError)[0], Object.values(loginError)[0][0], 'loginError')
   const clickOnButton = async () => {
-    dispatch({type: LOGIN_USER_REQUEST, payload: data})
+    dispatch({type: LOGIN_USER_REQUEST, payload: myLoginUser})
   }
 
   useEffect(() => {
@@ -107,7 +106,7 @@ const SignInPage = () => {
         <Button
           type='submit'
           variant="outlined"
-          onClick={() => clickOnButton(data)}>Sign In</Button>
+          onClick={() => clickOnButton(myLoginUser)}>Sign In</Button>
       </form>
 
 
