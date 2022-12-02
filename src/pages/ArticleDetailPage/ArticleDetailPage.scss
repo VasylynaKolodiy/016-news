@@ -50,13 +50,17 @@
   }
 
   &__title {
-
     text-align: left;
     margin-bottom: 30px;
     font-size: 1.4rem;
     padding: 20px;
     color: black;
     background-color: rgba(0, 0, 0, 0.2);
+  }
+
+  &__editor{
+    display: flex;
+    gap: 10px;
   }
 
   &__body,

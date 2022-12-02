@@ -8,9 +8,11 @@ import {ReactComponent as FavoritesIcon} from "../../assets/img/HomePage/Article
 import Comments from "../../components/Comments/Comments";
 import AuthorInfo from "../../components/AuthorInfo/AuthorInfo";
 import BreadCrumbs from "../../components/BreadCrumbs/BreadCrumbs";
+import Button from "@mui/material/Button";
 
 const ArticleDetailPage = () => {
   const params = useParams();
+  let user = useSelector((state) => state.users.user);
   const dispatch = useDispatch();
   const isArticleLoading = useSelector((state) => state.articles.loading);
   const article = useSelector((state) => state.articles.article);
@@ -38,6 +40,13 @@ const ArticleDetailPage = () => {
 
           <div className='articleDetailPage__top'>
             <AuthorInfo author={article.author} dateAuthorInfo={dateArticle}/>
+
+            {article.author?.username === user?.username && (
+              <div className='articleDetailPage__editor'>
+                <Button variant="outlined">Edit</Button>
+                <Button variant="outlined">Delete</Button>
+              </div>
+            )}
 
             <div className='articleDetailPage__social'>
               <div className='articleDetailPage__following'>

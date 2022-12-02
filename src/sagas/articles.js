@@ -1,6 +1,7 @@
 import { call, put, all, takeLatest } from "redux-saga/effects";
 import * as articlesActions from "../actions/articles";
 import {Api} from "../api";
+import {select} from "@redux-saga/core/effects";
 
 function* getArticles(action) {
   try {
@@ -42,9 +43,27 @@ function* createNewArticle(action) {
   }
 }
 
+function* deleteArticle(action) {
+  try {
+    const articles = yield select((state) => state.articles.articles)
+    const a = articles.articles.filter((art) => art.slug !== (action.payload.slug))
+    console.log(a, 'aaaaaaaaaaa')
+
+    const res = yield call(Api.articles.deleteArticle, action.payload);
+    yield put({type: articlesActions.DELETE_ARTICLE_SUCCESS, payload: res.data});
+
+
+
+
+  } catch (err) {
+    yield put({ type: articlesActions.DELETE_ARTICLE_FAIL, payload: { error: err.message } });
+  }
+}
+
 export default all([
   takeLatest(articlesActions.GET_ARTICLES_REQUEST, getArticles),
   takeLatest(articlesActions.GET_ARTICLE_REQUEST, getArticle),
   takeLatest(articlesActions.GET_COMMENTS_REQUEST, getComments),
   takeLatest(articlesActions.CREATE_NEW_ARTICLE_REQUEST, createNewArticle),
+  takeLatest(articlesActions.DELETE_ARTICLE_REQUEST, deleteArticle),
 ])

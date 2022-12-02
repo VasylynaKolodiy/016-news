@@ -10,7 +10,6 @@ export const articles = {
         'Authorization': `Token ${token}`,
       }
     }
-
     return axios.get(`${URL}articles?limit=${limit}&offset=${offset}${tag ? '&tag=' + tag : ''}`, token && {headers} );
   },
 
@@ -28,6 +27,14 @@ export const articles = {
     }
     return axios.post(`${URL}articles`, data, {headers});
   },
+
+  deleteArticle: ({slug, token}) => {
+    const headers = {
+      'Authorization': `Token ${token}`,
+    }
+    return axios.delete(`${URL}articles/${slug}`,{headers});
+  },
+
 
 };
 

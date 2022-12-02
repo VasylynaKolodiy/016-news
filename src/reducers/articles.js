@@ -10,7 +10,10 @@ import {
   GET_COMMENTS_REQUEST,
   CREATE_NEW_ARTICLE_REQUEST,
   CREATE_NEW_ARTICLE_SUCCESS,
-  CREATE_NEW_ARTICLE_FAIL
+  CREATE_NEW_ARTICLE_FAIL,
+  DELETE_ARTICLE_REQUEST,
+  DELETE_ARTICLE_SUCCESS,
+  DELETE_ARTICLE_FAIL,
 } from "../actions/articles";
 
 const initialState = {
@@ -19,6 +22,7 @@ const initialState = {
   article: {},
   comments: {},
   newArticle: {},
+  deletedArticle: {},
 };
 
 export default function articles(state = initialState, action) {
@@ -95,6 +99,27 @@ export default function articles(state = initialState, action) {
       };
 
     case CREATE_NEW_ARTICLE_FAIL:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
+
+    case DELETE_ARTICLE_REQUEST:
+      return {
+        ...state,
+        loading: true
+      };
+
+    case DELETE_ARTICLE_SUCCESS:
+      return {
+        ...state,
+        deletedArticle: action.payload,
+        loading: false,
+        error: '',
+      };
+
+    case DELETE_ARTICLE_FAIL:
       return {
         ...state,
         loading: false,

@@ -15,6 +15,7 @@ const HomePage = () => {
   const isArticlesLoading = useSelector((state) => state.articles.loading);
   const articlesState = useSelector((state) => state.articles.articles);
 
+  console.log(articlesState, 'articlesState')
   const totalCount = articlesState.articlesCount
   const LIMIT = 10;
   let [offset, setOffset] = useState(0)
@@ -33,7 +34,7 @@ const HomePage = () => {
         token: user?.token,
       }
     })
-  }, [pageNumber, offset, tagName, feedName])
+  }, [pageNumber, offset, tagName, feedName, user?.token])
 
   const handlePageChange = (event, value) => {
     setPageNumber(value);
