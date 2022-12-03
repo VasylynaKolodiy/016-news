@@ -5,7 +5,7 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import {useDispatch, useSelector} from "react-redux";
 import {CREATE_NEW_ARTICLE_REQUEST} from "../../actions/articles";
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const NewArticle = () => {
 
@@ -18,13 +18,11 @@ const NewArticle = () => {
 
 
   const dispatch = useDispatch();
-  let newArticleState = useSelector((state) => state.articles.newArticle);
   let newArticleError = useSelector((state) => state.articles.error);
 
   let loginUserState = useSelector((state) => state.users.user);
   let data = {article: newArticle}
   const navigate = useNavigate();
-
   const clickOnButton = async () => {
     dispatch({
       type: CREATE_NEW_ARTICLE_REQUEST,
@@ -35,6 +33,7 @@ const NewArticle = () => {
     })
     !newArticleError && navigate('/');
   }
+
 
   return (
     <main className="newArticle">

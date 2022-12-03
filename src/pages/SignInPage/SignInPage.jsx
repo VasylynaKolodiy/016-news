@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useState } from 'react';
 import TextField from "@mui/material/TextField";
 import FormControl from "@mui/material/FormControl";
 import InputAdornment from "@mui/material/InputAdornment";
@@ -8,10 +8,11 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import InputLabel from "@mui/material/InputLabel";
 import Input from "@mui/material/Input";
 import Button from "@mui/material/Button";
-import {useNavigate} from "react-router-dom";
+import {Navigate} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {LOGIN_USER_REQUEST} from "../../actions/users";
 import FormHelperText from "@mui/material/FormHelperText";
+
 
 const SignInPage = () => {
 
@@ -24,7 +25,6 @@ const SignInPage = () => {
     event.preventDefault();
   };
 
-  const navigate = useNavigate();
   let [myLoginUser, setMyLoginUser] = useState({
     email: '',
     password: '',
@@ -34,16 +34,10 @@ const SignInPage = () => {
   let loginUserState = useSelector((state) => state.users.user);
   let loginError = useSelector((state) => state.users.error);
 
-  loginError && console.log(Object.keys(loginError)[0], Object.values(loginError)[0][0], 'loginError')
   const clickOnButton = async () => {
     dispatch({type: LOGIN_USER_REQUEST, payload: myLoginUser})
   }
-
-  useEffect(() => {
-    if (loginUserState) {
-      navigate("/")
-    }
-  }, [loginUserState])
+  if(loginUserState) return <Navigate replace to="/" />;
 
   return (
     <main className='signPage'>

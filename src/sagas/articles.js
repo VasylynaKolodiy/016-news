@@ -1,7 +1,7 @@
-import { call, put, all, takeLatest } from "redux-saga/effects";
+import { call, put, all, takeLatest, select } from "redux-saga/effects";
 import * as articlesActions from "../actions/articles";
 import {Api} from "../api";
-import {select} from "@redux-saga/core/effects";
+import React from "react";
 
 function* getArticles(action) {
   try {
@@ -48,8 +48,11 @@ function* deleteArticle(action) {
     const articles = yield select((state) => state.articles.articles)
     yield call(Api.articles.deleteArticle, action.payload);
     const res = articles.articles.filter((art) => art.slug !== (action.payload.slug))
-    console.log(res, 'res')
     yield put({type: articlesActions.DELETE_ARTICLE_SUCCESS, payload: res});
+    // yield delay(0)
+    // yield put( push('/articles'));
+    //window.location = '/';
+    //yield put(routerRedux.push('/'));
   } catch (err) {
     yield put({ type: articlesActions.DELETE_ARTICLE_FAIL, payload: { error: err.message } });
   }

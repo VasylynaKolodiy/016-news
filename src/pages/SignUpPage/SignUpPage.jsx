@@ -11,7 +11,7 @@ import Input from "@mui/material/Input";
 import Button from "@mui/material/Button";
 import {useDispatch, useSelector} from "react-redux";
 import {CREATE_NEW_USER_REQUEST} from "../../actions/users";
-import {useNavigate} from "react-router";
+import {Navigate} from "react-router-dom";
 
 
 const SignUpPage = () => {
@@ -24,8 +24,7 @@ const SignUpPage = () => {
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
   };
-
-  const navigate = useNavigate();
+  
   let [myNewUser, setMyNewUser] = useState({
     username: '',
     email: '',
@@ -34,14 +33,14 @@ const SignUpPage = () => {
 
   let data = {user: myNewUser}
   const dispatch = useDispatch();
-  let newUserFullResult = useSelector((state) => state.users.user);
-  const [user, setUser] = useState(localStorage.getItem('user'));
+  let newUserState = useSelector((state) => state.users.user);
   const clickOnButton = () => {
     dispatch({type: CREATE_NEW_USER_REQUEST, payload: data});
-    user && navigate("/");
   }
 
-  console.log(newUserFullResult, 'newUserFullResult')
+  if(newUserState) return <Navigate replace to="/" />;
+  
+  console.log(newUserState, 'newUserState')
 
 
   return (

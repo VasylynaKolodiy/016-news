@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import './ArticleDetailPage.scss'
-import {Link, useNavigate, useParams} from "react-router-dom";
+import {Link, useParams, useNavigate} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {DELETE_ARTICLE_REQUEST, GET_ARTICLE_REQUEST, GET_COMMENTS_REQUEST} from "../../actions/articles";
 import Loader from "../../components/Loader/Loader";
@@ -29,17 +29,17 @@ const ArticleDetailPage = () => {
     })
   }, [params.slug])
   let dateArticle = new Date(article.updatedAt)
-  const navigate = useNavigate();
 
+  const navigate = useNavigate();
   const deleteArticle = () => {
     dispatch({
-      type: DELETE_ARTICLE_REQUEST,
-      payload: {
-        slug: article.slug,
-        token: user?.token,
-      }
-    })
-    navigate('/')
+        type: DELETE_ARTICLE_REQUEST,
+        payload: {
+          slug: article.slug,
+          token: user?.token,
+        }
+      })
+    navigate('/');
   }
 
   return (
@@ -48,7 +48,7 @@ const ArticleDetailPage = () => {
         ? <Loader/>
         : <div className='articleDetailPage__content'>
 
-          <BreadCrumbs name={article.slug?.slice(0, 20)+'...'}/>
+          <BreadCrumbs name={article.slug?.slice(0, 20) + '...'}/>
 
           <div className='articleDetailPage__top'>
             <AuthorInfo author={article.author} dateAuthorInfo={dateArticle}/>

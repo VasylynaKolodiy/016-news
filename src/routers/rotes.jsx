@@ -39,4 +39,17 @@ export const privateRoutes = [
     component: <NewArticle/>,
     exact: true,
   },
+
+
+
+
+
+
+
+
+  {
+    path: "/*",
+    component: <HomePage/>,
+    exact: true,
+  },
 ]
