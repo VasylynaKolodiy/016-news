@@ -46,15 +46,10 @@ function* createNewArticle(action) {
 function* deleteArticle(action) {
   try {
     const articles = yield select((state) => state.articles.articles)
-    const a = articles.articles.filter((art) => art.slug !== (action.payload.slug))
-    console.log(a, 'aaaaaaaaaaa')
-
-    const res = yield call(Api.articles.deleteArticle, action.payload);
-    yield put({type: articlesActions.DELETE_ARTICLE_SUCCESS, payload: res.data});
-
-
-
-
+    yield call(Api.articles.deleteArticle, action.payload);
+    const res = articles.articles.filter((art) => art.slug !== (action.payload.slug))
+    console.log(res, 'res')
+    yield put({type: articlesActions.DELETE_ARTICLE_SUCCESS, payload: res});
   } catch (err) {
     yield put({ type: articlesActions.DELETE_ARTICLE_FAIL, payload: { error: err.message } });
   }

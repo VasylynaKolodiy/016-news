@@ -11,10 +11,7 @@ const ArticleCard = ({article}) => {
   let dateArticle = new Date(article.updatedAt)
   let user = useSelector((state) => state.users.user);
 
-
   const dispatch = useDispatch();
-  const deletedArticleState = useSelector((state) => state.articles.deletedArticle);
-
   const deleteArticle = () => {
     dispatch({
       type: DELETE_ARTICLE_REQUEST,

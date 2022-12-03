@@ -1,8 +1,8 @@
 import React, {useEffect} from 'react';
 import './ArticleDetailPage.scss'
-import {Link, useParams} from "react-router-dom";
+import {Link, useNavigate, useParams} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
-import {GET_ARTICLE_REQUEST, GET_COMMENTS_REQUEST} from "../../actions/articles";
+import {DELETE_ARTICLE_REQUEST, GET_ARTICLE_REQUEST, GET_COMMENTS_REQUEST} from "../../actions/articles";
 import Loader from "../../components/Loader/Loader";
 import {ReactComponent as FavoritesIcon} from "../../assets/img/HomePage/ArticleCard/heart.svg";
 import Comments from "../../components/Comments/Comments";
@@ -29,6 +29,18 @@ const ArticleDetailPage = () => {
     })
   }, [params.slug])
   let dateArticle = new Date(article.updatedAt)
+  const navigate = useNavigate();
+
+  const deleteArticle = () => {
+    dispatch({
+      type: DELETE_ARTICLE_REQUEST,
+      payload: {
+        slug: article.slug,
+        token: user?.token,
+      }
+    })
+    navigate('/')
+  }
 
   return (
     <main className='articleDetailPage'>
@@ -44,7 +56,7 @@ const ArticleDetailPage = () => {
             {article.author?.username === user?.username && (
               <div className='articleDetailPage__editor'>
                 <Button variant="outlined">Edit</Button>
-                <Button variant="outlined">Delete</Button>
+                <Button variant="outlined" onClick={() => deleteArticle()}>Delete</Button>
               </div>
             )}
 

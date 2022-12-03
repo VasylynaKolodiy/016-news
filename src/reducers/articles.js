@@ -22,7 +22,7 @@ const initialState = {
   article: {},
   comments: {},
   newArticle: {},
-  deletedArticle: {},
+  deletedArticle: [],
 };
 
 export default function articles(state = initialState, action) {
@@ -114,7 +114,10 @@ export default function articles(state = initialState, action) {
     case DELETE_ARTICLE_SUCCESS:
       return {
         ...state,
-        deletedArticle: action.payload,
+        articles: {
+          ...state.articles,
+          articles: action.payload,
+        },
         loading: false,
         error: '',
       };

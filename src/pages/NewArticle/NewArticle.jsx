@@ -9,7 +9,7 @@ import {useNavigate} from "react-router-dom";
 
 const NewArticle = () => {
 
-  const [newArticle, setNewArticle] = useState ({
+  const [newArticle, setNewArticle] = useState({
     title: '',
     description: '',
     body: '',
@@ -23,27 +23,22 @@ const NewArticle = () => {
 
   let loginUserState = useSelector((state) => state.users.user);
   let data = {article: newArticle}
+  const navigate = useNavigate();
+
   const clickOnButton = async () => {
     dispatch({
       type: CREATE_NEW_ARTICLE_REQUEST,
       payload: {
         data: data,
         token: loginUserState.token,
-      }})
+      }
+    })
+    !newArticleError && navigate('/');
   }
-
-  const navigate = useNavigate();
-
-  // useEffect(() => {
-  //   if (newArticleState) {
-  //     navigate(`/articles/${newArticleState.article?.title}`)
-  //   }
-  // }, [newArticleState])
-
 
   return (
     <main className="newArticle">
-
+      <h2 className='newArticle__title'>Create new article</h2>
       <form
         className='newArticle__form'
         onSubmit={(event) => event.preventDefault()}
@@ -102,7 +97,7 @@ const NewArticle = () => {
           type='submit'
           variant="outlined"
           onClick={() => clickOnButton()}
-        >+ Add</Button>
+        >ADD</Button>
 
       </form>
 
