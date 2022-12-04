@@ -5,7 +5,7 @@ import AuthorInfo from "../AuthorInfo/AuthorInfo";
 import {Link} from "react-router-dom";
 import Button from "@mui/material/Button";
 import {useDispatch, useSelector} from "react-redux";
-import {DELETE_ARTICLE_REQUEST, GET_ARTICLES_REQUEST} from "../../actions/articles";
+import {DELETE_ARTICLE_REQUEST} from "../../actions/articles";
 
 const ArticleCard = ({article}) => {
   let dateArticle = new Date(article.updatedAt)
@@ -18,6 +18,7 @@ const ArticleCard = ({article}) => {
       payload: {
         slug: article.slug,
         token: user?.token,
+        page: 'homePage',
       }
     })
   }
@@ -48,7 +49,8 @@ const ArticleCard = ({article}) => {
                   <Button variant="outlined">Edit</Button>
                   <Button
                     variant="outlined"
-                    onClick={() => deleteArticle()}>Delete</Button>
+                    onClick={() => deleteArticle()}
+                  >Delete</Button>
                 </div>
               )}
             </div>

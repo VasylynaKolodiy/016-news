@@ -5,7 +5,7 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import {useDispatch, useSelector} from "react-redux";
 import {CREATE_NEW_ARTICLE_REQUEST} from "../../actions/articles";
-import { useNavigate } from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 
 const NewArticle = () => {
 
@@ -18,8 +18,6 @@ const NewArticle = () => {
 
 
   const dispatch = useDispatch();
-  let newArticleError = useSelector((state) => state.articles.error);
-
   let loginUserState = useSelector((state) => state.users.user);
   let data = {article: newArticle}
   const navigate = useNavigate();
@@ -29,9 +27,9 @@ const NewArticle = () => {
       payload: {
         data: data,
         token: loginUserState.token,
-      }
+      },
+      navigate: navigate,
     })
-    !newArticleError && navigate('/');
   }
 
 

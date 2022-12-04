@@ -33,13 +33,14 @@ const ArticleDetailPage = () => {
   const navigate = useNavigate();
   const deleteArticle = () => {
     dispatch({
-        type: DELETE_ARTICLE_REQUEST,
-        payload: {
-          slug: article.slug,
-          token: user?.token,
-        }
-      })
-    navigate('/');
+      type: DELETE_ARTICLE_REQUEST,
+      payload: {
+        slug: article.slug,
+        token: user?.token,
+        page: 'detailPage',
+      },
+      navigate: navigate,
+    })
   }
 
   return (

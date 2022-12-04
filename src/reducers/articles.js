@@ -116,7 +116,7 @@ export default function articles(state = initialState, action) {
         ...state,
         articles: {
           ...state.articles,
-          articles: action.payload,
+          ...action.payload
         },
         loading: false,
         error: '',

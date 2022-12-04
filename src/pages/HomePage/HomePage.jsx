@@ -16,6 +16,7 @@ const HomePage = () => {
   const articlesState = useSelector((state) => state.articles.articles);
 
   console.log(articlesState, 'articlesState')
+
   const totalCount = articlesState.articlesCount
   const LIMIT = 10;
   let [offset, setOffset] = useState(0)
