@@ -55,7 +55,6 @@ function* deleteArticle(action) {
       payload = {articles: res}
     }
     yield put({type: articlesActions.DELETE_ARTICLE_SUCCESS, payload: payload});
-    console.log(action.payload.page, 'action.payload.page')
     if (action.payload.page === 'detailPage') {
       action.navigate('/')
     }
@@ -65,10 +64,46 @@ function* deleteArticle(action) {
   }
 }
 
+function* addFavorites(action) {
+  try {
+    let res = [];
+    let payload = {};
+    let favoritedArticle = yield call(Api.articles.addFavorites, action.payload);
+    const articles = yield select((state) => state.articles.articles);
+    res = articles.articles?.map((art) => (
+      (art.slug === action.payload.slug) ? (favoritedArticle.data.article) : art)
+    )
+    payload = {articles: res}
+    yield put({type: articlesActions.ADD_FAVORITES_SUCCESS, payload: payload});
+  }
+  catch (err) {
+    yield put({type: articlesActions.ADD_FAVORITES_FAIL, payload: {error: err.message}});
+  }
+}
+
+
+
+function* deleteFavorites(action) {
+  try {
+    let res = [];
+    let payload = {};
+    let deletedFavorite = yield call(Api.articles.deleteFavorites, action.payload);
+    const articles = yield select((state) => state.articles.articles);
+    res = articles.articles?.map((art) => (
+      (art.slug === action.payload.slug) ? (deletedFavorite.data.article) : art)
+    )
+    payload = {articles: res}
+    yield put({type: articlesActions.DELETE_FAVORITES_SUCCESS, payload: payload});
+  } catch (err) {
+    yield put({type: articlesActions.DELETE_FAVORITES_FAIL, payload: {error: err.message}});
+  }
+}
 export default all([
   takeLatest(articlesActions.GET_ARTICLES_REQUEST, getArticles),
   takeLatest(articlesActions.GET_ARTICLE_REQUEST, getArticle),
   takeLatest(articlesActions.GET_COMMENTS_REQUEST, getComments),
   takeLatest(articlesActions.CREATE_NEW_ARTICLE_REQUEST, createNewArticle),
   takeLatest(articlesActions.DELETE_ARTICLE_REQUEST, deleteArticle),
+  takeLatest(articlesActions.ADD_FAVORITES_REQUEST, addFavorites),
+  takeLatest(articlesActions.DELETE_FAVORITES_REQUEST, deleteFavorites),
 ])

@@ -14,6 +14,9 @@ import {
   DELETE_ARTICLE_REQUEST,
   DELETE_ARTICLE_SUCCESS,
   DELETE_ARTICLE_FAIL,
+  ADD_FAVORITES_FAIL,
+  ADD_FAVORITES_SUCCESS,
+  ADD_FAVORITES_REQUEST, DELETE_FAVORITES_FAIL, DELETE_FAVORITES_SUCCESS, DELETE_FAVORITES_REQUEST,
 } from "../actions/articles";
 
 const initialState = {
@@ -108,7 +111,7 @@ export default function articles(state = initialState, action) {
     case DELETE_ARTICLE_REQUEST:
       return {
         ...state,
-        loading: true
+        loading: false
       };
 
     case DELETE_ARTICLE_SUCCESS:
@@ -127,6 +130,50 @@ export default function articles(state = initialState, action) {
         ...state,
         loading: false,
         error: action.payload,
+      };
+
+    case ADD_FAVORITES_REQUEST:
+      return {
+        ...state,
+        loading: false,
+      };
+
+    case ADD_FAVORITES_SUCCESS:
+      return {
+        ...state,
+        articles: {
+          ...state.articles,
+          ...action.payload
+        },
+        loading: false,
+      };
+
+    case ADD_FAVORITES_FAIL:
+      return {
+        ...state,
+        loading: false,
+      };
+
+    case DELETE_FAVORITES_REQUEST:
+      return {
+        ...state,
+        loading: false
+      };
+
+    case DELETE_FAVORITES_SUCCESS:
+      return {
+        ...state,
+        articles: {
+          ...state.articles,
+          ...action.payload
+        },
+        loading: false,
+      };
+
+    case DELETE_FAVORITES_FAIL:
+      return {
+        ...state,
+        loading: false,
       };
 
     default:

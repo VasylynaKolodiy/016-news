@@ -5,11 +5,14 @@ import AuthorInfo from "../AuthorInfo/AuthorInfo";
 import {Link} from "react-router-dom";
 import Button from "@mui/material/Button";
 import {useDispatch, useSelector} from "react-redux";
-import {DELETE_ARTICLE_REQUEST} from "../../actions/articles";
+import {DELETE_ARTICLE_REQUEST, DELETE_FAVORITES_REQUEST} from "../../actions/articles";
+import {ADD_FAVORITES_REQUEST} from "../../actions/articles";
+import {useNavigate} from "react-router-dom";
 
 const ArticleCard = ({article}) => {
   let dateArticle = new Date(article.updatedAt)
   let user = useSelector((state) => state.users.user);
+  const navigate = useNavigate();
 
   const dispatch = useDispatch();
   const deleteArticle = () => {
@@ -23,6 +26,27 @@ const ArticleCard = ({article}) => {
     })
   }
 
+  const addToFavorites = () => {
+    dispatch({
+      type: ADD_FAVORITES_REQUEST,
+      payload: {
+        slug: article.slug,
+        token: user?.token,
+        data: {article: article},
+      }
+    })
+  }
+
+  const deleteFromFavorites = () => {
+    dispatch({
+      type: DELETE_FAVORITES_REQUEST,
+      payload: {
+        slug: article.slug,
+        token: user?.token,
+      }
+    })
+  }
+
   return (
     <div className='articleCard'>
       <div className='articleCard__info'>
@@ -30,9 +54,19 @@ const ArticleCard = ({article}) => {
 
         <div className='articleCard__info-top'>
           <AuthorInfo author={article.author} dateAuthorInfo={dateArticle}/>
-          <div className='articleCard__favorites'>
+          <div
+            className={`articleCard__favorites ${article.favorited ? 'favorited' : '' }` }
+            onClick={() => {(
+              user
+                ? article.favorited ? deleteFromFavorites() : addToFavorites()
+                : navigate('/signin')
+            )}}
+          >
             <FavoritesIcon/>
-            <a className='articleCard__favorites-count' href='#'>{article.favoritesCount}</a>
+            <p
+              className='articleCard__favorites-count'
+            >
+              {article.favoritesCount}</p>
           </div>
         </div>
 

@@ -35,6 +35,25 @@ export const articles = {
     return axios.delete(`${URL}articles/${slug}`,{headers});
   },
 
+  addFavorites: ({slug, data, token}) => {
+    let headers
+    if (token) {
+      headers = {
+        'Authorization': `Token ${token}`,
+      }
+    }
+    return axios.post(`${URL}articles/${slug}/favorite`, data,{headers} );
+  },
+
+  deleteFavorites: ({slug, token}) => {
+    let headers
+    if (token) {
+      headers = {
+        'Authorization': `Token ${token}`,
+      }}
+    return axios.delete(`${URL}articles/${slug}/favorite`,{headers} );
+  },
+
 
 };
 
