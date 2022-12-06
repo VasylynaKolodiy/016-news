@@ -1,16 +1,10 @@
 import axios from "axios";
 import {URL} from "../../helpers/constants"
+import {getHeaders} from "../../helpers";
 
 export const articles = {
-
   getArticles: ({limit, offset, tag, token}) => {
-    let headers
-    if (token) {
-      headers = {
-        'Authorization': `Token ${token}`,
-      }
-    }
-    return axios.get(`${URL}articles?limit=${limit}&offset=${offset}${tag ? '&tag=' + tag : ''}`, token && {headers} );
+    return axios.get(`${URL}articles?limit=${limit}&offset=${offset}${tag ? '&tag=' + tag : ''}`, token && getHeaders(token) );
   },
 
   getArticle: (slug) => {
@@ -22,38 +16,19 @@ export const articles = {
   },
 
   createNewArticle: ({data, token}) => {
-    const headers = {
-      'Authorization': `Token ${token}`,
-    }
-    return axios.post(`${URL}articles`, data, {headers});
+    return axios.post(`${URL}articles`, data, getHeaders(token));
   },
 
   deleteArticle: ({slug, token}) => {
-    const headers = {
-      'Authorization': `Token ${token}`,
-    }
-    return axios.delete(`${URL}articles/${slug}`,{headers});
+    return axios.delete(`${URL}articles/${slug}`,getHeaders(token));
   },
 
   addFavorites: ({slug, data, token}) => {
-    let headers
-    if (token) {
-      headers = {
-        'Authorization': `Token ${token}`,
-      }
-    }
-    return axios.post(`${URL}articles/${slug}/favorite`, data,{headers} );
+    return axios.post(`${URL}articles/${slug}/favorite`, data,getHeaders(token) );
   },
 
   deleteFavorites: ({slug, token}) => {
-    let headers
-    if (token) {
-      headers = {
-        'Authorization': `Token ${token}`,
-      }}
-    return axios.delete(`${URL}articles/${slug}/favorite`,{headers} );
+    return axios.delete(`${URL}articles/${slug}/favorite`,getHeaders(token) );
   },
-
-
 };
 

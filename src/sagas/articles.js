@@ -46,10 +46,10 @@ function* createNewArticle(action) {
 
 function* deleteArticle(action) {
   try {
-    let res = []
+    let res = [];
+    let payload = {};
     yield call(Api.articles.deleteArticle, action.payload);
     const articles = yield select((state) => state.articles.articles);
-    let payload = {};
     if (action.payload.page === 'homePage') {
       res = articles.articles?.filter((art) => art.slug !== (action.payload.slug))
       payload = {articles: res}
