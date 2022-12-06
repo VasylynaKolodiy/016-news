@@ -12,6 +12,7 @@ import {useNavigate} from "react-router-dom";
 const ArticleCard = ({article}) => {
   let dateArticle = new Date(article.updatedAt)
   let user = useSelector((state) => state.users.user);
+  const loadingFavorite = useSelector((state) => state.articles.loadingFavorite)
   const navigate = useNavigate();
 
   const dispatch = useDispatch();
@@ -32,7 +33,6 @@ const ArticleCard = ({article}) => {
       payload: {
         slug: article.slug,
         token: user?.token,
-        data: {article: article},
       }
     })
   }
@@ -55,7 +55,7 @@ const ArticleCard = ({article}) => {
         <div className='articleCard__info-top'>
           <AuthorInfo author={article.author} dateAuthorInfo={dateArticle}/>
           <div
-            className={`articleCard__favorites ${article.favorited ? 'favorited' : '' }` }
+            className={`articleCard__favorites ${article.favorited ? 'favorited' : '' } ${loadingFavorite ? 'loadingFavorite' : ''}` }
             onClick={() => {(
               user
                 ? article.favorited ? deleteFromFavorites() : addToFavorites()
@@ -80,7 +80,11 @@ const ArticleCard = ({article}) => {
 
               {article.author?.username === user?.username && (
                 <div className='articleCard__editor'>
-                  <Button variant="outlined">Edit</Button>
+                  <Button
+                    variant="outlined"
+                    onClick={() => navigate(`/editor/${article.slug}`)}
+                  >Edit
+                  </Button>
                   <Button
                     variant="outlined"
                     onClick={() => deleteArticle()}

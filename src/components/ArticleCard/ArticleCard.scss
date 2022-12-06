@@ -31,10 +31,10 @@
     position: relative;
     cursor: pointer;
 
-    &.favorited{
-       svg path {
-         fill: rgba(255, 0, 0, 0.5);
-       }
+    &.favorited {
+      svg path {
+        fill: rgba(255, 0, 0, 0.5);
+      }
     }
 
     & svg {
@@ -47,15 +47,20 @@
       transition: .3s linear;
     }
 
-    &.favorited:hover{
-      & svg path{
+    &.favorited:hover {
+      & svg path {
         fill: rgba(0, 0, 0, 0.4);
       }
     }
-    &:hover{
-      & svg path{
+
+    &:hover {
+      & svg path {
         fill: rgba(255, 0, 0, 0.5);
       }
+    }
+
+    &.loadingFavorite {
+      cursor: wait;
     }
 
     &-count {
@@ -64,7 +69,6 @@
       left: 50%;
       transform: translate(-50%, -40%);
       color: black;
-      cursor: pointer;
     }
   }
 
@@ -72,11 +76,12 @@
     width: 100%;
   }
 
-  &__buttons{
+  &__buttons {
     display: flex;
     gap: 10px;
   }
-  &__editor{
+
+  &__editor {
     display: flex;
     gap: 10px;
   }

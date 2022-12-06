@@ -1,11 +1,10 @@
 import React, {useState} from 'react';
 import './NewArticle.scss'
-import FormControl from "@mui/material/FormControl";
-import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import {useDispatch, useSelector} from "react-redux";
 import {CREATE_NEW_ARTICLE_REQUEST} from "../../actions/articles";
 import {useNavigate} from "react-router-dom";
+import FormForArticle from "../../components/FormForArticle/FormForArticle";
 
 const NewArticle = () => {
 
@@ -40,55 +39,7 @@ const NewArticle = () => {
         className='newArticle__form'
         onSubmit={(event) => event.preventDefault()}
       >
-        <FormControl className='newArticle__title formControl'>
-          <TextField
-            // error={}
-            label="Title"
-            type="text"
-            variant="standard"
-            value={newArticle.title}
-            onChange={(event) => setNewArticle({...newArticle, title: event.target.value})}
-            // helperText={}
-          />
-        </FormControl>
-
-        <FormControl className='newArticle__description formControl'>
-          <TextField
-            // error={}
-            label="Description"
-            type="text"
-            variant="standard"
-            value={newArticle.description}
-            onChange={(event) => setNewArticle({...newArticle, description: event.target.value})}
-            // helperText={}
-          />
-        </FormControl>
-
-        <FormControl className='newArticle__body formControl'>
-          <TextField
-            // error={}
-            label="Body"
-            type="text"
-            variant="standard"
-            multiline
-            rows={4}
-            value={newArticle.body}
-            onChange={(event) => setNewArticle({...newArticle, body: event.target.value})}
-            // helperText={}
-          />
-        </FormControl>
-
-        <FormControl className='newArticle__tagList formControl'>
-          <TextField
-            // error={}
-            label="Tag list"
-            type="text"
-            variant="standard"
-            value={newArticle.tagList}
-            onChange={(event) => setNewArticle({...newArticle, tagList: event.target.value})}
-            // helperText={}
-          />
-        </FormControl>
+       <FormForArticle newArticle={newArticle} setNewArticle={setNewArticle} />
 
         <Button
           type='submit'

@@ -6,17 +6,10 @@
   }
 
   &__form{
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    box-shadow: rgba(0, 0, 0, 0.24) 0 3px 8px;
     background: url("../../assets/img/HomePage/background.webp") top left no-repeat;
     padding: 50px 20px;
-
-    button{
-      width: 100px;
-      margin: 0 auto;
-    }
+    box-shadow: rgba(0, 0, 0, 0.24) 0 3px 8px;
   }
+
 
 }

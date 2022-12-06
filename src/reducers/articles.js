@@ -19,7 +19,7 @@ import {
   ADD_FAVORITES_REQUEST,
   DELETE_FAVORITES_FAIL,
   DELETE_FAVORITES_SUCCESS,
-  DELETE_FAVORITES_REQUEST,
+  DELETE_FAVORITES_REQUEST, EDIT_ARTICLE_REQUEST, EDIT_ARTICLE_SUCCESS, EDIT_ARTICLE_FAIL,
 } from "../actions/articles";
 
 const initialState = {
@@ -29,6 +29,7 @@ const initialState = {
   comments: {},
   newArticle: {},
   deletedArticle: [],
+  loadingFavorite: false,
 };
 
 export default function articles(state = initialState, action) {
@@ -136,6 +137,7 @@ export default function articles(state = initialState, action) {
     case ADD_FAVORITES_REQUEST:
       return {
         ...state,
+        loadingFavorite: true,
       };
 
     case ADD_FAVORITES_SUCCESS:
@@ -143,18 +145,22 @@ export default function articles(state = initialState, action) {
         ...state,
         articles: {
           ...state.articles,
-          ...action.payload
+          ...action.payload[0],
         },
+        article: action.payload[1],
+        loadingFavorite: false,
       };
 
     case ADD_FAVORITES_FAIL:
       return {
         ...state,
+        loadingFavorite: false,
       };
 
     case DELETE_FAVORITES_REQUEST:
       return {
         ...state,
+        loadingFavorite: true,
       };
 
     case DELETE_FAVORITES_SUCCESS:
@@ -162,11 +168,30 @@ export default function articles(state = initialState, action) {
         ...state,
         articles: {
           ...state.articles,
-          ...action.payload
+          ...action.payload[0],
         },
+        article: action.payload[1],
+        loadingFavorite: false,
       };
 
     case DELETE_FAVORITES_FAIL:
+      return {
+        ...state,
+        loadingFavorite: false,
+      };
+
+    case EDIT_ARTICLE_REQUEST:
+      return {
+        ...state,
+      };
+
+    case EDIT_ARTICLE_SUCCESS:
+      return {
+        ...state,
+        article: action.payload,
+      };
+
+    case EDIT_ARTICLE_FAIL:
       return {
         ...state,
       };
