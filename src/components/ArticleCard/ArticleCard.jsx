@@ -14,8 +14,8 @@ const ArticleCard = ({article}) => {
   let user = useSelector((state) => state.users.user);
   const loadingFavorite = useSelector((state) => state.articles.loadingFavorite)
   const navigate = useNavigate();
-
   const dispatch = useDispatch();
+
   const deleteArticle = () => {
     dispatch({
       type: DELETE_ARTICLE_REQUEST,

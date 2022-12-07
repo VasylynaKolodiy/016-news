@@ -2,21 +2,22 @@ import React, {useEffect} from 'react';
 import './ArticleDetailPage.scss'
 import {Link, useParams, useNavigate} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
-import {
-  ADD_FAVORITES_REQUEST,
-  DELETE_ARTICLE_REQUEST, DELETE_FAVORITES_REQUEST,
-  GET_ARTICLE_REQUEST,
-  GET_COMMENTS_REQUEST
-} from "../../actions/articles";
 import Loader from "../../components/Loader/Loader";
 import {ReactComponent as FavoritesIcon} from "../../assets/img/HomePage/ArticleCard/heart.svg";
 import Comments from "../../components/Comments/Comments";
 import AuthorInfo from "../../components/AuthorInfo/AuthorInfo";
 import BreadCrumbs from "../../components/BreadCrumbs/BreadCrumbs";
 import Button from "@mui/material/Button";
+import {
+  ADD_FAVORITES_REQUEST,
+  DELETE_ARTICLE_REQUEST, DELETE_FAVORITES_REQUEST,
+  GET_ARTICLE_REQUEST,
+  GET_COMMENTS_REQUEST
+} from "../../actions/articles";
 
 const ArticleDetailPage = () => {
   const params = useParams();
+  const navigate = useNavigate();
   let user = useSelector((state) => state.users.user);
   const dispatch = useDispatch();
   const isArticleLoading = useSelector((state) => state.articles.loading);
@@ -39,7 +40,6 @@ const ArticleDetailPage = () => {
   }, [params.slug])
   let dateArticle = new Date(article.updatedAt)
 
-  const navigate = useNavigate();
   const deleteArticle = () => {
     dispatch({
       type: DELETE_ARTICLE_REQUEST,

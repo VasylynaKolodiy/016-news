@@ -1,0 +1,33 @@
+.newComment{
+ // background-color: rgba(255, 255, 255, 0.4);
+  margin-bottom: 20px;
+  &__item{
+    width: 80%;
+    margin: 0 auto 10px auto;
+    padding: 30px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid gray;
+  }
+
+  &__form {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+  }
+
+  &__body{
+    width: 75%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 20px;
+  }
+
+  button{
+    width: 150px;
+  }
+}

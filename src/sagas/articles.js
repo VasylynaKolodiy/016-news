@@ -37,7 +37,7 @@ function* getComments(action) {
 function* createNewArticle(action) {
   try {
     const res = yield call(Api.articles.createNewArticle, action.payload);
-    yield put({type: articlesActions.CREATE_NEW_ARTICLE_SUCCESS, payload: res.data.comments});
+    yield put({type: articlesActions.CREATE_NEW_ARTICLE_SUCCESS, payload: res.data.article});
     action.navigate('/')
 
   } catch (err) {
@@ -110,11 +110,23 @@ function* deleteFavorites(action) {
 function* editArticle(action) {
   try {
     const res = yield call(Api.articles.editArticle, action.payload);
-    yield put({type: articlesActions.EDIT_ARTICLE_SUCCESS, payload: res});
-     action.navigate(`/articles/${action.payload.slug}`)
+    console.log(res.data.article.slug, 'res')
+    yield put({type: articlesActions.EDIT_ARTICLE_SUCCESS, payload: res.data.article});
+     action.navigate(`/articles/${res.data.article.slug}`)
 
   } catch (err) {
     yield put({type: articlesActions.EDIT_ARTICLE_FAIL, payload: {error: err.message}});
+  }
+}
+
+
+function* addComment(action) {
+  try {
+    const res = yield call(Api.articles.addComment, action.payload);
+    yield put({type: articlesActions.ADD_COMMENT_SUCCESS, payload: res.data.comments});
+
+  } catch (err) {
+    yield put({type: articlesActions.ADD_COMMENT_FAIL, payload: {error: err.message}});
   }
 }
 
@@ -127,4 +139,5 @@ export default all([
   takeLatest(articlesActions.ADD_FAVORITES_REQUEST, addFavorites),
   takeLatest(articlesActions.DELETE_FAVORITES_REQUEST, deleteFavorites),
   takeLatest(articlesActions.EDIT_ARTICLE_REQUEST, editArticle),
+  takeLatest(articlesActions.ADD_COMMENT_REQUEST, addComment),
 ])

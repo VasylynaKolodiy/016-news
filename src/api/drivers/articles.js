@@ -8,7 +8,7 @@ export const articles = {
   },
 
   getArticle: ({slug, token}) => {
-    return axios.get(`${URL}articles/${slug}`, getHeaders(token) );
+    return axios.get(`${URL}articles/${slug}`, token && getHeaders(token) );
   },
 
   getComments: (slug) => {
@@ -16,23 +16,28 @@ export const articles = {
   },
 
   createNewArticle: ({data, token}) => {
-    return axios.post(`${URL}articles`, data, getHeaders(token));
+    return axios.post(`${URL}articles`, data, token && getHeaders(token));
   },
 
   deleteArticle: ({slug, token}) => {
-    return axios.delete(`${URL}articles/${slug}`,getHeaders(token));
+    return axios.delete(`${URL}articles/${slug}`, token && getHeaders(token));
   },
 
   addFavorites: ({slug, token}) => {
-    return axios.post(`${URL}articles/${slug}/favorite`, null, getHeaders(token) );
+    return axios.post(`${URL}articles/${slug}/favorite`, null, token && getHeaders(token) );
   },
 
   deleteFavorites: ({slug, token}) => {
-    return axios.delete(`${URL}articles/${slug}/favorite`, getHeaders(token) );
+    return axios.delete(`${URL}articles/${slug}/favorite`, token && getHeaders(token) );
   },
 
   editArticle: ({slug, data, token}) => {
-    return axios.post(`${URL}articles/${slug}`, data, getHeaders(token) );
+    return axios.put(`${URL}articles/${slug}`, data, token && getHeaders(token) );
   },
+
+  addComment: ({slug, data, token}) => {
+    return axios.post(`${URL}articles/${slug}/comments`, data, token && getHeaders(token) );
+  },
+
 };
 

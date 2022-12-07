@@ -34,14 +34,10 @@ const SignUpPage = () => {
   let data = {user: myNewUser}
   const dispatch = useDispatch();
   let newUserState = useSelector((state) => state.users.user);
-  const clickOnButton = () => {
+  const signUp = () => {
     dispatch({type: CREATE_NEW_USER_REQUEST, payload: data});
   }
-
   if(newUserState) return <Navigate replace to="/" />;
-  
-  console.log(newUserState, 'newUserState')
-
 
   return (
     <main className='signPage'>
@@ -90,7 +86,7 @@ const SignUpPage = () => {
         <Button
           type='submit'
           variant="outlined"
-          onClick={() => clickOnButton()}>Sign Up</Button>
+          onClick={() => signUp()}>Sign Up</Button>
       </form>
     </main>
   );

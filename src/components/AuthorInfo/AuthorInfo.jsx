@@ -3,7 +3,7 @@ import './AuthorInfo.scss'
 import {Link} from "react-router-dom";
 import Avatar from "@mui/material/Avatar";
 
-const AuthorInfo = ({author = {}, dateAuthorInfo}) => {
+const AuthorInfo = ({author = {}, dateAuthorInfo = ''}) => {
   return (
     <div className='authorInfo'>
       <Link className='authorInfo__link' to={`/articles/${author.username}`}>

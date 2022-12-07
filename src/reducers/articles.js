@@ -19,7 +19,12 @@ import {
   ADD_FAVORITES_REQUEST,
   DELETE_FAVORITES_FAIL,
   DELETE_FAVORITES_SUCCESS,
-  DELETE_FAVORITES_REQUEST, EDIT_ARTICLE_REQUEST, EDIT_ARTICLE_SUCCESS, EDIT_ARTICLE_FAIL,
+  DELETE_FAVORITES_REQUEST,
+  EDIT_ARTICLE_REQUEST,
+  EDIT_ARTICLE_SUCCESS,
+  EDIT_ARTICLE_FAIL,
+  ADD_COMMENT_REQUEST,
+  ADD_COMMENT_SUCCESS, ADD_COMMENT_FAIL,
 } from "../actions/articles";
 
 const initialState = {
@@ -192,6 +197,25 @@ export default function articles(state = initialState, action) {
       };
 
     case EDIT_ARTICLE_FAIL:
+      return {
+        ...state,
+      };
+
+    case ADD_COMMENT_REQUEST:
+      return {
+        ...state,
+      };
+
+    case ADD_COMMENT_SUCCESS:
+      return {
+        ...state,
+        comments: {
+          ...state.comments,
+          ...action.payload,
+        },
+      };
+
+    case ADD_COMMENT_FAIL:
       return {
         ...state,
       };

@@ -33,7 +33,7 @@ const SignInPage = () => {
   let loginUserState = useSelector((state) => state.users.user);
   let loginError = useSelector((state) => state.users.error);
 
-  const clickOnButton = async () => {
+  const signIn = async () => {
     dispatch({type: LOGIN_USER_REQUEST, payload: myLoginUser})
   }
   if(loginUserState) return <Navigate replace to="/" />;
@@ -99,10 +99,8 @@ const SignInPage = () => {
         <Button
           type='submit'
           variant="outlined"
-          onClick={() => clickOnButton(myLoginUser)}>Sign In</Button>
+          onClick={() => signIn(myLoginUser)}>Sign In</Button>
       </form>
-
-
     </main>
   );
 };

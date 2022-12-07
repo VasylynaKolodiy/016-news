@@ -8,12 +8,10 @@ import Pagination from "@mui/material/Pagination";
 import Tags from "../../components/Tags/Tags";
 
 const HomePage = () => {
-
   let user = useSelector((state) => state.users.user);
   const dispatch = useDispatch();
   const isArticlesLoading = useSelector((state) => state.articles.loading);
   const articlesState = useSelector((state) => state.articles.articles);
-
   const totalCount = articlesState.articlesCount
   const LIMIT = 10;
   let [offset, setOffset] = useState(0)

@@ -1,17 +1,17 @@
 import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {useNavigate, useParams} from "react-router-dom";
+import FormForArticle from "../../components/FormForArticle/FormForArticle";
+import Button from "@mui/material/Button";
 import {
   EDIT_ARTICLE_REQUEST,
   GET_ARTICLE_REQUEST,
 } from "../../actions/articles";
-import FormForArticle from "../../components/FormForArticle/FormForArticle";
-import Button from "@mui/material/Button";
 
 const Editor = () => {
   const params = useParams();
+  const navigate = useNavigate();
   let article = useSelector((state) => state.articles.article);
-  console.log(article, 'AAAarticle')
   let loginUserState = useSelector((state) => state.users.user);
   const dispatch = useDispatch();
   const [editArticle, setEditArticle] = useState(article)
@@ -27,7 +27,6 @@ const Editor = () => {
     })
   }, [params.slug])
 
-
   let data = {
     article: {
       title: editArticle.title,
@@ -35,8 +34,8 @@ const Editor = () => {
       body: editArticle.body,
     }
   }
-  const navigate = useNavigate();
-  const clickOnButton = async () => {
+
+  const editOwnArticle = async () => {
     dispatch({
       type: EDIT_ARTICLE_REQUEST,
       payload: {
@@ -47,7 +46,6 @@ const Editor = () => {
       navigate: navigate,
     })
   }
-
 
   return (
     <main className="newArticle">
@@ -61,9 +59,8 @@ const Editor = () => {
         <Button
           type='submit'
           variant="outlined"
-          onClick={() => clickOnButton()}
+          onClick={() => editOwnArticle()}
         >Edit</Button>
-
       </form>
 
     </main>
