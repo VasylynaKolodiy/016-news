@@ -17,7 +17,7 @@ function* getArticle(action) {
   try {
     const res = yield call(Api.articles.getArticle, action.payload);
     yield put({type: articlesActions.GET_ARTICLE_SUCCESS, payload: res.data.article});
-    action.payload.setEditArticle(res.data.article)
+    (action.payload?.setEditArticle) && action.payload?.setEditArticle(res.data.article)
 
   } catch (err) {
     yield put({type: articlesActions.GET_ARTICLE_FAIL, payload: {error: err.message}});
@@ -110,7 +110,6 @@ function* deleteFavorites(action) {
 function* editArticle(action) {
   try {
     const res = yield call(Api.articles.editArticle, action.payload);
-    console.log(res.data.article.slug, 'res')
     yield put({type: articlesActions.EDIT_ARTICLE_SUCCESS, payload: res.data.article});
      action.navigate(`/articles/${res.data.article.slug}`)
 
@@ -123,7 +122,7 @@ function* editArticle(action) {
 function* addComment(action) {
   try {
     const res = yield call(Api.articles.addComment, action.payload);
-    yield put({type: articlesActions.ADD_COMMENT_SUCCESS, payload: res.data.comments});
+    yield put({type: articlesActions.ADD_COMMENT_SUCCESS, payload: res.data.comment});
 
   } catch (err) {
     yield put({type: articlesActions.ADD_COMMENT_FAIL, payload: {error: err.message}});

@@ -11,16 +11,11 @@ const NewComment = () => {
   const article = useSelector((state) => state.articles.article);
   let user = useSelector((state) => state.users.user);
   const dispatch = useDispatch();
-  const [newComment, setNewArticle] = useState({
-    title: '',
-    description: '',
+  const [newComment, setNewComment] = useState({
     body: '',
-    tagList: [],
   })
+  let data = {comment: newComment}
 
-  const data = {
-    comment: {body: ""}
-  }
 
   const addOwnComment = () => {
     dispatch({
@@ -31,6 +26,7 @@ const NewComment = () => {
         data: data,
       }
     })
+    setNewComment({...newComment, body: ''});
   }
 
   return (
@@ -49,8 +45,8 @@ const NewComment = () => {
               variant="standard"
               multiline
               rows={1}
-              //value={newComment.body}
-              //onChange={(event) => setNewComment({...newComment, body: event.target.value})}
+              value={newComment.body}
+              onChange={(event) => setNewComment({...newComment, body: event.target.value})}
             />
 
             <Button

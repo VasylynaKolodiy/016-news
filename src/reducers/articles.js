@@ -209,10 +209,10 @@ export default function articles(state = initialState, action) {
     case ADD_COMMENT_SUCCESS:
       return {
         ...state,
-        comments: {
+        comments: [
+          action.payload,
           ...state.comments,
-          ...action.payload,
-        },
+        ],
       };
 
     case ADD_COMMENT_FAIL:

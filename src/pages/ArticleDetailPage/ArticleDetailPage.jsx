@@ -35,7 +35,10 @@ const ArticleDetailPage = () => {
     })
     dispatch({
       type: GET_COMMENTS_REQUEST,
-      payload: params.slug,
+      payload: {
+        slug: params.slug,
+        token: user?.token,
+      }
     })
   }, [params.slug])
   let dateArticle = new Date(article.updatedAt)

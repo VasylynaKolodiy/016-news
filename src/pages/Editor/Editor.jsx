@@ -11,10 +11,10 @@ import {
 const Editor = () => {
   const params = useParams();
   const navigate = useNavigate();
-  let article = useSelector((state) => state.articles.article);
+  // let article = useSelector((state) => state.articles.article);
   let loginUserState = useSelector((state) => state.users.user);
   const dispatch = useDispatch();
-  const [editArticle, setEditArticle] = useState(article)
+  const [editArticle, setEditArticle] = useState({})
 
   useEffect(() => {
     dispatch({

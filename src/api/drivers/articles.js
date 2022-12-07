@@ -11,8 +11,8 @@ export const articles = {
     return axios.get(`${URL}articles/${slug}`, token && getHeaders(token) );
   },
 
-  getComments: (slug) => {
-    return axios.get(`${URL}articles/${slug}/comments`);
+  getComments: ({slug, token}) => {
+    return axios.get(`${URL}articles/${slug}/comments`, token && getHeaders(token));
   },
 
   createNewArticle: ({data, token}) => {
