@@ -79,13 +79,13 @@ function* addFavorites(action) {
 
     yield put({
       type: articlesActions.ADD_FAVORITES_SUCCESS,
-      payload: [payload, favoritedArticle.data.article]});
+      payload: [payload, favoritedArticle.data.article]
+    });
 
   } catch (err) {
     yield put({type: articlesActions.ADD_FAVORITES_FAIL, payload: {error: err.message}});
   }
 }
-
 
 function* deleteFavorites(action) {
   try {
@@ -101,7 +101,8 @@ function* deleteFavorites(action) {
 
     yield put({
       type: articlesActions.DELETE_FAVORITES_SUCCESS,
-      payload: [payload, deletedFavorite.data.article]});
+      payload: [payload, deletedFavorite.data.article]
+    });
   } catch (err) {
     yield put({type: articlesActions.DELETE_FAVORITES_FAIL, payload: {error: err.message}});
   }
@@ -111,7 +112,7 @@ function* editArticle(action) {
   try {
     const res = yield call(Api.articles.editArticle, action.payload);
     yield put({type: articlesActions.EDIT_ARTICLE_SUCCESS, payload: res.data.article});
-     action.navigate(`/articles/${res.data.article.slug}`)
+    action.navigate(`/articles/${res.data.article.slug}`)
 
   } catch (err) {
     yield put({type: articlesActions.EDIT_ARTICLE_FAIL, payload: {error: err.message}});
@@ -129,6 +130,19 @@ function* addComment(action) {
   }
 }
 
+function* deleteComment(action) {
+  try {
+    let payload = [];
+    const comments = yield select((state) => state.articles.comments);
+    yield call(Api.articles.deleteComment, action.payload);
+    payload = comments?.filter((comment) => comment.id !== (action.payload.id))
+    yield put({type: articlesActions.DELETE_COMMENT_SUCCESS, payload: payload});
+
+  } catch (err) {
+    yield put({type: articlesActions.DELETE_COMMENT_FAIL, payload: {error: err.message}});
+  }
+}
+
 export default all([
   takeLatest(articlesActions.GET_ARTICLES_REQUEST, getArticles),
   takeLatest(articlesActions.GET_ARTICLE_REQUEST, getArticle),
@@ -139,4 +153,5 @@ export default all([
   takeLatest(articlesActions.DELETE_FAVORITES_REQUEST, deleteFavorites),
   takeLatest(articlesActions.EDIT_ARTICLE_REQUEST, editArticle),
   takeLatest(articlesActions.ADD_COMMENT_REQUEST, addComment),
+  takeLatest(articlesActions.DELETE_COMMENT_REQUEST, deleteComment),
 ])

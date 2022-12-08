@@ -39,5 +39,9 @@ export const articles = {
     return axios.post(`${URL}articles/${slug}/comments`, data, token && getHeaders(token) );
   },
 
+  deleteComment: ({slug, token, id}) => {
+    return axios.delete(`${URL}articles/${slug}/comments/${id}`, token && getHeaders(token) );
+  },
+
 };
 

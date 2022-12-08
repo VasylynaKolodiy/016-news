@@ -24,7 +24,7 @@ import {
   EDIT_ARTICLE_SUCCESS,
   EDIT_ARTICLE_FAIL,
   ADD_COMMENT_REQUEST,
-  ADD_COMMENT_SUCCESS, ADD_COMMENT_FAIL,
+  ADD_COMMENT_SUCCESS, ADD_COMMENT_FAIL, DELETE_COMMENT_REQUEST, DELETE_COMMENT_SUCCESS, DELETE_COMMENT_FAIL,
 } from "../actions/articles";
 
 const initialState = {
@@ -216,6 +216,23 @@ export default function articles(state = initialState, action) {
       };
 
     case ADD_COMMENT_FAIL:
+      return {
+        ...state,
+      };
+
+    case DELETE_COMMENT_REQUEST:
+      return {
+        ...state,
+      };
+
+    case DELETE_COMMENT_SUCCESS:
+      return {
+        ...state,
+        comments: action.payload,
+
+      };
+
+    case DELETE_COMMENT_FAIL:
       return {
         ...state,
       };
