@@ -20,6 +20,7 @@
   &__favorites {
     position: relative;
     cursor: pointer;
+    font-size: 11px;
     &:hover {
       & svg path {
         fill: rgba(255, 0, 0, 0.4);
@@ -43,8 +44,8 @@
   }
 
   &__favorites svg {
-    width: 50px;
-    height: 50px;
+    width: 35px;
+    height: 35px;
   }
 
   &__favorites svg path {
@@ -62,6 +63,26 @@
 
   &__follow {
     color: black;
+    cursor: pointer;
+  }
+  &__follow svg{
+    width: 45px;
+    height: 45px;
+    &.isFollow{
+      & path{
+        opacity: 1;
+      }
+    }
+    & path {
+      fill: black;
+      opacity: 0.5;
+      transition: .3s linear;
+    }
+    &:hover{
+      & path{
+        opacity: 1;
+      }
+    }
   }
 
   &__title {
@@ -76,6 +97,18 @@
   &__editor{
     display: flex;
     gap: 10px;
+  }
+  &__editor svg{
+    width: 30px;
+    height: 30px;
+    opacity: 0.5;
+    transition: .3s linear;
+    cursor: pointer;
+    position: relative;
+    z-index: 5;
+    &:hover{
+      opacity: 1;
+    }
   }
 
   &__body,

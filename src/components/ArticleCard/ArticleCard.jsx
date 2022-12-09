@@ -3,11 +3,14 @@ import './ArticleCard.scss'
 import {ReactComponent as FavoritesIcon} from '../../assets/img/HomePage/ArticleCard/heart.svg';
 import AuthorInfo from "../AuthorInfo/AuthorInfo";
 import {Link} from "react-router-dom";
-import Button from "@mui/material/Button";
 import {useDispatch, useSelector} from "react-redux";
 import {DELETE_ARTICLE_REQUEST, DELETE_FAVORITES_REQUEST} from "../../actions/articles";
 import {ADD_FAVORITES_REQUEST} from "../../actions/articles";
 import {useNavigate} from "react-router-dom";
+
+import {ReactComponent as InfoButton} from "../../assets/img/info.svg";
+import {ReactComponent as EditButton} from "../../assets/img/edit.svg";
+import {ReactComponent as DeleteButton} from "../../assets/img/delete-button.svg";
 
 const ArticleCard = ({article}) => {
   let dateArticle = new Date(article.updatedAt)
@@ -56,13 +59,15 @@ const ArticleCard = ({article}) => {
           <AuthorInfo author={article.author} dateAuthorInfo={dateArticle}/>
           <div
             className={`articleCard__favorites ${article.favorited ? 'favorited' : '' } ${loadingFavorite ? 'loadingFavorite' : ''}` }
-            onClick={() => {(
-              user
-                ? article.favorited ? deleteFromFavorites() : addToFavorites()
-                : navigate('/signin')
-            )}}
+            onClick={(event) => {
+              return ( loadingFavorite
+                  ?  event.preventDefault()
+                  : (user
+                    ? article.favorited ? deleteFromFavorites() : addToFavorites()
+                    : navigate('/signin'))
+              )}}
           >
-            <FavoritesIcon/>
+            <FavoritesIcon disabled/>
             <p
               className='articleCard__favorites-count'
             >
@@ -75,20 +80,13 @@ const ArticleCard = ({article}) => {
           <div className='articleCard__wrapper'>
             <div className='articleCard__buttons'>
               <Link className='articleCard__link' to={`/articles/${article.slug}`}>
-                <Button variant="outlined">Read more</Button>
+                <InfoButton title='Read more'/>
               </Link>
 
               {article.author?.username === user?.username && (
                 <div className='articleCard__editor'>
-                  <Button
-                    variant="outlined"
-                    onClick={() => navigate(`/editor/${article.slug}`)}
-                  >Edit
-                  </Button>
-                  <Button
-                    variant="outlined"
-                    onClick={() => deleteArticle()}
-                  >Delete</Button>
+                  <EditButton title='Edit article' onClick={() => navigate(`/editor/${article.slug}`)}/>
+                  <DeleteButton title='Delete article' onClick={() => deleteArticle()}/>
                 </div>
               )}
             </div>

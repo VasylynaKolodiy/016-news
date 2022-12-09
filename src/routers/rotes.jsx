@@ -5,6 +5,7 @@ import SignUpPage from "../pages/SignUpPage/SignUpPage";
 import SignInPage from "../pages/SignInPage/SignInPage";
 import NewArticlePage from "../pages/NewArticlePage/NewArticlePage";
 import EditorPage from "../pages/EditorPage/EditorPage";
+import ProfilePage from "../pages/ProfilePage/ProfilePage";
 
 export const privateRoutes = [
   {
@@ -40,13 +41,18 @@ export const privateRoutes = [
     component: <NewArticlePage/>,
     exact: true,
   },
+
   {
     path: "/editor/:slug",
     component: <EditorPage/>,
     exact: true,
   },
 
-
+  {
+    path: "/@:authorName",
+    component: <ProfilePage/>,
+    exact: true,
+  },
 
 
 

@@ -1,11 +1,11 @@
 import React, {useEffect, useState} from 'react';
 import './HomePage.scss'
 import {useDispatch, useSelector} from "react-redux";
-import ArticleCard from "../../components/ArticleCard/ArticleCard";
 import Loader from "../../components/Loader/Loader";
 import {GET_ARTICLES_REQUEST} from "../../actions/articles";
-import Pagination from "@mui/material/Pagination";
 import Tags from "../../components/Tags/Tags";
+import TabButton from "../../components/TabButton/TabButton";
+import TabPage from "../../components/TabPage/TabPage";
 
 const HomePage = () => {
   let user = useSelector((state) => state.users.user);
@@ -41,39 +41,32 @@ const HomePage = () => {
     <main className='homePage'>
       <div className="feeds__tabs">
 
-        <button
-          className={`feeds__tabs-button Global hoverLink ${feedName === 'Global' ? 'active' : ''}`}
-          onClick={() => {
-            setTagName('')
-            setFeedName('Global');
-            setPageNumber(1);
-          }}
-        >
-          Global Feeds
-        </button>
+        <TabButton
+          tabName='Global'
+          setFeedName={setFeedName}
+          feedName={feedName}
+          setTagName={setTagName}
+          setPageNumber={setPageNumber}
+        />
 
         {user &&
-        <button
-          className={`feeds__tabs-button Your hoverLink ${feedName === 'Your' ? 'active' : ''}`}
-          onClick={() => {
-            setFeedName('Your');
-          }}
-        >
-          Your Feeds
-        </button>
+        <TabButton
+          tabName='Your'
+          setFeedName={setFeedName}
+          feedName={feedName}
+          // setTagName={setTagName}
+          setPageNumber={setPageNumber}
+        />
         }
 
         {tagName &&
-        <button
-          className={`feeds__tabs-button Tags hoverLink ${feedName === 'Tags' ? 'active' : ''}`}
-          onClick={() => {
-            setOffset(0);
-            setFeedName('Tags');
-            setPageNumber(1)
-          }}
-        >
-          Tags Feeds <span>(#{tagName})</span>
-        </button>
+        <TabButton
+          tabName='Tags'
+          setFeedName={setFeedName}
+          feedName={feedName}
+          // setTagName={setTagName}
+          setPageNumber={setPageNumber}
+        />
         }
       </div>
 
@@ -83,23 +76,13 @@ const HomePage = () => {
           <div>
 
             {feedName === "Global" &&
-            <div id="Global" className="feeds__tabs-inner">
-              <div className=' articlesList'>
-                {articlesState.articles?.map((article, index) => (
-                  <ArticleCard article={article} key={index}/>)
-                )}
-              </div>
-              {countOfPages > 1 &&
-              (<Pagination
-                className=' pagination'
-                count={countOfPages}
-                size="large"
-                page={pageNumber}
-                onChange={handlePageChange}
-              />)
-              }
-            </div>
-            }
+            <TabPage
+              tabPageId='Global'
+              articlesState={articlesState}
+              countOfPages={countOfPages}
+              pageNumber={pageNumber}
+              handlePageChange={handlePageChange}
+            />}
 
             {feedName === "Your" &&
             <div id="Your" className="feeds__tabs-inner">
@@ -109,27 +92,16 @@ const HomePage = () => {
                 lalalala
                 lalalala
               </div>
-            </div>
-            }
+            </div>}
 
             {feedName === "Tags" &&
-            <div id="Tags" className="feeds__tabs-inner">
-              <div className='articlesList'>
-                {articlesState.articles?.map((article, index) => (
-                  <ArticleCard article={article} key={index}/>)
-                )}
-              </div>
-              {countOfPages > 1 &&
-              (<Pagination
-                className=' pagination'
-                count={countOfPages}
-                size="large"
-                page={pageNumber}
-                onChange={handlePageChange}
-              />)
-              }
-            </div>
-            }
+            <TabPage
+              tabPageId='Tags'
+              articlesState={articlesState}
+              countOfPages={countOfPages}
+              pageNumber={pageNumber}
+              handlePageChange={handlePageChange}
+            />}
 
           </div>
         </div>

@@ -7,13 +7,18 @@ import {ReactComponent as FavoritesIcon} from "../../assets/img/HomePage/Article
 import Comments from "../../components/Comments/Comments";
 import AuthorInfo from "../../components/AuthorInfo/AuthorInfo";
 import BreadCrumbs from "../../components/BreadCrumbs/BreadCrumbs";
-import Button from "@mui/material/Button";
+import {ReactComponent as FollowIcon} from "../../assets/img/follow.svg";
+import {ReactComponent as UnFollowIcon} from "../../assets/img/unfollow.svg";
+
 import {
   ADD_FAVORITES_REQUEST,
   DELETE_ARTICLE_REQUEST, DELETE_FAVORITES_REQUEST,
   GET_ARTICLE_REQUEST,
   GET_COMMENTS_REQUEST
 } from "../../actions/articles";
+
+import {ReactComponent as EditButton} from "../../assets/img/edit.svg";
+import {ReactComponent as DeleteButton} from "../../assets/img/delete-button.svg";
 
 const ArticleDetailPage = () => {
   const params = useParams();
@@ -86,41 +91,35 @@ const ArticleDetailPage = () => {
           <div className='articleDetailPage__top'>
             <AuthorInfo author={article.author} dateAuthorInfo={dateArticle}/>
 
-            {article.author?.username === user?.username && (
-              <div className='articleDetailPage__editor'>
-                <Button
-                  variant="outlined"
-                  onClick={() => navigate(`/editor/${article.slug}`)}
-                >
-                  Edit
-                </Button>
-
-                <Button
-                  variant="outlined"
-                  onClick={() => deleteArticle()}
-                >
-                  Delete
-                </Button>
-              </div>
-            )}
-
             <div className='articleDetailPage__social'>
-              <div className='articleDetailPage__following'>
-                <a className={`articleDetailPage__follow ${article.author?.following ? 'isFollow' : ''}`} href='#'>
-                  Following: {String(article.author?.following)}</a>
+
+              {article.author?.username === user?.username && (
+                <div className='articleDetailPage__editor'>
+                  <EditButton title='Edit article' onClick={() => navigate(`/editor/${article.slug}`)}/>
+                  <DeleteButton title='Delete article' onClick={() => deleteArticle()}/>
+                </div>
+              )}
+
+              <div className={`articleDetailPage__follow ${article.author?.following ? 'isFollow' : ''}`}>
+                  {article.author?.following ? <UnFollowIcon title='UnFollow'/> : <FollowIcon title='Follow'/>}
               </div>
 
               <div
-                className={`articleDetailPage__favorites ${article?.favorited ? 'favorited' : '' } ${loadingFavorite ? 'loadingFavorite' : ''}` }
-                onClick={() => {(
-                  user
-                    ? article.favorited ? deleteFromFavorites() : addToFavorites()
-                    : navigate('/signin')
-                )}}
+                className={`articleDetailPage__favorites ${article?.favorited ? 'favorited' : ''} ${loadingFavorite ? 'loadingFavorite' : ''}`}
+                onClick={(event) => {
+                  return (loadingFavorite
+                      ? event.preventDefault()
+                      : (user
+                        ? article.favorited ? deleteFromFavorites() : addToFavorites()
+                        : navigate('/signin'))
+                  )
+                }}
               >
                 <FavoritesIcon/>
-                <p className='articleDetailPage__favorites-count' >{article?.favoritesCount}</p>
+                <p className='articleDetailPage__favorites-count'>{article?.favoritesCount}</p>
               </div>
+
+
             </div>
           </div>
 

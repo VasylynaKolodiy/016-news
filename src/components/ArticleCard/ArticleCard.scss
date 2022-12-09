@@ -7,6 +7,20 @@
   box-shadow: rgba(0, 0, 0, 0.24) 0 3px 8px;
   background: url("../../assets/img/HomePage/background.webp") top left no-repeat;
 
+  &__link svg,
+  &__editor svg{
+    width: 30px;
+    height: 30px;
+    opacity: 0.5;
+    transition: .3s linear;
+    cursor: pointer;
+    position: relative;
+    z-index: 5;
+    &:hover{
+      opacity: 1;
+    }
+  }
+
   &__info {
     display: flex;
     flex-direction: column;
@@ -94,6 +108,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    flex-direction: row-reverse;
     gap: 20px;
   }
 
