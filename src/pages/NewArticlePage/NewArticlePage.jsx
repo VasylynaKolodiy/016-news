@@ -1,12 +1,12 @@
 import React, {useState} from 'react';
-import './NewArticle.scss'
+import './NewArticlePage.scss'
 import Button from "@mui/material/Button";
 import {useDispatch, useSelector} from "react-redux";
 import {CREATE_NEW_ARTICLE_REQUEST} from "../../actions/articles";
 import {useNavigate} from "react-router-dom";
 import FormForArticle from "../../components/FormForArticle/FormForArticle";
 
-const NewArticle = () => {
+const NewArticlePage = () => {
 
   const [newArticle, setNewArticle] = useState({
     title: '',
@@ -53,4 +53,4 @@ const NewArticle = () => {
   );
 };
 
-export default NewArticle;
+export default NewArticlePage;

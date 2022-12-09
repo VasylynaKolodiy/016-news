@@ -3,8 +3,8 @@ import HomePage from "../pages/HomePage/HomePage";
 import ArticleDetailPage from "../pages/ArticleDetailPage/ArticleDetailPage";
 import SignUpPage from "../pages/SignUpPage/SignUpPage";
 import SignInPage from "../pages/SignInPage/SignInPage";
-import NewArticle from "../pages/NewArticle/NewArticle";
-import Editor from "../pages/Editor/Editor";
+import NewArticlePage from "../pages/NewArticlePage/NewArticlePage";
+import EditorPage from "../pages/EditorPage/EditorPage";
 
 export const privateRoutes = [
   {
@@ -37,12 +37,12 @@ export const privateRoutes = [
 
   {
     path: "/editor",
-    component: <NewArticle/>,
+    component: <NewArticlePage/>,
     exact: true,
   },
   {
     path: "/editor/:slug",
-    component: <Editor/>,
+    component: <EditorPage/>,
     exact: true,
   },
 

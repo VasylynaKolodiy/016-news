@@ -8,12 +8,19 @@ import {
   GET_ARTICLE_REQUEST,
 } from "../../actions/articles";
 
-const Editor = () => {
+const EditorPage = () => {
   const params = useParams();
   const navigate = useNavigate();
   let loginUserState = useSelector((state) => state.users.user);
   const dispatch = useDispatch();
-  const [editArticle, setEditArticle] = useState({})
+
+  const [editArticle, setEditArticle] = useState({
+    title: '',
+    description: '',
+    body: '',
+    tagList: '',
+    slug: '',
+  })
 
   useEffect(() => {
     dispatch({
@@ -27,11 +34,7 @@ const Editor = () => {
   }, [params.slug])
 
   let data = {
-    article: {
-      title: editArticle.title,
-      description: editArticle.description,
-      body: editArticle.body,
-    }
+    article: editArticle,
   }
 
   const editOwnArticle = async () => {
@@ -66,4 +69,4 @@ const Editor = () => {
   );
 };
 
-export default Editor;
+export default EditorPage;
