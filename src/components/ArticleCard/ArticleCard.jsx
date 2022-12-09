@@ -7,7 +7,6 @@ import {useDispatch, useSelector} from "react-redux";
 import {DELETE_ARTICLE_REQUEST, DELETE_FAVORITES_REQUEST} from "../../actions/articles";
 import {ADD_FAVORITES_REQUEST} from "../../actions/articles";
 import {useNavigate} from "react-router-dom";
-
 import {ReactComponent as InfoButton} from "../../assets/img/info.svg";
 import {ReactComponent as EditButton} from "../../assets/img/edit.svg";
 import {ReactComponent as DeleteButton} from "../../assets/img/delete-button.svg";
@@ -67,7 +66,7 @@ const ArticleCard = ({article}) => {
                     : navigate('/signin'))
               )}}
           >
-            <FavoritesIcon disabled/>
+            <FavoritesIcon title='Likes'/>
             <p
               className='articleCard__favorites-count'
             >

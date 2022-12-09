@@ -1,16 +1,12 @@
 .tags{
-  //position: sticky;
-  //top: 177px;
-  //right: 0;
-  position: fixed;
-  top: 178px;
+  position: sticky;
+  top: 100px;
   right: 165px;
   width: 200px;
   height: max-content;
   background: rgba(255, 255, 255, 0.4);
   padding: 20px;
   box-shadow: rgba(0, 0, 0, 0.24) 0 3px 8px;
-
 
   &__title{
     font-weight: bold;
@@ -23,8 +19,8 @@
     justify-content: flex-start;
     gap: 7px;
     flex-direction: column;
-
   }
+
   &__item{
     background: rgba(0, 0, 0, 0.2);
     padding: 15px;

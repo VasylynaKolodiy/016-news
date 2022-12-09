@@ -9,8 +9,8 @@
 
   &__link svg,
   &__editor svg{
-    width: 30px;
-    height: 30px;
+    width: 25px;
+    height: 25px;
     opacity: 0.5;
     transition: .3s linear;
     cursor: pointer;
@@ -44,6 +44,7 @@
   &__favorites {
     position: relative;
     cursor: pointer;
+    font-size: 10px;
 
     &.favorited {
       svg path {
@@ -52,8 +53,8 @@
     }
 
     & svg {
-      width: 40px;
-      height: 40px;
+      width: 30px;
+      height: 30px;
     }
 
     & svg path {

@@ -101,7 +101,7 @@ const ArticleDetailPage = () => {
               )}
 
               <div className={`articleDetailPage__follow ${article.author?.following ? 'isFollow' : ''}`}>
-                  {article.author?.following ? <UnFollowIcon title='UnFollow'/> : <FollowIcon title='Follow'/>}
+                {article.author?.following ? <UnFollowIcon title='UnFollow'/> : <FollowIcon title='Follow'/>}
               </div>
 
               <div
@@ -115,7 +115,7 @@ const ArticleDetailPage = () => {
                   )
                 }}
               >
-                <FavoritesIcon/>
+                <FavoritesIcon title='Likes'/>
                 <p className='articleDetailPage__favorites-count'>{article?.favoritesCount}</p>
               </div>
 

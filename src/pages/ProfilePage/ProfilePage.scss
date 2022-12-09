@@ -1,3 +1,72 @@
-.profilePage{
-  margin-top: 100px;
+.profilePage {
+  margin: 100px auto 0 auto;
+
+  &__info {
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: -20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+    flex-direction: column;
+    padding: 20px;
+    font-size: 28px;
+    position: relative;
+    margin: 0 auto 40px auto;
+  }
+
+  &__wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+
+  }
+
+  .feeds__tabs-inner{
+    width: 100%;
+  }
+
+  &__follow {
+    color: black;
+    cursor: pointer;
+    position: absolute;
+    bottom: -15px;
+    right: -25px;
+  }
+
+  &__follow svg {
+    width: 35px;
+    height: 35px;
+
+    &.isFollow {
+      & path {
+        opacity: 1;
+        fill: green;
+      }
+    }
+
+    & path {
+      fill: black;
+      opacity: 0.5;
+      transition: .3s linear;
+    }
+
+    &:hover {
+      & path {
+        opacity: 1;
+      }
+    }
+  }
+
+  &__icon{
+    position: relative;
+  }
+
+  nav {
+    margin: 0 auto !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 }

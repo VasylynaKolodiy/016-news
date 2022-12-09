@@ -9,6 +9,12 @@
     grid-gap: 30px;
     position: relative;
   }
-
+  nav {
+    margin: 0 auto !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 }
+
 

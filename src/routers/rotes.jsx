@@ -49,7 +49,7 @@ export const privateRoutes = [
   },
 
   {
-    path: "/@:authorName",
+    path: "/profiles/:authorName",
     component: <ProfilePage/>,
     exact: true,
   },

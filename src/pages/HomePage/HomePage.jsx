@@ -37,6 +37,7 @@ const HomePage = () => {
     setOffset(LIMIT * (value) - LIMIT)
   }
 
+
   return (
     <main className='homePage'>
       <div className="feeds__tabs">
@@ -47,6 +48,7 @@ const HomePage = () => {
           feedName={feedName}
           setTagName={setTagName}
           setPageNumber={setPageNumber}
+          tabText='feed'
         />
 
         {user &&
@@ -56,6 +58,7 @@ const HomePage = () => {
           feedName={feedName}
           // setTagName={setTagName}
           setPageNumber={setPageNumber}
+          tabText='feed'
         />
         }
 
@@ -66,6 +69,7 @@ const HomePage = () => {
           feedName={feedName}
           // setTagName={setTagName}
           setPageNumber={setPageNumber}
+          tabText='feed'
         />
         }
       </div>
@@ -73,47 +77,44 @@ const HomePage = () => {
       {isArticlesLoading
         ? <Loader/>
         : <div className='homePage__wrapper'>
-          <div>
 
-            {feedName === "Global" &&
-            <TabPage
-              tabPageId='Global'
-              articlesState={articlesState}
-              countOfPages={countOfPages}
-              pageNumber={pageNumber}
-              handlePageChange={handlePageChange}
-            />}
+          {feedName === "Global" &&
+          <TabPage
+            tabPageId='Global'
+            articlesState={articlesState}
+            countOfPages={countOfPages}
+            pageNumber={pageNumber}
+            handlePageChange={handlePageChange}
+          />}
 
-            {feedName === "Your" &&
-            <div id="Your" className="feeds__tabs-inner">
-              <div className='articlesList'>
-                lalalala
-                lalalalalalalalalalalala
-                lalalala
-                lalalala
-              </div>
-            </div>}
+          {feedName === "Your" &&
+          <div id="Your" className="feeds__tabs-inner">
+            <div className='articlesList'>
+              lalalala
+              lalalalalalalalalalalala
+              lalalala
+              lalalala
+            </div>
+          </div>}
 
-            {feedName === "Tags" &&
-            <TabPage
-              tabPageId='Tags'
-              articlesState={articlesState}
-              countOfPages={countOfPages}
-              pageNumber={pageNumber}
-              handlePageChange={handlePageChange}
-            />}
+          {feedName === "Tags" &&
+          <TabPage
+            tabPageId='Tags'
+            articlesState={articlesState}
+            countOfPages={countOfPages}
+            pageNumber={pageNumber}
+            handlePageChange={handlePageChange}
+          />}
 
-          </div>
+          <Tags
+            tagName={tagName}
+            setTagName={setTagName}
+            setOffset={setOffset}
+            setFeedName={setFeedName}
+            setPageNumber={setPageNumber}
+          />
         </div>
       }
-
-      <Tags
-        tagName={tagName}
-        setTagName={setTagName}
-        setOffset={setOffset}
-        setFeedName={setFeedName}
-        setPageNumber={setPageNumber}
-      />
     </main>
   );
 };

@@ -6,7 +6,7 @@ import Avatar from "@mui/material/Avatar";
 const AuthorInfo = ({author = {}, dateAuthorInfo = ''}) => {
   return (
     <div className='authorInfo'>
-      <Link className='authorInfo__link' to={`/@${author.username}`}>
+      <Link className='authorInfo__link' to={`/profiles/${author.username}`}>
         <Avatar
           className='authorInfo__photo'
           src={author.image}
