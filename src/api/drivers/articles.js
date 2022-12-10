@@ -3,8 +3,8 @@ import {URL} from "../../helpers/constants"
 import {getHeaders} from "../../helpers";
 
 export const articles = {
-  getArticles: ({limit, offset, tag, token, authorName, favorited}) => {
-    return axios.get(`${URL}articles?${authorName ? 'author='+authorName+'&' : ''}${favorited ? 'favorited='+favorited+'&' : ''}limit=${limit}&offset=${offset}${tag ? '&tag=' + tag : ''}`, token && getHeaders(token) );
+  getArticles: ({limit, offset, tag, token, authorName, favorited, feed}) => {
+    return axios.get(`${URL}articles${feed ? '/feed?' : '?'}${authorName ? 'author='+authorName+'&' : ''}${favorited ? 'favorited='+favorited+'&' : ''}limit=${limit}&offset=${offset}${tag ? '&tag=' + tag : ''}`, token && getHeaders(token) );
   },
 
   getArticle: ({slug, token}) => {

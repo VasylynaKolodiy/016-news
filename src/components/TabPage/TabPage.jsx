@@ -4,6 +4,7 @@ import ArticleCard from "../ArticleCard/ArticleCard";
 import Pagination from "@mui/material/Pagination";
 
 const TabPage = ({tabPageId, articlesState, countOfPages, pageNumber, handlePageChange}) => {
+  console.log(pageNumber, 'pageNumber')
   return (
     <div id={tabPageId}
          className="feeds__tabs-inner">

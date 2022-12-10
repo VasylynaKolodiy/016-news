@@ -19,6 +19,7 @@ import {
 
 import {ReactComponent as EditButton} from "../../assets/img/edit.svg";
 import {ReactComponent as DeleteButton} from "../../assets/img/delete-button.svg";
+import {FOLLOW_REQUEST, UNFOLLOW_REQUEST} from "../../actions/profiles";
 
 const ArticleDetailPage = () => {
   const params = useParams();
@@ -80,6 +81,27 @@ const ArticleDetailPage = () => {
     })
   }
 
+  const followAuthor = () => {
+    dispatch({
+      type: FOLLOW_REQUEST,
+      payload: {
+        username: user?.username,
+        token: user?.token,
+      }
+    })
+  }
+
+  const unfollowAuthor = () => {
+    dispatch({
+      type: UNFOLLOW_REQUEST,
+      payload: {
+        username: user?.username,
+        token: user?.token,
+      }
+    })
+  }
+
+
   return (
     <main className='articleDetailPage'>
       {isArticleLoading
@@ -101,7 +123,10 @@ const ArticleDetailPage = () => {
               )}
 
               {article.author?.username !== user?.username &&
-              <div className={`articleDetailPage__follow ${article.author?.following ? 'isFollow' : ''}`}>
+              <div
+                className={`articleDetailPage__follow ${article.author?.following ? 'isFollow' : ''}`}
+                onClick={() => {article.author?.following ? unfollowAuthor() : followAuthor()}}
+              >
                 {article.author?.following ? <UnFollowIcon title='UnFollow'/> : <FollowIcon title='Follow'/>}
               </div>
               }

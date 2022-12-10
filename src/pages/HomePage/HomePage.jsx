@@ -21,15 +21,28 @@ const HomePage = () => {
   const [feedName, setFeedName] = useState('Global')
 
   useEffect(() => {
-    dispatch({
-      type: GET_ARTICLES_REQUEST,
-      payload: {
-        limit: LIMIT,
-        offset: offset,
-        tag: tagName,
-        token: user?.token,
-      }
-    })
+
+    feedName === 'Your'
+      ? dispatch({
+        type: GET_ARTICLES_REQUEST,
+        payload: {
+          limit: LIMIT,
+          offset: offset,
+          tag: tagName,
+          token: user?.token,
+          feed: 'feed',
+        }
+      })
+      : dispatch({
+        type: GET_ARTICLES_REQUEST,
+        payload: {
+          limit: LIMIT,
+          offset: offset,
+          tag: tagName,
+          token: user?.token,
+        }
+      })
+
   }, [pageNumber, offset, tagName, feedName, user?.token])
 
   const handlePageChange = (event, value) => {
@@ -77,7 +90,7 @@ const HomePage = () => {
       <div className='homePage__wrapper'>
         {isArticlesLoading
           ? <Loader/>
-          : <div className='homePage__wrapperuuno'>
+          : <div>
 
             {feedName === "Global" &&
             <TabPage
@@ -89,15 +102,17 @@ const HomePage = () => {
             />}
 
             {feedName === "Your" &&
-            <div id="Your" className="feeds__tabs-inner">
-              <div className='articlesList'>
-                lalalala
-                lalalalalalalalalalalala
-                lalalala
-                lalalala
-              </div>
-            </div>
+            <>
+              <TabPage
+                tabPageId='Your'
+                articlesState={articlesState}
+                countOfPages={countOfPages}
+                pageNumber={pageNumber}
+                handlePageChange={handlePageChange}
+              />
+              {console.log(articlesState, 'articlesState')}</>
             }
+
 
             {feedName === "Tags" &&
             <TabPage
