@@ -11,7 +11,7 @@ import {ReactComponent as InfoButton} from "../../assets/img/info.svg";
 import {ReactComponent as EditButton} from "../../assets/img/edit.svg";
 import {ReactComponent as DeleteButton} from "../../assets/img/delete-button.svg";
 
-const ArticleCard = ({article}) => {
+const ArticleCard = ({article, tabPageId=''}) => {
   let dateArticle = new Date(article.updatedAt)
   let user = useSelector((state) => state.users.user);
   const loadingFavorite = useSelector((state) => state.articles.loadingFavorite)
@@ -45,6 +45,7 @@ const ArticleCard = ({article}) => {
       payload: {
         slug: article.slug,
         token: user?.token,
+        tabPageId: tabPageId,
       }
     })
   }

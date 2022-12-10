@@ -50,12 +50,14 @@ img {
     transition: .3s linear;
     position: absolute;
     bottom: 0;
-    left: 0;
+    right: 0;
+    left: auto;
   }
   &:hover {
-    &::after,
     &::after {
       width: 100%;
+      left: 0;
+      right: auto;
     }
   }
 }

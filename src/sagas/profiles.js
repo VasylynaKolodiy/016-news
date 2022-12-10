@@ -11,6 +11,26 @@ function* getProfile(action) {
   }
 }
 
+function* follow(action) {
+  try {
+    const res = yield call(Api.profiles.follow, action.payload);
+    yield put({type: profilesActions.FOLLOW_SUCCESS, payload: res.data});
+  } catch (err) {
+    yield put({ type:profilesActions.FOLLOW_FAIL, payload: { error: err.message } });
+  }
+}
+
+function* unfollow(action) {
+  try {
+    const res = yield call(Api.profiles.unfollow, action.payload);
+    yield put({type: profilesActions.UNFOLLOW_SUCCESS, payload: res.data});
+  } catch (err) {
+    yield put({ type:profilesActions.UNFOLLOW_FAIL, payload: { error: err.message } });
+  }
+}
+
 export default all([
   takeLatest(profilesActions.GET_PROFILE_REQUEST, getProfile),
+  takeLatest(profilesActions.FOLLOW_REQUEST, follow),
+  takeLatest(profilesActions.UNFOLLOW_REQUEST, unfollow),
 ])

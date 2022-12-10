@@ -7,11 +7,13 @@ import {
   EDIT_ARTICLE_REQUEST,
   GET_ARTICLE_REQUEST,
 } from "../../actions/articles";
+import Loader from "../../components/Loader/Loader";
 
 const EditorPage = () => {
   const params = useParams();
   const navigate = useNavigate();
   let loginUserState = useSelector((state) => state.users.user);
+  const isArticleLoading = useSelector((state) => state.articles.loading);
   const dispatch = useDispatch();
 
   const [editArticle, setEditArticle] = useState({
@@ -51,20 +53,25 @@ const EditorPage = () => {
 
   return (
     <main className="newArticle">
-      <h2 className='newArticle__title'>Edit article</h2>
-      <form
-        className='newArticle__form'
-        onSubmit={(event) => event.preventDefault()}
-      >
-        <FormForArticle newArticle={editArticle} setNewArticle={setEditArticle}/>
 
-        <Button
-          type='submit'
-          variant="outlined"
-          onClick={() => editOwnArticle()}
-        >Edit</Button>
-      </form>
+      {isArticleLoading
+        ? <Loader/>
+        : <>
+          <h2 className='newArticle__title'>Edit article</h2>
+          <form
+            className='newArticle__form'
+            onSubmit={(event) => event.preventDefault()}
+          >
+            <FormForArticle newArticle={editArticle} setNewArticle={setEditArticle}/>
 
+            <Button
+              type='submit'
+              variant="outlined"
+              onClick={() => editOwnArticle()}
+            >Edit</Button>
+          </form>
+        </>
+      }
     </main>
   );
 };

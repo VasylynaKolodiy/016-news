@@ -9,8 +9,6 @@ const Header = () => {
   const dispatch = useDispatch();
   let loginUserState = useSelector((state) => state.users.user);
 
-  console.log(loginUserState, 'loginUserState')
-  console.log(typeof(loginUserState), 'type')
   function exitUser() {
     dispatch({type: LOGOUT, payload: loginUserState});
   }
@@ -50,7 +48,7 @@ const Header = () => {
             </NavLink>
           </li>
           <li>
-            <NavLink className='loginLink hoverLink loginLink-user' to={`/${loginUserState?.username}`}>
+            <NavLink className='loginLink hoverLink loginLink-user' to={`profiles/${loginUserState?.username}`}>
               <img src={loginUserState?.image} alt="user"/>
               {loginUserState?.username}
             </NavLink>

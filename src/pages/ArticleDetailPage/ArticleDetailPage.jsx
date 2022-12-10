@@ -100,9 +100,11 @@ const ArticleDetailPage = () => {
                 </div>
               )}
 
+              {article.author?.username !== user?.username &&
               <div className={`articleDetailPage__follow ${article.author?.following ? 'isFollow' : ''}`}>
                 {article.author?.following ? <UnFollowIcon title='UnFollow'/> : <FollowIcon title='Follow'/>}
               </div>
+              }
 
               <div
                 className={`articleDetailPage__favorites ${article?.favorited ? 'favorited' : ''} ${loadingFavorite ? 'loadingFavorite' : ''}`}

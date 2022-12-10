@@ -74,47 +74,49 @@ const HomePage = () => {
         }
       </div>
 
-      {isArticlesLoading
-        ? <Loader/>
-        : <div className='homePage__wrapper'>
+      <div className='homePage__wrapper'>
+        {isArticlesLoading
+          ? <Loader/>
+          : <div className='homePage__wrapperuuno'>
 
-          {feedName === "Global" &&
-          <TabPage
-            tabPageId='Global'
-            articlesState={articlesState}
-            countOfPages={countOfPages}
-            pageNumber={pageNumber}
-            handlePageChange={handlePageChange}
-          />}
+            {feedName === "Global" &&
+            <TabPage
+              tabPageId='Global'
+              articlesState={articlesState}
+              countOfPages={countOfPages}
+              pageNumber={pageNumber}
+              handlePageChange={handlePageChange}
+            />}
 
-          {feedName === "Your" &&
-          <div id="Your" className="feeds__tabs-inner">
-            <div className='articlesList'>
-              lalalala
-              lalalalalalalalalalalala
-              lalalala
-              lalalala
+            {feedName === "Your" &&
+            <div id="Your" className="feeds__tabs-inner">
+              <div className='articlesList'>
+                lalalala
+                lalalalalalalalalalalala
+                lalalala
+                lalalala
+              </div>
             </div>
-          </div>}
+            }
 
-          {feedName === "Tags" &&
-          <TabPage
-            tabPageId='Tags'
-            articlesState={articlesState}
-            countOfPages={countOfPages}
-            pageNumber={pageNumber}
-            handlePageChange={handlePageChange}
-          />}
-
-          <Tags
-            tagName={tagName}
-            setTagName={setTagName}
-            setOffset={setOffset}
-            setFeedName={setFeedName}
-            setPageNumber={setPageNumber}
-          />
-        </div>
-      }
+            {feedName === "Tags" &&
+            <TabPage
+              tabPageId='Tags'
+              articlesState={articlesState}
+              countOfPages={countOfPages}
+              pageNumber={pageNumber}
+              handlePageChange={handlePageChange}
+            />}
+          </div>
+        }
+        <Tags
+          tagName={tagName}
+          setTagName={setTagName}
+          setOffset={setOffset}
+          setFeedName={setFeedName}
+          setPageNumber={setPageNumber}
+        />
+      </div>
     </main>
   );
 };

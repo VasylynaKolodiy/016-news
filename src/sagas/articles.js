@@ -97,6 +97,11 @@ function* deleteFavorites(action) {
     res = articles.articles?.map((art) => (
       (art.slug === action.payload.slug) ? (deletedFavorite.data.article) : art)
     )
+
+    if (action.payload.tabPageId === 'Favorited'){
+      res = articles.articles?.filter((art) => (art.slug !== action.payload.slug) && art)
+    }
+
     payload = {articles: res}
 
     yield put({

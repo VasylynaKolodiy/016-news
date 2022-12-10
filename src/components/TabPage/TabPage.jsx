@@ -10,7 +10,7 @@ const TabPage = ({tabPageId, articlesState, countOfPages, pageNumber, handlePage
 
       <div className=' articlesList'>
         {articlesState.articles?.map((article, index) => (
-          <ArticleCard article={article} key={index}/>)
+          <ArticleCard article={article} tabPageId={tabPageId} key={index}/>)
         )}
       </div>
 

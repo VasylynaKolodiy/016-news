@@ -20,31 +20,25 @@
     display: flex;
     align-items: center;
     justify-content: flex-start;
-
   }
 
   .feeds__tabs-inner{
     width: 100%;
   }
 
-  &__follow {
+  &__follow,
+  &__edit{
     color: black;
     cursor: pointer;
     position: absolute;
     bottom: -15px;
-    right: -25px;
+    right: -10px;
   }
 
-  &__follow svg {
-    width: 35px;
-    height: 35px;
-
-    &.isFollow {
-      & path {
-        opacity: 1;
-        fill: green;
-      }
-    }
+  &__follow svg,
+  &__edit svg{
+    width: 25px;
+    height: 25px;
 
     & path {
       fill: black;
@@ -56,6 +50,13 @@
       & path {
         opacity: 1;
       }
+    }
+  }
+
+  &__follow.isFollow {
+    & svg path {
+      opacity: 1;
+      fill: green;
     }
   }
 

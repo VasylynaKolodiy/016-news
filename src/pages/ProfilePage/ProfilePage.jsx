@@ -3,8 +3,9 @@ import './ProfilePage.scss'
 import {useParams} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {GET_ARTICLES_REQUEST} from "../../actions/articles";
-import {GET_PROFILE_REQUEST} from "../../actions/profiles";
+import {FOLLOW_REQUEST, GET_PROFILE_REQUEST} from "../../actions/profiles";
 import {ReactComponent as FollowIcon} from "../../assets/img/followAuthor.svg";
+import {ReactComponent as EditIcon} from "../../assets/img/edit.svg";
 import Avatar from "@mui/material/Avatar";
 import TabButton from "../../components/TabButton/TabButton";
 import Loader from "../../components/Loader/Loader";
@@ -23,7 +24,8 @@ const ProfilePage = () => {
   let [offset, setOffset] = useState(0)
   let countOfPages = totalCount && Math.ceil(totalCount / LIMIT)
   let [pageNumber, setPageNumber] = useState(1);
-  const [feedName, setFeedName] = useState(params.authorName.replace(' ', '_'))
+  const [feedName, setFeedName] = useState(params.authorName)
+
 
   useEffect(() => {
     {
@@ -53,13 +55,26 @@ const ProfilePage = () => {
   useEffect(() => {
     dispatch({
       type: GET_PROFILE_REQUEST,
-      payload: params.authorName,
+      payload: {
+        username: params.authorName,
+        token: user?.token,
+      },
     })
   }, [params.authorName])
 
   const handlePageChange = (event, value) => {
     setPageNumber(value);
     setOffset(LIMIT * (value) - LIMIT)
+  }
+
+  const followAuthor = () => {
+    dispatch({
+      type: FOLLOW_REQUEST,
+      payload: {
+        username:profileState?.username,
+        token: user?.token,
+      }
+    })
   }
 
   return (
@@ -73,9 +88,19 @@ const ProfilePage = () => {
             alt={profileState?.username}
             sx={{height: '90px', width: '90px'}}
           />
-          <div className={`profilePage__follow ${profileState?.following ? 'isFollow' : ''}`}>
-            <FollowIcon title='Follow'/>
-          </div>
+          {params.authorName === user.username
+            ? <div className="profilePage__edit">
+              <EditIcon title='Edit your profile'/>
+            </div>
+
+            : <div
+              className={`profilePage__follow ${profileState?.following ? 'isFollow' : ''}`}
+              onClick={() => followAuthor()}
+            >
+              <FollowIcon title='Follow'/>
+            </div>
+          }
+
         </div>
         <p className='profilePage__name'>{profileState?.username}</p>
       </div>
@@ -83,13 +108,14 @@ const ProfilePage = () => {
 
       <div className="feeds__tabs">
         <TabButton
-          tabName={params.authorName.replace(' ', '_')}
+          tabName={params.authorName}
           setFeedName={setFeedName}
           feedName={feedName}
           setPageNumber={setPageNumber}
           tabText='acrticles'
         />
 
+        {user.username === params.authorName &&
         <TabButton
           tabName='Favorited'
           setFeedName={setFeedName}
@@ -97,6 +123,7 @@ const ProfilePage = () => {
           setPageNumber={setPageNumber}
           tabText='acrticles'
         />
+        }
       </div>
 
 
@@ -104,9 +131,9 @@ const ProfilePage = () => {
         ? <Loader/>
         : <div className='profilePage__wrapper'>
 
-          {feedName === params.authorName.replace(' ', '_') &&
+          {feedName === params.authorName &&
           <TabPage
-            tabPageId='My'
+            tabPageId={params.authorName}
             articlesState={articlesState}
             countOfPages={countOfPages}
             pageNumber={pageNumber}

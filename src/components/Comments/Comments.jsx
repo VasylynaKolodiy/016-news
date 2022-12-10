@@ -34,7 +34,7 @@ const Comments = ({comments}) => {
           <div className='comments__body'>{comment.body}
             {comment.author?.username === user?.username && (
               <div className='comments__delete' onClick={() => deleteOwnComment(comment.id)}>
-                <DeleteButton />
+                <DeleteButton title='Delete comment'/>
               </div>
             )}
 
