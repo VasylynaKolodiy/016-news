@@ -1,7 +1,10 @@
 import React from 'react';
 import './TabButton.scss'
+import {useSelector} from "react-redux";
 
 const TabButton = ({tabName, feedName, setFeedName, setTagName, setPageNumber, tabText}) => {
+  let user = useSelector((state) => state.users.user);
+
   return (
     <button
       className={`feeds__tabs-button ${tabName} hoverLink ${feedName === tabName ? 'active' : ''}`}
@@ -11,7 +14,7 @@ const TabButton = ({tabName, feedName, setFeedName, setTagName, setPageNumber, t
         setPageNumber(1);
       }}
     >
-      {tabName} {tabText}
+      {user.username === tabName ? 'My' :  tabName  } {tabText}
     </button>
   );
 };

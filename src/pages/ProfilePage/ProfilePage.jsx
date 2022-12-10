@@ -3,7 +3,7 @@ import './ProfilePage.scss'
 import {useParams} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {GET_ARTICLES_REQUEST} from "../../actions/articles";
-import {FOLLOW_REQUEST, GET_PROFILE_REQUEST} from "../../actions/profiles";
+import {FOLLOW_REQUEST, GET_PROFILE_REQUEST, UNFOLLOW_REQUEST} from "../../actions/profiles";
 import {ReactComponent as FollowIcon} from "../../assets/img/followAuthor.svg";
 import {ReactComponent as EditIcon} from "../../assets/img/edit.svg";
 import Avatar from "@mui/material/Avatar";
@@ -16,6 +16,7 @@ const ProfilePage = () => {
   const dispatch = useDispatch();
   let user = useSelector((state) => state.users.user);
   const profileState = useSelector((state) => state.profiles.profile).profile;
+  const profileLoading = useSelector((state) => state.profiles.loading);
 
   const isArticlesLoading = useSelector((state) => state.articles.loading);
   const articlesState = useSelector((state) => state.articles.articles);
@@ -24,8 +25,8 @@ const ProfilePage = () => {
   let [offset, setOffset] = useState(0)
   let countOfPages = totalCount && Math.ceil(totalCount / LIMIT)
   let [pageNumber, setPageNumber] = useState(1);
-  const [feedName, setFeedName] = useState(params.authorName)
 
+  const [feedName, setFeedName] = useState(params.authorName)
 
   useEffect(() => {
     {
@@ -71,7 +72,17 @@ const ProfilePage = () => {
     dispatch({
       type: FOLLOW_REQUEST,
       payload: {
-        username:profileState?.username,
+        username: profileState?.username,
+        token: user?.token,
+      }
+    })
+  }
+
+  const unfollowAuthor = () => {
+    dispatch({
+      type: UNFOLLOW_REQUEST,
+      payload: {
+        username: profileState?.username,
         token: user?.token,
       }
     })
@@ -80,79 +91,81 @@ const ProfilePage = () => {
   return (
     <main className='profilePage'>
 
-      <div className='profilePage__info'>
-        <div className='profilePage__icon'>
-          <Avatar
-            className='profilePage__photo'
-            src={profileState?.image}
-            alt={profileState?.username}
-            sx={{height: '90px', width: '90px'}}
-          />
-          {params.authorName === user.username
-            ? <div className="profilePage__edit">
-              <EditIcon title='Edit your profile'/>
-            </div>
+      {profileLoading
+        ? <Loader/>
+        : <div>
+          <div className='profilePage__info'>
+            <div className='profilePage__icon'>
+              <Avatar
+                className='profilePage__photo'
+                src={profileState?.image}
+                alt={profileState?.username}
+                sx={{height: '90px', width: '90px'}}
+              />
+              {params.authorName === user.username
+                ? <div className="profilePage__edit">
+                  <EditIcon title='Edit your profile'/>
+                </div>
 
-            : <div
-              className={`profilePage__follow ${profileState?.following ? 'isFollow' : ''}`}
-              onClick={() => followAuthor()}
-            >
-              <FollowIcon title='Follow'/>
+                : <div
+                  className={`profilePage__follow ${profileState?.following ? 'isFollow' : ''}`}
+                  onClick={() => {profileState?.following ? unfollowAuthor() : followAuthor()}}
+                >
+                  <FollowIcon title='Follow'/>
+                </div>
+              }
+
+            </div>
+            <p className='profilePage__name'>{profileState?.username}</p>
+          </div>
+
+          <div className="feeds__tabs">
+            <TabButton
+              tabName={params.authorName}
+              setFeedName={setFeedName}
+              feedName={feedName}
+              setPageNumber={setPageNumber}
+              tabText='acrticles'
+            />
+
+            {user.username === params.authorName &&
+            <TabButton
+              tabName='Favorited'
+              setFeedName={setFeedName}
+              feedName={feedName}
+              setPageNumber={setPageNumber}
+              tabText='acrticles'
+            />
+            }
+          </div>
+
+
+          {isArticlesLoading
+            ? <Loader/>
+            : <div className='profilePage__wrapper'>
+
+              {feedName === params.authorName &&
+              <TabPage
+                tabPageId={params.authorName}
+                articlesState={articlesState}
+                countOfPages={countOfPages}
+                pageNumber={pageNumber}
+                handlePageChange={handlePageChange}
+              />}
+
+              {feedName === 'Favorited' &&
+              <TabPage
+                tabPageId='Favorited'
+                articlesState={articlesState}
+                countOfPages={countOfPages}
+                pageNumber={pageNumber}
+                handlePageChange={handlePageChange}
+              />}
+
             </div>
           }
-
-        </div>
-        <p className='profilePage__name'>{profileState?.username}</p>
-      </div>
-
-
-      <div className="feeds__tabs">
-        <TabButton
-          tabName={params.authorName}
-          setFeedName={setFeedName}
-          feedName={feedName}
-          setPageNumber={setPageNumber}
-          tabText='acrticles'
-        />
-
-        {user.username === params.authorName &&
-        <TabButton
-          tabName='Favorited'
-          setFeedName={setFeedName}
-          feedName={feedName}
-          setPageNumber={setPageNumber}
-          tabText='acrticles'
-        />
-        }
-      </div>
-
-
-      {isArticlesLoading
-        ? <Loader/>
-        : <div className='profilePage__wrapper'>
-
-          {feedName === params.authorName &&
-          <TabPage
-            tabPageId={params.authorName}
-            articlesState={articlesState}
-            countOfPages={countOfPages}
-            pageNumber={pageNumber}
-            handlePageChange={handlePageChange}
-          />}
-
-          {feedName === 'Favorited' &&
-          <TabPage
-            tabPageId='Favorited'
-            articlesState={articlesState}
-            countOfPages={countOfPages}
-            pageNumber={pageNumber}
-            handlePageChange={handlePageChange}
-          />}
-
         </div>
       }
-
-
     </main>
 
   );

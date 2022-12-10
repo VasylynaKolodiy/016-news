@@ -39,39 +39,33 @@ export default function profiles(state = initialState, action) {
     case FOLLOW_REQUEST:
       return {
         ...state,
-        loading: true
       };
 
     case FOLLOW_SUCCESS:
       return {
         ...state,
         profile: action.payload,
-        loading: false,
       };
 
     case FOLLOW_FAIL:
       return {
         ...state,
-        loading: false,
       };
 
     case UNFOLLOW_REQUEST:
       return {
         ...state,
-        loading: true
       };
 
     case UNFOLLOW_SUCCESS:
       return {
         ...state,
         profile: action.payload,
-        loading: false,
       };
 
     case UNFOLLOW_FAIL:
       return {
         ...state,
-        loading: false,
       };
 
     default:
