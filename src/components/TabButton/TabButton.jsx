@@ -2,7 +2,7 @@ import React from 'react';
 import './TabButton.scss'
 import {useSelector} from "react-redux";
 
-const TabButton = ({tabName, feedName, setFeedName, setTagName, setPageNumber, tabText}) => {
+const TabButton = ({tabName, feedName, setFeedName, setTagName, setPageNumber, setOffset, tabText}) => {
   let user = useSelector((state) => state.users.user);
 
   return (
@@ -12,9 +12,10 @@ const TabButton = ({tabName, feedName, setFeedName, setTagName, setPageNumber, t
         setTagName && setTagName('')
         setFeedName(tabName);
         setPageNumber(1);
+        setOffset && setOffset(0);
       }}
     >
-      {user.username === tabName ? 'My' :  tabName  } {tabText}
+      {user?.username === tabName ? 'My' :  tabName  } {tabText}
     </button>
   );
 };

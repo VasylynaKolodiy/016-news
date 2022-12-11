@@ -33,7 +33,9 @@ const HomePage = () => {
           feed: 'feed',
         }
       })
-      : dispatch({
+      :
+      setFeedName('Global');
+      dispatch({
         type: GET_ARTICLES_REQUEST,
         payload: {
           limit: LIMIT,
@@ -43,7 +45,7 @@ const HomePage = () => {
         }
       })
 
-  }, [pageNumber, offset, tagName, feedName, user?.token])
+  }, [pageNumber, offset, tagName, feedName, user?.token, user])
 
   const handlePageChange = (event, value) => {
     setPageNumber(value);
@@ -54,12 +56,12 @@ const HomePage = () => {
   return (
     <main className='homePage'>
       <div className="feeds__tabs">
-
         <TabButton
           tabName='Global'
           setFeedName={setFeedName}
           feedName={feedName}
           setTagName={setTagName}
+          setOffset={setOffset}
           setPageNumber={setPageNumber}
           tabText='feed'
         />
@@ -69,7 +71,7 @@ const HomePage = () => {
           tabName='Your'
           setFeedName={setFeedName}
           feedName={feedName}
-          // setTagName={setTagName}
+          setOffset={setOffset}
           setPageNumber={setPageNumber}
           tabText='feed'
         />
@@ -80,7 +82,7 @@ const HomePage = () => {
           tabName='Tags'
           setFeedName={setFeedName}
           feedName={feedName}
-          // setTagName={setTagName}
+          setOffset={setOffset}
           setPageNumber={setPageNumber}
           tabText='feed'
         />

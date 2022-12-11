@@ -9,7 +9,7 @@ const TabPage = ({tabPageId, articlesState, countOfPages, pageNumber, handlePage
     <div id={tabPageId}
          className="feeds__tabs-inner">
 
-      {articlesState.articles.length > 0
+      {articlesState.articles?.length > 0
         ? <div>
           <div className=' articlesList'>
             {articlesState.articles?.map((article, index) => (
@@ -30,9 +30,7 @@ const TabPage = ({tabPageId, articlesState, countOfPages, pageNumber, handlePage
         : <h3 style={{textAlign: 'left'}}>
           No articles are here... yet.
         </h3>
-
       }
-
 
     </div>
   );

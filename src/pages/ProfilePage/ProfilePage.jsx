@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from 'react';
-import './ProfilePage.scss'
 import {useParams} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {GET_ARTICLES_REQUEST} from "../../actions/articles";
@@ -11,6 +10,7 @@ import Avatar from "@mui/material/Avatar";
 import TabButton from "../../components/TabButton/TabButton";
 import Loader from "../../components/Loader/Loader";
 import TabPage from "../../components/TabPage/TabPage";
+import './ProfilePage.scss'
 
 const ProfilePage = () => {
   const params = useParams();
@@ -30,31 +30,6 @@ const ProfilePage = () => {
   const [feedName, setFeedName] = useState(params.authorName)
 
   useEffect(() => {
-    {
-      feedName === 'Favorited' ?
-        dispatch({
-          type: GET_ARTICLES_REQUEST,
-          payload: {
-            limit: LIMIT,
-            offset: offset,
-            token: user?.token,
-            favorited: params.authorName,
-          }
-        })
-        :
-        dispatch({
-          type: GET_ARTICLES_REQUEST,
-          payload: {
-            limit: LIMIT,
-            offset: offset,
-            token: user?.token,
-            authorName: params.authorName,
-          }
-        })
-    }
-  }, [pageNumber, offset, feedName, user?.token])
-
-  useEffect(() => {
     dispatch({
       type: GET_PROFILE_REQUEST,
       payload: {
@@ -63,6 +38,33 @@ const ProfilePage = () => {
       },
     })
   }, [params.authorName])
+
+  useEffect(() => {
+    {
+      feedName === 'Favorited'
+        ? dispatch({
+            type: GET_ARTICLES_REQUEST,
+            payload: {
+              limit: LIMIT,
+              offset: offset,
+              token: user?.token,
+              favorited: params.authorName,
+          }
+        })
+        :
+        setFeedName(params.authorName);
+        dispatch({
+            type: GET_ARTICLES_REQUEST,
+            payload: {
+              limit: LIMIT,
+              offset: offset,
+              token: user?.token,
+              authorName: params.authorName,
+          }
+        })
+    }
+  }, [pageNumber, offset, feedName, user?.token, params.authorName, profileState.username])
+
 
   const handlePageChange = (event, value) => {
     setPageNumber(value);
@@ -108,23 +110,23 @@ const ProfilePage = () => {
             <div className='profilePage__name'>
               {profileState?.username}
 
-              {params.authorName === user.username
-                ? <div className="profilePage__edit">
+              {params.authorName === user?.username
+                ? (<div className="profilePage__edit">
                   <EditIcon title='Edit your profile'/>
-                </div>
+                </div>)
 
-
-                : <div
+                : (<div
                   className={`profilePage__follow ${profileState?.following ? 'isFollow' : ''}`}
                   onClick={() => {
                     profileState?.following ? unfollowAuthor() : followAuthor()
                   }}
                 >
-                  {profileState?.following ? <UnFollowIcon title='UnFollow'/> : <FollowIcon title='Follow'/>}
-                </div>
-
+                  {profileState?.following
+                    ? <UnFollowIcon title='UnFollow'/>
+                    : <FollowIcon title='Follow'/>
+                  }
+                </div>)
               }
-
             </div>
           </div>
 
@@ -133,15 +135,17 @@ const ProfilePage = () => {
               tabName={params.authorName}
               setFeedName={setFeedName}
               feedName={feedName}
+              setOffset={setOffset}
               setPageNumber={setPageNumber}
               tabText='acrticles'
             />
 
-            {user.username === params.authorName &&
+            {user?.username === params.authorName &&
             <TabButton
               tabName='Favorited'
               setFeedName={setFeedName}
               feedName={feedName}
+              setOffset={setOffset}
               setPageNumber={setPageNumber}
               tabText='acrticles'
             />
@@ -162,14 +166,15 @@ const ProfilePage = () => {
                 handlePageChange={handlePageChange}
               />}
 
-              {feedName === 'Favorited' &&
-              <TabPage
-                tabPageId='Favorited'
-                articlesState={articlesState}
-                countOfPages={countOfPages}
-                pageNumber={pageNumber}
-                handlePageChange={handlePageChange}
-              />}
+              {feedName === 'Favorited' && (
+                <TabPage
+                  tabPageId='Favorited'
+                  articlesState={articlesState}
+                  countOfPages={countOfPages}
+                  pageNumber={pageNumber}
+                  handlePageChange={handlePageChange}
+                />
+              )}
 
             </div>
           }
