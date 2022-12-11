@@ -63,7 +63,7 @@ const ProfilePage = () => {
           }
         })
     }
-  }, [pageNumber, offset, feedName, user?.token, params.authorName, profileState.username])
+  }, [pageNumber, offset, feedName, user?.token, params.authorName, profileState?.username])
 
 
   const handlePageChange = (event, value) => {

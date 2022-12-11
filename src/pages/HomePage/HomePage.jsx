@@ -33,9 +33,7 @@ const HomePage = () => {
           feed: 'feed',
         }
       })
-      :
-      setFeedName('Global');
-      dispatch({
+      : dispatch({
         type: GET_ARTICLES_REQUEST,
         payload: {
           limit: LIMIT,
