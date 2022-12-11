@@ -30,6 +30,7 @@ const ArticleDetailPage = () => {
   const article = useSelector((state) => state.articles.article);
   const comments = useSelector((state) => state.articles.comments);
   const loadingFavorite = useSelector((state) => state.articles.loadingFavorite);
+  const profileState = useSelector((state) => state.profiles.profile).profile;
 
   useEffect(() => {
     dispatch({
@@ -85,7 +86,7 @@ const ArticleDetailPage = () => {
     dispatch({
       type: FOLLOW_REQUEST,
       payload: {
-        username: user?.username,
+        username: article.author?.username,
         token: user?.token,
       }
     })
@@ -95,7 +96,7 @@ const ArticleDetailPage = () => {
     dispatch({
       type: UNFOLLOW_REQUEST,
       payload: {
-        username: user?.username,
+        username: article.author?.username,
         token: user?.token,
       }
     })
@@ -124,10 +125,10 @@ const ArticleDetailPage = () => {
 
               {article.author?.username !== user?.username &&
               <div
-                className={`articleDetailPage__follow ${article.author?.following ? 'isFollow' : ''}`}
-                onClick={() => {article.author?.following ? unfollowAuthor() : followAuthor()}}
+                className={`articleDetailPage__follow ${profileState?.following ? 'isFollow' : ''}`}
+                onClick={() => {profileState?.following ? unfollowAuthor() : followAuthor()}}
               >
-                {article.author?.following ? <UnFollowIcon title='UnFollow'/> : <FollowIcon title='Follow'/>}
+                {profileState?.following ? <UnFollowIcon title='UnFollow'/> : <FollowIcon title='Follow'/>}
               </div>
               }
 

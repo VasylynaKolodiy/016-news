@@ -12,8 +12,14 @@
     flex-direction: column;
     padding: 20px;
     font-size: 28px;
-    position: relative;
     margin: 0 auto 40px auto;
+  }
+
+  &__name {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 10px;
   }
 
   &__wrapper {
@@ -22,27 +28,23 @@
     justify-content: flex-start;
   }
 
-  .feeds__tabs-inner{
+  .feeds__tabs-inner {
     width: 100%;
   }
 
   &__follow,
-  &__edit{
+  &__edit {
     color: black;
     cursor: pointer;
-    position: absolute;
-    bottom: -15px;
-    right: -10px;
   }
 
   &__follow svg,
-  &__edit svg{
-    width: 25px;
-    height: 25px;
+  &__edit svg {
+    width: 40px;
+    height: 40px;
 
     & path {
-      fill: black;
-      opacity: 0.5;
+      opacity: 0.3;
       transition: .3s linear;
     }
 
@@ -56,13 +58,15 @@
   &__follow.isFollow {
     & svg path {
       opacity: 1;
-      fill: green;
+    }
+
+    &:hover {
+      & svg path {
+        opacity: 0.3;
+      }
     }
   }
 
-  &__icon{
-    position: relative;
-  }
 
   nav {
     margin: 0 auto !important;

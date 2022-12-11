@@ -21,6 +21,7 @@
     position: relative;
     cursor: pointer;
     font-size: 11px;
+
     &:hover {
       & svg path {
         fill: rgba(255, 0, 0, 0.4);
@@ -28,7 +29,7 @@
     }
   }
 
-  &__favorites.loadingFavorite{
+  &__favorites.loadingFavorite {
     cursor: wait;
   }
 
@@ -36,6 +37,7 @@
     & svg path {
       fill: rgba(255, 0, 0, 0.4);
     }
+
     &:hover {
       & svg path {
         fill: rgba(0, 0, 0, 0.4);
@@ -44,8 +46,8 @@
   }
 
   &__favorites svg {
-    width: 35px;
-    height: 35px;
+    width: 40px;
+    height: 40px;
   }
 
   &__favorites svg path {
@@ -65,25 +67,26 @@
     color: black;
     cursor: pointer;
   }
-  &__follow svg{
-    width: 45px;
-    height: 45px;
-    & path {
-      fill: black;
-      opacity: 0.5;
-      transition: .3s linear;
-    }
-    &:hover{
-      & path{
-        opacity: 1;
-      }
+
+  &__follow svg {
+    width: 35px;
+    height: 35px;
+    opacity: 0.3;
+    transition: .3s linear;
+
+    &:hover {
+      opacity: 1;
     }
   }
 
-  &__follow.isFollow{
-    & svg path{
+  &__follow.isFollow {
+    & svg{
       opacity: 1;
-      fill: black;
+    }
+    &:hover{
+      & svg{
+        opacity: 0.3;
+      }
     }
   }
 
@@ -96,11 +99,12 @@
     background-color: rgba(0, 0, 0, 0.2);
   }
 
-  &__editor{
+  &__editor {
     display: flex;
     gap: 10px;
   }
-  &__editor svg{
+
+  &__editor svg {
     width: 30px;
     height: 30px;
     opacity: 0.5;
@@ -108,7 +112,8 @@
     cursor: pointer;
     position: relative;
     z-index: 5;
-    &:hover{
+
+    &:hover {
       opacity: 1;
     }
   }

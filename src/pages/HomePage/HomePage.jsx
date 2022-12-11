@@ -110,7 +110,7 @@ const HomePage = () => {
                 pageNumber={pageNumber}
                 handlePageChange={handlePageChange}
               />
-              {console.log(articlesState, 'articlesState')}</>
+            </>
             }
 
 

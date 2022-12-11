@@ -4,7 +4,8 @@ import {useParams} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {GET_ARTICLES_REQUEST} from "../../actions/articles";
 import {FOLLOW_REQUEST, GET_PROFILE_REQUEST, UNFOLLOW_REQUEST} from "../../actions/profiles";
-import {ReactComponent as FollowIcon} from "../../assets/img/followAuthor.svg";
+import {ReactComponent as FollowIcon} from "../../assets/img/follow.svg";
+import {ReactComponent as UnFollowIcon} from "../../assets/img/unfollow.svg";
 import {ReactComponent as EditIcon} from "../../assets/img/edit.svg";
 import Avatar from "@mui/material/Avatar";
 import TabButton from "../../components/TabButton/TabButton";
@@ -102,21 +103,29 @@ const ProfilePage = () => {
                 alt={profileState?.username}
                 sx={{height: '90px', width: '90px'}}
               />
+
+            </div>
+            <div className='profilePage__name'>
+              {profileState?.username}
+
               {params.authorName === user.username
                 ? <div className="profilePage__edit">
                   <EditIcon title='Edit your profile'/>
                 </div>
 
+
                 : <div
                   className={`profilePage__follow ${profileState?.following ? 'isFollow' : ''}`}
-                  onClick={() => {profileState?.following ? unfollowAuthor() : followAuthor()}}
+                  onClick={() => {
+                    profileState?.following ? unfollowAuthor() : followAuthor()
+                  }}
                 >
-                  <FollowIcon title='Follow'/>
+                  {profileState?.following ? <UnFollowIcon title='UnFollow'/> : <FollowIcon title='Follow'/>}
                 </div>
+
               }
 
             </div>
-            <p className='profilePage__name'>{profileState?.username}</p>
           </div>
 
           <div className="feeds__tabs">

@@ -23,6 +23,7 @@ function* follow(action) {
 function* unfollow(action) {
   try {
     const res = yield call(Api.profiles.unfollow, action.payload);
+    console.log(res.data, 'res.data')
     yield put({type: profilesActions.UNFOLLOW_SUCCESS, payload: res.data});
   } catch (err) {
     yield put({ type:profilesActions.UNFOLLOW_FAIL, payload: { error: err.message } });
