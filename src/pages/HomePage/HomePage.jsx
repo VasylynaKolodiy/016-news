@@ -21,7 +21,6 @@ const HomePage = () => {
   const [feedName, setFeedName] = useState('Global')
 
   useEffect(() => {
-
     feedName === 'Your'
       ? dispatch({
         type: GET_ARTICLES_REQUEST,
@@ -33,6 +32,7 @@ const HomePage = () => {
           feed: 'feed',
         }
       })
+
       : dispatch({
         type: GET_ARTICLES_REQUEST,
         payload: {
@@ -44,6 +44,7 @@ const HomePage = () => {
       })
 
   }, [pageNumber, offset, tagName, feedName, user?.token, user])
+
 
   const handlePageChange = (event, value) => {
     setPageNumber(value);

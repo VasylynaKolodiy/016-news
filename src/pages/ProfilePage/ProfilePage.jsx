@@ -43,25 +43,26 @@ const ProfilePage = () => {
     {
       feedName === 'Favorited'
         ? dispatch({
-            type: GET_ARTICLES_REQUEST,
-            payload: {
-              limit: LIMIT,
-              offset: offset,
-              token: user?.token,
-              favorited: params.authorName,
+          type: GET_ARTICLES_REQUEST,
+          payload: {
+            limit: LIMIT,
+            offset: offset,
+            token: user?.token,
+            favorited: params.authorName,
           }
         })
-        :
-        setFeedName(params.authorName);
-        dispatch({
-            type: GET_ARTICLES_REQUEST,
-            payload: {
-              limit: LIMIT,
-              offset: offset,
-              token: user?.token,
-              authorName: params.authorName,
-          }
-        })
+        : setFeedName(params.authorName);
+
+      feedName !== 'Favorited' &&
+      dispatch({
+        type: GET_ARTICLES_REQUEST,
+        payload: {
+          limit: LIMIT,
+          offset: offset,
+          token: user?.token,
+          authorName: params.authorName,
+        }
+      })
     }
   }, [pageNumber, offset, feedName, user?.token, params.authorName, profileState?.username])
 

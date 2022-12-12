@@ -15,22 +15,21 @@ const NewArticlePage = () => {
     tagList: [],
   })
 
-
   const dispatch = useDispatch();
   let loginUserState = useSelector((state) => state.users.user);
   let data = {article: newArticle}
   const navigate = useNavigate();
+
   const clickOnButton = async () => {
     dispatch({
       type: CREATE_NEW_ARTICLE_REQUEST,
+      navigate: navigate,
       payload: {
         data: data,
         token: loginUserState.token,
       },
-      navigate: navigate,
     })
   }
-
 
   return (
     <main className="newArticle">
@@ -39,16 +38,14 @@ const NewArticlePage = () => {
         className='newArticle__form'
         onSubmit={(event) => event.preventDefault()}
       >
-       <FormForArticle newArticle={newArticle} setNewArticle={setNewArticle} />
+        <FormForArticle newArticle={newArticle} setNewArticle={setNewArticle}/>
 
         <Button
           type='submit'
           variant="outlined"
           onClick={() => clickOnButton()}
         >ADD</Button>
-
       </form>
-
     </main>
   );
 };
