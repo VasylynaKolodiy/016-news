@@ -30,7 +30,7 @@ const ArticleDetailPage = () => {
   const article = useSelector((state) => state.articles.article);
   const comments = useSelector((state) => state.articles.comments);
   const loadingFavorite = useSelector((state) => state.articles.loadingFavorite);
-  const profileState = useSelector((state) => state.profiles.profile).profile;
+  const profileState = useSelector((state) => state.profiles.profile);
 
   useEffect(() => {
     dispatch({

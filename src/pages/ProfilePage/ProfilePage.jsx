@@ -16,7 +16,7 @@ const ProfilePage = () => {
   const params = useParams();
   const dispatch = useDispatch();
   let user = useSelector((state) => state.users.user);
-  const profileState = useSelector((state) => state.profiles.profile).profile;
+  const profileState = useSelector((state) => state.profiles.profile);
   const profileLoading = useSelector((state) => state.profiles.loading);
 
   const isArticlesLoading = useSelector((state) => state.articles.loading);
