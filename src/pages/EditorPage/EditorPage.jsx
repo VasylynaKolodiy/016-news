@@ -8,6 +8,7 @@ import {
   GET_ARTICLE_REQUEST,
 } from "../../actions/articles";
 import Loader from "../../components/Loader/Loader";
+import {GET_TAGS_REQUEST} from "../../actions/generals";
 
 const EditorPage = () => {
   const params = useParams();
@@ -15,6 +16,7 @@ const EditorPage = () => {
   let loginUserState = useSelector((state) => state.users.user);
   const isArticleLoading = useSelector((state) => state.articles.loading);
   const dispatch = useDispatch();
+  const allTagsState = useSelector((state) => state.generals.tags)?.tags;
 
   const [editArticle, setEditArticle] = useState({
     title: '',
@@ -35,6 +37,12 @@ const EditorPage = () => {
     })
   }, [params.slug])
 
+  useEffect(() => {
+    dispatch({
+      type: GET_TAGS_REQUEST,
+    })
+  }, [])
+
   let data = {
     article: editArticle,
   }
@@ -53,25 +61,28 @@ const EditorPage = () => {
 
   return (
     <main className="newArticle">
-
-      {isArticleLoading
-        ? <Loader/>
-        : <>
-          <h2 className='newArticle__title'>Edit article</h2>
-          <form
-            className='newArticle__form'
-            onSubmit={(event) => event.preventDefault()}
-          >
-            <FormForArticle newArticle={editArticle} setNewArticle={setEditArticle}/>
+      <h2 className='newArticle__title'>Edit article</h2>
+      <form
+        className='newArticle__form'
+        onSubmit={(event) => event.preventDefault()}
+      >
+        {isArticleLoading
+          ? <Loader/>
+          : <>
+            <FormForArticle
+              newArticle={editArticle}
+              setNewArticle={setEditArticle}
+              allTagsState={allTagsState}
+            />
 
             <Button
               type='submit'
               variant="outlined"
               onClick={() => editOwnArticle()}
             >Edit</Button>
-          </form>
-        </>
-      }
+          </>
+        }
+      </form>
     </main>
   );
 };

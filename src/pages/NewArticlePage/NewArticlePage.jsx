@@ -1,10 +1,12 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import './NewArticlePage.scss'
 import Button from "@mui/material/Button";
 import {useDispatch, useSelector} from "react-redux";
 import {CREATE_NEW_ARTICLE_REQUEST} from "../../actions/articles";
 import {useNavigate} from "react-router-dom";
 import FormForArticle from "../../components/FormForArticle/FormForArticle";
+import {GET_TAGS_REQUEST} from "../../actions/generals";
+import Loader from "../../components/Loader/Loader";
 
 const NewArticlePage = () => {
 
@@ -19,6 +21,14 @@ const NewArticlePage = () => {
   let loginUserState = useSelector((state) => state.users.user);
   let data = {article: newArticle}
   const navigate = useNavigate();
+  let newArticleError = useSelector((state) => state.articles.error);
+  const allTagsState = useSelector((state) => state.generals.tags)?.tags;
+
+  useEffect(() => {
+    dispatch({
+      type: GET_TAGS_REQUEST,
+    })
+  }, [])
 
   const clickOnButton = async () => {
     dispatch({
@@ -38,13 +48,24 @@ const NewArticlePage = () => {
         className='newArticle__form'
         onSubmit={(event) => event.preventDefault()}
       >
-        <FormForArticle newArticle={newArticle} setNewArticle={setNewArticle}/>
+        {!allTagsState
+          ? <Loader/>
+          : (<>
+              <FormForArticle
+                newArticle={newArticle}
+                setNewArticle={setNewArticle}
+                newArticleError={newArticleError}
+                allTagsState={allTagsState}
+              />
 
-        <Button
-          type='submit'
-          variant="outlined"
-          onClick={() => clickOnButton()}
-        >ADD</Button>
+              <Button
+                type='submit'
+                variant="outlined"
+                onClick={() => clickOnButton()}
+              >ADD</Button>
+            </>
+          )
+        }
       </form>
     </main>
   );
