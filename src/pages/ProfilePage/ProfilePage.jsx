@@ -109,7 +109,7 @@ const ProfilePage = () => {
 
             </div>
             <div className='profilePage__name'>
-              {profileState?.username}
+              <div>{profileState?.username}</div>
 
               {user && (
                 params.authorName === user?.username
