@@ -31,7 +31,7 @@ const initialState = {
   loading: false,
   articles: {},
   article: {},
-  comments: {},
+  comments: [],
   newArticle: {},
   deletedArticle: [],
   loadingFavorite: false,
