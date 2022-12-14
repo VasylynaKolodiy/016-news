@@ -123,14 +123,18 @@ const ArticleDetailPage = () => {
                 </div>
               )}
 
-              {article.author?.username !== user?.username &&
-              <div
-                className={`articleDetailPage__follow ${profileState?.following ? 'isFollow' : ''}`}
-                onClick={() => {profileState?.following ? unfollowAuthor() : followAuthor()}}
-              >
-                {profileState?.following ? <UnFollowIcon title='UnFollow'/> : <FollowIcon title='Follow'/>}
-              </div>
+              {user && (
+                article.author?.username !== user?.username &&
+                <div
+                  className={`articleDetailPage__follow ${profileState?.following ? 'isFollow' : ''}`}
+                  onClick={() => {
+                    profileState?.following ? unfollowAuthor() : followAuthor()
+                  }}
+                >
+                  {profileState?.following ? <UnFollowIcon title='UnFollow'/> : <FollowIcon title='Follow'/>}
+                </div>)
               }
+
 
               <div
                 className={`articleDetailPage__favorites ${article?.favorited ? 'favorited' : ''} ${loadingFavorite ? 'loadingFavorite' : ''}`}

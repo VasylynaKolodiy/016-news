@@ -15,7 +15,7 @@ import './ProfilePage.scss'
 const ProfilePage = () => {
   const params = useParams();
   const dispatch = useDispatch();
-  let user = useSelector((state) => state.users.user);
+  const user = useSelector((state) => state.users.user);
   const profileState = useSelector((state) => state.profiles.profile);
   const profileLoading = useSelector((state) => state.profiles.loading);
 
@@ -41,7 +41,7 @@ const ProfilePage = () => {
 
   useEffect(() => {
     {
-      feedName === 'Favorited'
+      ( params.authorName === user?.username ) && ( feedName === 'Favorited' )
         ? dispatch({
           type: GET_ARTICLES_REQUEST,
           payload: {
@@ -111,23 +111,26 @@ const ProfilePage = () => {
             <div className='profilePage__name'>
               {profileState?.username}
 
-              {params.authorName === user?.username
-                ? (<div className="profilePage__edit">
-                  <EditIcon title='Edit your profile'/>
-                </div>)
+              {user && (
+                params.authorName === user?.username
+                  ? (<div className="profilePage__edit">
+                    <EditIcon title='Edit your profile'/>
+                  </div>)
 
-                : (<div
-                  className={`profilePage__follow ${profileState?.following ? 'isFollow' : ''}`}
-                  onClick={() => {
-                    profileState?.following ? unfollowAuthor() : followAuthor()
-                  }}
-                >
-                  {profileState?.following
-                    ? <UnFollowIcon title='UnFollow'/>
-                    : <FollowIcon title='Follow'/>
-                  }
-                </div>)
-              }
+                  : (<div
+                    className={`profilePage__follow ${profileState?.following ? 'isFollow' : ''}`}
+                    onClick={() => {
+                      profileState?.following ? unfollowAuthor() : followAuthor()
+                    }}
+                  >
+                    {profileState?.following
+                      ? <UnFollowIcon title='UnFollow'/>
+                      : <FollowIcon title='Follow'/>
+                    }
+                  </div>)
+              )}
+
+
             </div>
           </div>
 

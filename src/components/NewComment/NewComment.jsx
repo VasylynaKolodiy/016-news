@@ -51,6 +51,7 @@ const NewComment = () => {
 
             <Button
               type='submit'
+              disabled = {!newComment.body}
               variant="outlined"
               onClick={() => addOwnComment()}
             >Add comment</Button>

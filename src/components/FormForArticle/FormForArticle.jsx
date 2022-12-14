@@ -64,7 +64,7 @@ const FormForArticle = ({newArticle, setNewArticle, newArticleError='', allTagsS
             <TextField
               {...params}
               variant="standard"
-              label="Multiple values"
+              label="Select tags"
               placeholder="Tags"
             />
           )}

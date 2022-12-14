@@ -34,14 +34,13 @@ const Comments = ({comments}) => {
           <div className='comments__body'>{comment.body}
             {comment.author?.username === user?.username && (
               <div className='comments__delete' onClick={() => deleteOwnComment(comment.id)}>
-                <DeleteButton title='Delete comment'/>
+                <DeleteButton title='Delete comment' />
               </div>
             )}
 
           </div>
         </div>)
       )}
-
 
     </div>
   );

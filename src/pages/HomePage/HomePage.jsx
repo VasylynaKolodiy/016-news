@@ -21,7 +21,7 @@ const HomePage = () => {
   const [feedName, setFeedName] = useState('Global')
 
   useEffect(() => {
-    feedName === 'Your'
+    user && feedName === 'Your'
       ? dispatch({
         type: GET_ARTICLES_REQUEST,
         payload: {
