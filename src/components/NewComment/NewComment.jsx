@@ -55,13 +55,8 @@ const NewComment = () => {
               variant="outlined"
               onClick={() => addOwnComment()}
             >Add comment</Button>
-
           </FormControl>
-
-
         </form>
-
-
       </div>
     </div>
   )
