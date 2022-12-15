@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {useParams} from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {GET_ARTICLES_REQUEST} from "../../actions/articles";
 import {FOLLOW_REQUEST, GET_PROFILE_REQUEST, UNFOLLOW_REQUEST} from "../../actions/profiles";
@@ -113,9 +113,9 @@ const ProfilePage = () => {
 
               {user && (
                 params.authorName === user?.username
-                  ? (<div className="profilePage__edit">
+                  ? (<Link className="profilePage__edit" to='/settings'>
                     <EditIcon title='Edit your profile'/>
-                  </div>)
+                  </Link>)
 
                   : (<div
                     className={`profilePage__follow ${profileState?.following ? 'isFollow' : ''}`}

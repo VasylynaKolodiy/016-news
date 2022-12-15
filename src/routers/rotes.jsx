@@ -6,6 +6,7 @@ import SignInPage from "../pages/SignInPage/SignInPage";
 import NewArticlePage from "../pages/NewArticlePage/NewArticlePage";
 import EditorPage from "../pages/EditorPage/EditorPage";
 import ProfilePage from "../pages/ProfilePage/ProfilePage";
+import SettingsPage from "../pages/SettingsPage/SettingsPage";
 
 export const privateRoutes = [
   {
@@ -51,6 +52,12 @@ export const privateRoutes = [
   {
     path: "/profiles/:authorName",
     component: <ProfilePage/>,
+    exact: true,
+  },
+
+  {
+    path: "/settings",
+    component: <SettingsPage/>,
     exact: true,
   },
 
