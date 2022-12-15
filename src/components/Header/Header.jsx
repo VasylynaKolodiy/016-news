@@ -44,7 +44,7 @@ const Header = () => {
           </li>
           <li>
             <NavLink className='loginLink hoverLink' to='/settings'>
-              Setting
+              Settings
             </NavLink>
           </li>
           <li>
