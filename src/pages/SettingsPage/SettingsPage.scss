@@ -1,3 +1,19 @@
 .settingsPage{
+  margin: 100px auto 0 auto;
+
+  &__title{
+    margin-bottom: 30px;
+  }
+
+  &__form{
+    background-color: rgba(255, 255, 255, 0.4);
+    padding: 30px 20px;
+    box-shadow: rgb(0 0 0 / 24%) 0 3px 8px;
+  }
+
+  .formControl{
+    width: 90%;
+    margin-bottom: 20px;
+  }
 
 }

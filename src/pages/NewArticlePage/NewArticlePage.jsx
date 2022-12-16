@@ -20,9 +20,9 @@ const NewArticlePage = () => {
   const dispatch = useDispatch();
   let loginUserState = useSelector((state) => state.users.user);
   let data = {article: newArticle}
-  const navigate = useNavigate();
   let newArticleError = useSelector((state) => state.articles.error);
   const allTagsState = useSelector((state) => state.generals.tags)?.tags;
+  const navigate = useNavigate()
 
   useEffect(() => {
     dispatch({

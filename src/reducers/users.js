@@ -6,9 +6,10 @@ import {
   LOGIN_USER_SUCCESS,
   LOGIN_USER_FAIL,
   LOGOUT,
+  GET_USER_REQUEST,
+  GET_USER_SUCCESS,
+  GET_USER_FAIL, EDIT_USER_REQUEST, EDIT_USER_SUCCESS, EDIT_USER_FAIL,
 } from "../actions/users";
-
-
 
 const initialState = {
   loading: false,
@@ -63,6 +64,44 @@ export default function users(state = initialState, action) {
       return {
         ...state,
         user: null,
+      };
+
+    case GET_USER_REQUEST:
+      return {
+        ...state,
+        loading: true
+      };
+
+    case GET_USER_SUCCESS:
+      return {
+        ...state,
+        user: action.payload.user,
+        loading: false,
+      };
+
+    case GET_USER_FAIL:
+      return {
+        ...state,
+        loading: false,
+      };
+
+    case EDIT_USER_REQUEST:
+      return {
+        ...state,
+        loading: true
+      };
+
+    case EDIT_USER_SUCCESS:
+      return {
+        ...state,
+        user: action.payload.user,
+        loading: false,
+      };
+
+    case EDIT_USER_FAIL:
+      return {
+        ...state,
+        loading: false,
       };
 
     default:

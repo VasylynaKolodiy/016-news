@@ -26,7 +26,6 @@ const ProfilePage = () => {
   let [offset, setOffset] = useState(0)
   let countOfPages = totalCount && Math.ceil(totalCount / LIMIT)
   let [pageNumber, setPageNumber] = useState(1);
-
   const [feedName, setFeedName] = useState(params.authorName)
 
   useEffect(() => {
@@ -51,9 +50,9 @@ const ProfilePage = () => {
             favorited: params.authorName,
           }
         })
-        : setFeedName(params.authorName);
+        : (feedName === 'Favorited') && setFeedName(params.authorName);
 
-      feedName !== 'Favorited' &&
+      (feedName !== 'Favorited') &&
       dispatch({
         type: GET_ARTICLES_REQUEST,
         payload: {
@@ -64,9 +63,8 @@ const ProfilePage = () => {
         }
       })
     }
-  }, [pageNumber, offset, feedName, user?.token, params.authorName, profileState?.username])
-
-
+  }, [pageNumber, offset, feedName, user?.token, params.authorName])
+  // profileState?.username
   const handlePageChange = (event, value) => {
     setPageNumber(value);
     setOffset(LIMIT * (value) - LIMIT)
@@ -129,9 +127,8 @@ const ProfilePage = () => {
                     }
                   </div>)
               )}
-
-
             </div>
+            <div className='profilePage__bio'>{profileState?.bio}</div>
           </div>
 
           <div className="feeds__tabs">
