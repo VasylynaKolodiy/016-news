@@ -80,6 +80,9 @@
   .signLink.active,
   .loginLink.active {
     color: black;
+    &.hoverLink::after {
+      background-color: black;
+    }
   }
 
   .loginLink-user {

@@ -39,7 +39,7 @@ const Header = () => {
           (
             <div className='login__wrapper'>
 
-              <NavLink className='loginLink hoverLink loginLink-user' to={`profiles/${loginUserState?.username}`}>
+              <NavLink className='loginLink hoverLink active loginLink-user' to={`profiles/${loginUserState?.username}`}>
                 <img src={loginUserState?.image} alt="user"/>
                 {loginUserState?.username}
               </NavLink>
