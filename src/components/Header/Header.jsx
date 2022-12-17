@@ -36,29 +36,38 @@ const Header = () => {
         </ul>
 
           : loginUserState &&
-          (<ul className='login'>
-          <li>
-            <NavLink className='loginLink hoverLink' to='/editor'>
-              New Article
-            </NavLink>
-          </li>
-          <li>
-            <NavLink className='loginLink hoverLink' to='/settings'>
-              Settings
-            </NavLink>
-          </li>
-          <li>
-            <NavLink className='loginLink hoverLink loginLink-user' to={`profiles/${loginUserState?.username}`}>
-              <img src={loginUserState?.image} alt="user"/>
-              {loginUserState?.username}
-            </NavLink>
-          </li>
-          <li>
-            <NavLink className='loginLink hoverLink' to='/articles' onClick={() => exitUser()}>
-              Exit
-            </NavLink>
-          </li>
-        </ul>)
+          (
+            <div className='login__wrapper'>
+
+              <NavLink className='loginLink hoverLink loginLink-user' to={`profiles/${loginUserState?.username}`}>
+                <img src={loginUserState?.image} alt="user"/>
+                {loginUserState?.username}
+              </NavLink>
+
+
+              <ul className='login'>
+                <li>
+                  <NavLink className='loginLink hoverLink' to='/editor'>
+                    New Article
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink className='loginLink hoverLink' to='/settings'>
+                    Settings
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink className='loginLink hoverLink' to='/articles' onClick={() => exitUser()}>
+                    Exit
+                  </NavLink>
+                </li>
+              </ul>
+
+
+            </div>
+
+
+          )
         }
       </div>
 

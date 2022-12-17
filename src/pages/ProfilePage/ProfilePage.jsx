@@ -102,7 +102,7 @@ const ProfilePage = () => {
                 className='profilePage__photo'
                 src={profileState?.image}
                 alt={profileState?.username}
-                sx={{height: '90px', width: '90px'}}
+                sx={{height: '200px', width: '200px'}}
               />
 
             </div>
