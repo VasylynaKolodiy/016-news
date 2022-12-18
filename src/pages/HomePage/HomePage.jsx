@@ -51,7 +51,6 @@ const HomePage = () => {
     setOffset(LIMIT * (value) - LIMIT)
   }
 
-
   return (
     <main className='homePage'>
       <div className="feeds__tabs">
@@ -113,7 +112,6 @@ const HomePage = () => {
               />
             </>
             }
-
 
             {feedName === "Tags" &&
             <TabPage

@@ -1,0 +1,64 @@
+.appHeader {
+  &__container {
+    display: flex;
+    padding: 0;
+    align-items: center;
+    justify-content: space-between;
+    padding-left: 50px !important;
+    padding-right: 50px !important;
+  }
+
+  .logo {
+    width: 60px;
+    height: 60px;
+    position: relative;
+
+    &__image {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    &__link {
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+    }
+  }
+
+  .sign {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 30px;
+  }
+  .signLink{
+    color: black;
+    &.hoverLink::after {
+      background-color: black;
+    }
+  }
+  .signLink.active {
+    font-weight: bold;
+    &.hoverLink::after {
+      background-color: black;
+    }
+  }
+}
+
+.MuiBox-root{
+  display: flex;
+  justify-content: flex-end;
+  padding-right: 15px;
+}
+
+header{
+  padding-right: 0 !important;
+  background: url("../../assets/img/HomePage/background.webp") center left no-repeat fixed;
+}
+
+a{
+  color: black;
+}
