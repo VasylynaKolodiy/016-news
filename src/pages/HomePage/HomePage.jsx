@@ -1,11 +1,11 @@
 import React, {useEffect, useState} from 'react';
 import './HomePage.scss'
 import {useDispatch, useSelector} from "react-redux";
-import Loader from "../../components/Loader/Loader";
 import {GET_ARTICLES_REQUEST} from "../../actions/articles";
 import Tags from "../../components/Tags/Tags";
 import TabButton from "../../components/TabButton/TabButton";
 import TabPage from "../../components/TabPage/TabPage";
+import SceletonForHomePage from "../../components/Sceletons/SceletonForHomePage/SceletonForHomePage";
 
 const HomePage = () => {
   let user = useSelector((state) => state.users.user);
@@ -89,7 +89,7 @@ const HomePage = () => {
 
       <div className='homePage__wrapper'>
         {isArticlesLoading
-          ? <Loader/>
+          ? <SceletonForHomePage/>
           : <div>
 
             {feedName === "Global" &&

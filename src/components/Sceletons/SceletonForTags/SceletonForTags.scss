@@ -1,0 +1,16 @@
+.sceletonForTags{
+  margin-top: 20px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 7px;
+  flex-direction: column;
+  padding: 0;
+  &__iner{
+    padding: 15px;
+  }
+
+  .MuiSkeleton-root {
+    background: rgba(0, 0, 0, 0.2) !important;
+  }
+}

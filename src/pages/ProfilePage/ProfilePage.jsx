@@ -50,7 +50,7 @@ const ProfilePage = () => {
             favorited: params.authorName,
           }
         })
-        : (feedName === 'Favorited') && setFeedName(params.authorName);
+        : (params.authorName !== user?.username) && ( feedName === 'Favorited' ) && setFeedName(params.authorName);
 
       (feedName !== 'Favorited') &&
       dispatch({
@@ -63,7 +63,7 @@ const ProfilePage = () => {
         }
       })
     }
-  }, [pageNumber, offset, feedName, user?.token, params.authorName])
+  }, [pageNumber, offset, feedName, user?.token, params.authorName, profileState?.username])
   // profileState?.username
   const handlePageChange = (event, value) => {
     setPageNumber(value);

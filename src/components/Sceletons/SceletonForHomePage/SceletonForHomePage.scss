@@ -1,0 +1,19 @@
+.sceletonForHomePage{
+  padding: 0;
+  margin: 0 auto 0 auto;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-gap: 30px;
+
+  &__inner {
+    width: 0.2fr;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .MuiSkeleton-root {
+    background: url("../../../assets/img/HomePage/background.webp") top left no-repeat !important;
+  }
+}
+
