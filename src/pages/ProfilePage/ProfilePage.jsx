@@ -8,9 +8,10 @@ import {ReactComponent as UnFollowIcon} from "../../assets/img/unfollow.svg";
 import {ReactComponent as EditIcon} from "../../assets/img/edit.svg";
 import Avatar from "@mui/material/Avatar";
 import TabButton from "../../components/TabButton/TabButton";
-import Loader from "../../components/Loader/Loader";
 import TabPage from "../../components/TabPage/TabPage";
 import './ProfilePage.scss'
+import SceletonForHomePage from "../../components/Sceletons/SceletonForHomePage/SceletonForHomePage";
+import SceletonForProfilePage from "../../components/Sceletons/SceletonForProfilePage/SceletonForProfilePage";
 
 const ProfilePage = () => {
   const params = useParams();
@@ -94,7 +95,7 @@ const ProfilePage = () => {
     <main className='profilePage'>
 
       {profileLoading
-        ? <Loader/>
+        ? <SceletonForProfilePage/>
         : <div>
           <div className='profilePage__info'>
             <div className='profilePage__icon'>
@@ -155,7 +156,7 @@ const ProfilePage = () => {
 
 
           {isArticlesLoading
-            ? <Loader/>
+            ? <SceletonForHomePage/>
             : <div className='profilePage__wrapper'>
 
               {feedName === params.authorName &&

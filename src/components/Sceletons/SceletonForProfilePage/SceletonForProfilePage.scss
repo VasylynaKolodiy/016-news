@@ -1,0 +1,37 @@
+.sceletonForProfilePage {
+  padding: 0;
+
+
+  &__inner {
+    padding-top: 20px;
+    margin-bottom: 45px;
+    flex-direction: column;
+    display: flex !important;
+    align-items: center;
+  }
+
+  &__circular {
+    margin-bottom: 20px;
+  }
+
+  &__text {
+    width: 50%;
+  }
+
+  &__tab {
+    width: 30%;
+  }
+
+  .MuiSkeleton-circular {
+    background-color: rgba(0, 0, 0, 0.1) !important;
+    visibility: visible !important;
+  }
+  .MuiSkeleton-text {
+    background-color: rgba(0, 0, 0, 0.1) !important;
+    visibility: visible !important;
+  }
+  .MuiSkeleton-tab {
+    background-color: rgba(0, 0, 0, 0.1) !important;
+    visibility: visible !important;
+  }
+}
