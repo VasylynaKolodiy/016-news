@@ -10,8 +10,7 @@ import Avatar from "@mui/material/Avatar";
 import TabButton from "../../components/TabButton/TabButton";
 import TabPage from "../../components/TabPage/TabPage";
 import './ProfilePage.scss'
-import SceletonForHomePage from "../../components/Sceletons/SceletonForHomePage/SceletonForHomePage";
-import SceletonForProfilePage from "../../components/Sceletons/SceletonForProfilePage/SceletonForProfilePage";
+import SkeletonForProfilePage from "../../components/Skeletons/SkeletonForProfilePage/SkeletonForProfilePage";
 
 const ProfilePage = () => {
   const params = useParams();
@@ -19,8 +18,6 @@ const ProfilePage = () => {
   const user = useSelector((state) => state.users.user);
   const profileState = useSelector((state) => state.profiles.profile);
   const profileLoading = useSelector((state) => state.profiles.loading);
-
-  const isArticlesLoading = useSelector((state) => state.articles.loading);
   const articlesState = useSelector((state) => state.articles.articles);
   const totalCount = articlesState.articlesCount
   const LIMIT = 10;
@@ -41,7 +38,7 @@ const ProfilePage = () => {
 
   useEffect(() => {
     {
-      ( params.authorName === user?.username ) && ( feedName === 'Favorited' )
+      (params.authorName === user?.username) && (feedName === 'Favorited')
         ? dispatch({
           type: GET_ARTICLES_REQUEST,
           payload: {
@@ -51,7 +48,7 @@ const ProfilePage = () => {
             favorited: params.authorName,
           }
         })
-        : (params.authorName !== user?.username) && ( feedName === 'Favorited' ) && setFeedName(params.authorName);
+        : (params.authorName !== user?.username) && (feedName === 'Favorited') && setFeedName(params.authorName);
 
       (feedName !== 'Favorited') &&
       dispatch({
@@ -95,7 +92,7 @@ const ProfilePage = () => {
     <main className='profilePage'>
 
       {profileLoading
-        ? <SceletonForProfilePage/>
+        ? <SkeletonForProfilePage/>
         : <div>
           <div className='profilePage__info'>
             <div className='profilePage__icon'>
@@ -155,31 +152,29 @@ const ProfilePage = () => {
           </div>
 
 
-          {isArticlesLoading
-            ? <SceletonForHomePage/>
-            : <div className='profilePage__wrapper'>
+          <div className='profilePage__wrapper'>
 
-              {feedName === params.authorName &&
+            {feedName === params.authorName &&
+            <TabPage
+              tabPageId={params.authorName}
+              articlesState={articlesState}
+              countOfPages={countOfPages}
+              pageNumber={pageNumber}
+              handlePageChange={handlePageChange}
+            />}
+
+            {feedName === 'Favorited' && (
               <TabPage
-                tabPageId={params.authorName}
+                tabPageId='Favorited'
                 articlesState={articlesState}
                 countOfPages={countOfPages}
                 pageNumber={pageNumber}
                 handlePageChange={handlePageChange}
-              />}
+              />
+            )}
 
-              {feedName === 'Favorited' && (
-                <TabPage
-                  tabPageId='Favorited'
-                  articlesState={articlesState}
-                  countOfPages={countOfPages}
-                  pageNumber={pageNumber}
-                  handlePageChange={handlePageChange}
-                />
-              )}
+          </div>
 
-            </div>
-          }
         </div>
       }
     </main>

@@ -5,12 +5,10 @@ import {GET_ARTICLES_REQUEST} from "../../actions/articles";
 import Tags from "../../components/Tags/Tags";
 import TabButton from "../../components/TabButton/TabButton";
 import TabPage from "../../components/TabPage/TabPage";
-import SceletonForHomePage from "../../components/Sceletons/SceletonForHomePage/SceletonForHomePage";
 
 const HomePage = () => {
   let user = useSelector((state) => state.users.user);
   const dispatch = useDispatch();
-  const isArticlesLoading = useSelector((state) => state.articles.loading);
   const articlesState = useSelector((state) => state.articles.articles);
   const totalCount = articlesState.articlesCount
   const LIMIT = 10;
@@ -88,41 +86,38 @@ const HomePage = () => {
       </div>
 
       <div className='homePage__wrapper'>
-        {isArticlesLoading
-          ? <SceletonForHomePage/>
-          : <div>
+        <div>
+          {feedName === "Global" &&
+          <TabPage
+            tabPageId='Global'
+            articlesState={articlesState}
+            countOfPages={countOfPages}
+            pageNumber={pageNumber}
+            handlePageChange={handlePageChange}
+          />}
 
-            {feedName === "Global" &&
+          {feedName === "Your" &&
+          <>
             <TabPage
-              tabPageId='Global'
+              tabPageId='Your'
               articlesState={articlesState}
               countOfPages={countOfPages}
               pageNumber={pageNumber}
               handlePageChange={handlePageChange}
-            />}
+            />
+          </>
+          }
 
-            {feedName === "Your" &&
-            <>
-              <TabPage
-                tabPageId='Your'
-                articlesState={articlesState}
-                countOfPages={countOfPages}
-                pageNumber={pageNumber}
-                handlePageChange={handlePageChange}
-              />
-            </>
-            }
+          {feedName === "Tags" &&
+          <TabPage
+            tabPageId='Tags'
+            articlesState={articlesState}
+            countOfPages={countOfPages}
+            pageNumber={pageNumber}
+            handlePageChange={handlePageChange}
+          />}
+        </div>
 
-            {feedName === "Tags" &&
-            <TabPage
-              tabPageId='Tags'
-              articlesState={articlesState}
-              countOfPages={countOfPages}
-              pageNumber={pageNumber}
-              handlePageChange={handlePageChange}
-            />}
-          </div>
-        }
         <Tags
           tagName={tagName}
           setTagName={setTagName}

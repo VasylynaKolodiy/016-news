@@ -1,28 +1,28 @@
 import React from 'react';
-import './SceletonForProfilePage.scss'
+import './SkeletonForProfilePage.scss'
 import Skeleton from "@mui/material/Skeleton";
-import SceletonForHomePage from "../SceletonForHomePage/SceletonForHomePage";
+import SkeletonForArticlesList from "../SkeletonForArticlesList/SkeletonForArticlesList";
 
-const SceletonForProfilePage = () => {
+const SkeletonForProfilePage = () => {
 
   return (
-    <section className='sceletonForProfilePage container'>
+    <section className='skeletonForProfilePage container'>
 
       <Skeleton
-        className='sceletonForProfilePage__inner'
+        className='skeletonForProfilePage__inner'
         variant="rectangular"
         width='100%'
         height={313}
       >
         <Skeleton
-          className='sceletonForProfilePage__circular'
+          className='skeletonForProfilePage__circular'
           variant="circular"
           width={200}
           height={200}
         />
 
         <Skeleton
-          className='sceletonForProfilePage__text'
+          className='skeletonForProfilePage__text'
           variant="text"
           sx={{ fontSize: '3rem' }}
         />
@@ -31,15 +31,15 @@ const SceletonForProfilePage = () => {
 
 
       <Skeleton
-        className='sceletonForProfilePage__tab'
+        className='skeletonForProfilePage__tab'
         variant="text"
         sx={{ fontSize: '3rem' }}
       />
 
-      <SceletonForHomePage/>
+      <SkeletonForArticlesList/>
 
     </section>
   );
 };
 
-export default SceletonForProfilePage;
+export default SkeletonForProfilePage;

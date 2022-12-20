@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import './Tags.scss'
 import {useDispatch, useSelector} from "react-redux";
 import {GET_TAGS_REQUEST} from "../../actions/generals";
-import SceletonForTags from "../Sceletons/SceletonForTags/SceletonForTags";
+import SkeletonForTags from "../Skeletons/SkeletonForTags/SkeletonForTags";
 
 const Tags = ({tagName, setTagName, setOffset, setFeedName, setPageNumber}) => {
 
@@ -23,7 +23,7 @@ const Tags = ({tagName, setTagName, setOffset, setFeedName, setPageNumber}) => {
       </p>
 
       {tagsLoading
-        ? <SceletonForTags/>
+        ? <SkeletonForTags/>
 
         : <ul className="tags__list">
           {tagsState?.map((tag, index) => (

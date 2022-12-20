@@ -1,14 +1,14 @@
 import React from 'react';
-import './SceletonForTags.scss'
+import './SkeletonForTags.scss'
 import Skeleton from "@mui/material/Skeleton";
 
-const SceletonForTags = () => {
+const SkeletonForTags = () => {
   let test = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
   return (
-    <section className='sceletonForTags container'>
+    <section className='skeletonForTags container'>
       {test.map((elem, i) =>
         <Skeleton
-          className='sceletonForHomePage__inner'
+          className='skeletonForTags__inner'
           variant="rectangular"
           width='100%'
           height={30}
@@ -18,4 +18,4 @@ const SceletonForTags = () => {
   );
 };
 
-export default SceletonForTags;
+export default SkeletonForTags;
