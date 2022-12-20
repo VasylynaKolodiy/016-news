@@ -96,7 +96,6 @@ const ArticleCard = ({article, tabPageId=''}) => {
                 <Link className='articleCard__tagitem' to='#' key={index}>{tag} </Link>)
               )}
             </div>
-
           </div>
         </div>
       </div>

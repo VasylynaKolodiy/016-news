@@ -21,9 +21,9 @@ const ProfilePage = () => {
   const articlesState = useSelector((state) => state.articles.articles);
   const totalCount = articlesState.articlesCount
   const LIMIT = 10;
-  let [offset, setOffset] = useState(0)
-  let countOfPages = totalCount && Math.ceil(totalCount / LIMIT)
-  let [pageNumber, setPageNumber] = useState(1);
+  const [offset, setOffset] = useState(0)
+  const countOfPages = totalCount && Math.ceil(totalCount / LIMIT)
+  const [pageNumber, setPageNumber] = useState(1);
   const [feedName, setFeedName] = useState(params.authorName)
 
   useEffect(() => {

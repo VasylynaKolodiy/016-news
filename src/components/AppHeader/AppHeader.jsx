@@ -8,10 +8,11 @@ import Container from '@mui/material/Container';
 import Avatar from '@mui/material/Avatar';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
-import './AppHeader.scss'
 import {useDispatch, useSelector} from "react-redux";
-import {LOGOUT} from "../../actions/users";
 import {NavLink} from "react-router-dom";
+
+import './AppHeader.scss'
+import {LOGOUT} from "../../actions/users";
 import logoIcon from "../../assets/img/logo.png";
 
 function AppHeader() {
@@ -40,11 +41,11 @@ function AppHeader() {
             <NavLink className='logo__link' to='/'/>
           </div>
 
-          <Box sx={{flexGrow: 1, display: { md: 'flex'}}}>
+          <Box sx={{flexGrow: 1, display: {md: 'flex'}}}>
             {loginUserState &&
             <p>
               <NavLink className='signLink hoverLink' to='/editor'>
-                New Article
+                New article
               </NavLink>
             </p>}
           </Box>
@@ -63,7 +64,6 @@ function AppHeader() {
                 </NavLink>
               </li>
             </ul>}
-
 
             {loginUserState && <div>
               <Tooltip title="Open settings">
@@ -90,23 +90,22 @@ function AppHeader() {
               >
 
                 <MenuItem onClick={handleCloseUserMenu}>
-                  <NavLink to={`profiles/${loginUserState?.username}`}>
+                  <NavLink className='appHeader__menuLink' to={`profiles/${loginUserState?.username}`}>
                     Your profile
                   </NavLink>
                 </MenuItem>
 
                 <MenuItem onClick={handleCloseUserMenu}>
-                  <NavLink to='/settings'>
+                  <NavLink className='appHeader__menuLink' to='/settings'>
                     Settings
                   </NavLink>
                 </MenuItem>
 
                 <MenuItem onClick={handleCloseUserMenu}>
-                  <NavLink to='/' onClick={() => exitUser()}>
+                  <NavLink className='appHeader__menuLink' to='/' onClick={() => exitUser()}>
                     Exit
                   </NavLink>
                 </MenuItem>
-
               </Menu>
             </div>}
 

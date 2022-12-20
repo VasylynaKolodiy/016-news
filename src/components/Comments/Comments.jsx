@@ -7,13 +7,15 @@ import {ReactComponent as DeleteButton} from '../../assets/img/delete-button.svg
 import {DELETE_COMMENT_REQUEST} from "../../actions/articles";
 import {useParams} from "react-router-dom";
 import {ReactComponent as LoadIcon} from "../../assets/img/load.svg";
+import SkeletonForComments from "../Skeletons/SkeletonForComments/SkeletonForComments";
 
 const Comments = ({comments}) => {
-  let user = useSelector((state) => state.users.user);
+  const user = useSelector((state) => state.users.user);
   const dispatch = useDispatch();
   const params = useParams();
   const QUANTITY = 10
   const [countOfComments, setCountOfComments] = useState(QUANTITY)
+  const isArticleLoading = useSelector((state) => state.articles.loading);
 
   const deleteOwnComment = (id) => {
     dispatch({
@@ -29,11 +31,14 @@ const Comments = ({comments}) => {
   return (
     <div className="comments">
       <h3 className='comments__title'>Comments ({comments?.length}):</h3>
-      {user && <NewComment/>}
+      {/*{user && <NewComment/>}*/}
 
-      {console.log(comments, 'comments')}
-      {comments?.slice(0, countOfComments).map((comment, index) =>
-        (<div className='comments__item' key={index}>
+      {isArticleLoading
+        ? <SkeletonForComments/>
+        : <div>
+          {user && <NewComment/>}
+          {comments?.slice(0, countOfComments).map((comment, index) =>
+          <div className='comments__item' key={index}>
             <AuthorInfo author={comment.author} dateAuthorInfo={new Date(comment.updatedAt)}/>
             <div className='comments__body'>{comment.body}
               {comment.author?.username === user?.username && (
@@ -42,8 +47,10 @@ const Comments = ({comments}) => {
                 </div>
               )}
             </div>
-          </div>)
-      )}
+          </div>)}
+        </div>
+      }
+
 
       {comments.length > countOfComments && (
         <div
@@ -51,10 +58,11 @@ const Comments = ({comments}) => {
           onClick={() => setCountOfComments(countOfComments + QUANTITY)}
         >
           <LoadIcon title='Load more comments'/> Load more...
-        </div>)}
+        </div>)
+      }
 
     </div>
-  );
-};
+  )
+}
 
 export default Comments;

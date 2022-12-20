@@ -1,0 +1,16 @@
+.skeletonForComments{
+
+  &__inner{
+    width: 80%;
+    margin: 0 auto 10px auto;
+    padding: 10px 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid gray;
+  }
+
+  .MuiSkeleton-root {
+    background: rgba(255, 255, 255, 0.3) !important;
+  }
+}

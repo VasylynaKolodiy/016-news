@@ -2,7 +2,6 @@ import React, {useEffect} from 'react';
 import './ArticleDetailPage.scss'
 import {Link, useParams, useNavigate} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
-import Loader from "../../components/Loader/Loader";
 import {ReactComponent as FavoritesIcon} from "../../assets/img/HomePage/ArticleCard/heart.svg";
 import Comments from "../../components/Comments/Comments";
 import AuthorInfo from "../../components/AuthorInfo/AuthorInfo";
@@ -26,7 +25,7 @@ const ArticleDetailPage = () => {
   const navigate = useNavigate();
   let user = useSelector((state) => state.users.user);
   const dispatch = useDispatch();
-  const isArticleLoading = useSelector((state) => state.articles.loading);
+  // const isArticleLoading = useSelector((state) => state.articles.loading);
   const article = useSelector((state) => state.articles.article);
   const comments = useSelector((state) => state.articles.comments);
   const loadingFavorite = useSelector((state) => state.articles.loadingFavorite);
@@ -105,68 +104,69 @@ const ArticleDetailPage = () => {
 
   return (
     <main className='articleDetailPage'>
-      {isArticleLoading
-        ? <Loader/>
-        : <div className='articleDetailPage__content'>
+      {/*{isArticleLoading*/}
+      {/*  ? <Loader/>*/}
+      {/*:*/}
+      <div className='articleDetailPage__content'>
 
-          <BreadCrumbs name={article.slug?.slice(0, 20) + '...'}/>
+        <BreadCrumbs name={article.slug?.slice(0, 20) + '...'}/>
 
-          <div className='articleDetailPage__top'>
-            <AuthorInfo author={article.author} dateAuthorInfo={dateArticle}/>
+        <div className='articleDetailPage__top'>
+          <AuthorInfo author={article.author} dateAuthorInfo={dateArticle}/>
 
-            <div className='articleDetailPage__social'>
+          <div className='articleDetailPage__social'>
 
-              {article.author?.username === user?.username && (
-                <div className='articleDetailPage__editor'>
-                  <EditButton title='Edit article' onClick={() => navigate(`/editor/${article.slug}`)}/>
-                  <DeleteButton title='Delete article' onClick={() => deleteArticle()}/>
-                </div>
-              )}
+            {article.author?.username === user?.username && (
+              <div className='articleDetailPage__editor'>
+                <EditButton title='Edit article' onClick={() => navigate(`/editor/${article.slug}`)}/>
+                <DeleteButton title='Delete article' onClick={() => deleteArticle()}/>
+              </div>
+            )}
 
-              {user && (
-                article.author?.username !== user?.username &&
-                <div
-                  className={`articleDetailPage__follow ${profileState?.following ? 'isFollow' : ''}`}
-                  onClick={() => {
-                    profileState?.following ? unfollowAuthor() : followAuthor()
-                  }}
-                >
-                  {profileState?.following ? <UnFollowIcon title='UnFollow'/> : <FollowIcon title='Follow'/>}
-                </div>)
-              }
-
-
+            {user && (
+              article.author?.username !== user?.username &&
               <div
-                className={`articleDetailPage__favorites ${article?.favorited ? 'favorited' : ''} ${loadingFavorite ? 'loadingFavorite' : ''}`}
-                onClick={(event) => {
-                  return (loadingFavorite
-                      ? event.preventDefault()
-                      : (user
-                        ? article.favorited ? deleteFromFavorites() : addToFavorites()
-                        : navigate('/signin'))
-                  )
+                className={`articleDetailPage__follow ${profileState?.following ? 'isFollow' : ''}`}
+                onClick={() => {
+                  profileState?.following ? unfollowAuthor() : followAuthor()
                 }}
               >
-                <FavoritesIcon title='Likes'/>
-                <p className='articleDetailPage__favorites-count'>{article?.favoritesCount}</p>
-              </div>
+                {profileState?.following ? <UnFollowIcon title='UnFollow'/> : <FollowIcon title='Follow'/>}
+              </div>)
+            }
 
 
+            <div
+              className={`articleDetailPage__favorites ${article?.favorited ? 'favorited' : ''} ${loadingFavorite ? 'loadingFavorite' : ''}`}
+              onClick={(event) => {
+                return (loadingFavorite
+                    ? event.preventDefault()
+                    : (user
+                      ? article.favorited ? deleteFromFavorites() : addToFavorites()
+                      : navigate('/signin'))
+                )
+              }}
+            >
+              <FavoritesIcon title='Likes'/>
+              <p className='articleDetailPage__favorites-count'>{article?.favoritesCount}</p>
             </div>
-          </div>
 
-          <p className='articleDetailPage__title'>{article.title}</p>
-          <p className='articleDetailPage__body'>{String(article.body).replaceAll('\\n', ' ')}</p>
-          <p className='articleDetailPage__description'>{article.description}</p>
 
-          <div className='articleDetailPage__taglist'>
-            {article.tagList?.map((tag, index) => (
-              <Link className='articleCard__tagitem' key={index} to='#'>{tag} </Link>)
-            )}
           </div>
-          <Comments comments={comments}/>
         </div>
-      }
+
+        <p className='articleDetailPage__title'>{article.title}</p>
+        <p className='articleDetailPage__body'>{String(article.body).replaceAll('\\n', ' ')}</p>
+        <p className='articleDetailPage__description'>{article.description}</p>
+
+        <div className='articleDetailPage__taglist'>
+          {article.tagList?.map((tag, index) => (
+            <Link className='articleCard__tagitem' key={index} to='#'>{tag} </Link>)
+          )}
+        </div>
+        <Comments comments={comments}/>
+      </div>
+      {/*}*/}
     </main>
   );
 };
