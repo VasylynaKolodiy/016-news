@@ -31,7 +31,7 @@ const SignUpPage = () => {
     password: '',
   })
 
-  let data = {user: myNewUser}
+  let data = myNewUser
   const dispatch = useDispatch();
   let newUserState = useSelector((state) => state.users.user);
   const signUp = () => {
