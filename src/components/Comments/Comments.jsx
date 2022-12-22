@@ -30,12 +30,11 @@ const Comments = ({comments}) => {
 
   return (
     <div className="comments">
-      <h3 className='comments__title'>Comments ({comments?.length}):</h3>
-      {/*{user && <NewComment/>}*/}
 
       {isArticleLoading
         ? <SkeletonForComments/>
         : <div>
+          <h3 className='comments__title'>Comments ({comments?.length}):</h3>
           {user && <NewComment/>}
           {comments?.slice(0, countOfComments).map((comment, index) =>
           <div className='comments__item' key={index}>

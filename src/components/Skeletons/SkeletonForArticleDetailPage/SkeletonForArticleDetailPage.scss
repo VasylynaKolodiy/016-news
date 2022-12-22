@@ -1,0 +1,27 @@
+.skeletonForArticleDetailPage{
+  &__left{
+    display: flex !important;
+    align-items: flex-end !important;
+    justify-content: flex-start !important;
+    gap: 10px;
+    margin-bottom: 30px;
+  }
+
+  &__breadcrumbs,
+  &__title{
+    margin-bottom: 30px;
+  }
+
+  &__transparent{
+    background-color: transparent !important;
+  }
+
+
+  &__body{
+    margin-bottom: 50px;
+  }
+
+
+
+
+}

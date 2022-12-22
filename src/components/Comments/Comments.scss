@@ -46,6 +46,8 @@
     cursor: pointer;
     border-radius: 50%;
     padding: 10px;
+    display: flex;
+    align-items: center;
 
     & svg {
       width: 25px;

@@ -19,13 +19,16 @@ import {
 import {ReactComponent as EditButton} from "../../assets/img/edit.svg";
 import {ReactComponent as DeleteButton} from "../../assets/img/delete-button.svg";
 import {FOLLOW_REQUEST, UNFOLLOW_REQUEST} from "../../actions/profiles";
+import {convertNumber} from "../../helpers";
+import SkeletonForArticleDetailPage
+  from "../../components/Skeletons/SkeletonForArticleDetailPage/SkeletonForArticleDetailPage";
 
 const ArticleDetailPage = () => {
   const params = useParams();
   const navigate = useNavigate();
-  let user = useSelector((state) => state.users.user);
+  const user = useSelector((state) => state.users.user);
   const dispatch = useDispatch();
-  // const isArticleLoading = useSelector((state) => state.articles.loading);
+  const isArticleLoading = useSelector((state) => state.articles.loading);
   const article = useSelector((state) => state.articles.article);
   const comments = useSelector((state) => state.articles.comments);
   const loadingFavorite = useSelector((state) => state.articles.loadingFavorite);
@@ -104,9 +107,9 @@ const ArticleDetailPage = () => {
 
   return (
     <main className='articleDetailPage'>
-      {/*{isArticleLoading*/}
-      {/*  ? <Loader/>*/}
-      {/*:*/}
+      {isArticleLoading
+        ? <SkeletonForArticleDetailPage/>
+      :
       <div className='articleDetailPage__content'>
 
         <BreadCrumbs name={article.slug?.slice(0, 20) + '...'}/>
@@ -148,7 +151,7 @@ const ArticleDetailPage = () => {
               }}
             >
               <FavoritesIcon title='Likes'/>
-              <p className='articleDetailPage__favorites-count'>{article?.favoritesCount}</p>
+              <p className='articleDetailPage__favorites-count'> {convertNumber(article?.favoritesCount)}</p>
             </div>
 
 
@@ -166,7 +169,7 @@ const ArticleDetailPage = () => {
         </div>
         <Comments comments={comments}/>
       </div>
-      {/*}*/}
+      }
     </main>
   );
 };

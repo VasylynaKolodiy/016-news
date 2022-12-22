@@ -1,16 +1,35 @@
-.skeletonForComments{
+.skeletonForComments {
+  padding: 0 !important;
 
-  &__inner{
-    width: 80%;
+  &__inner {
     margin: 0 auto 10px auto;
     padding: 10px 10px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
     border-bottom: 1px solid gray;
   }
 
-  .MuiSkeleton-root {
-    background: rgba(255, 255, 255, 0.3) !important;
+  &__left {
+    width: 20%;
   }
+
+  &__right {
+    width: 75%;
+  }
+
+  .MuiSkeleton-root {
+    background: transparent !important;
+  }
+
+  .MuiSkeleton-circular {
+    background-color: rgba(0, 0, 0, 0.1) !important;
+    visibility: visible !important;
+  }
+
+  .MuiSkeleton-text {
+    background-color: rgba(0, 0, 0, 0.1) !important;
+    visibility: visible !important;
+  }
+
 }

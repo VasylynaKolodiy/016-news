@@ -10,6 +10,7 @@ import {useNavigate} from "react-router-dom";
 import {ReactComponent as InfoButton} from "../../assets/img/info.svg";
 import {ReactComponent as EditButton} from "../../assets/img/edit.svg";
 import {ReactComponent as DeleteButton} from "../../assets/img/delete-button.svg";
+import {convertNumber} from "../../helpers";
 
 const ArticleCard = ({article, tabPageId=''}) => {
   let dateArticle = new Date(article.updatedAt)
@@ -71,7 +72,7 @@ const ArticleCard = ({article, tabPageId=''}) => {
             <p
               className='articleCard__favorites-count'
             >
-              {article.favoritesCount}</p>
+              {convertNumber(article.favoritesCount)}</p>
           </div>
         </div>
 
