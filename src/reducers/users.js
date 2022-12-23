@@ -30,12 +30,14 @@ export default function users(state = initialState, action) {
         ...state,
         user: action.payload.user,
         loading: false,
+        error: '',
       };
 
     case CREATE_NEW_USER_FAIL:
       return {
         ...state,
         loading: false,
+        error: action.payload,
       };
 
     case LOGIN_USER_REQUEST:

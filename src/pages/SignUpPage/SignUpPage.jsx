@@ -1,4 +1,4 @@
-import React, { useState} from 'react';
+import React, {useState} from 'react';
 import './SignUpPage.scss'
 import TextField from "@mui/material/TextField";
 import FormControl from "@mui/material/FormControl";
@@ -12,6 +12,7 @@ import Button from "@mui/material/Button";
 import {useDispatch, useSelector} from "react-redux";
 import {CREATE_NEW_USER_REQUEST} from "../../actions/users";
 import {Navigate} from "react-router-dom";
+import FormHelperText from "@mui/material/FormHelperText";
 
 
 const SignUpPage = () => {
@@ -24,7 +25,7 @@ const SignUpPage = () => {
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
   };
-  
+
   let [myNewUser, setMyNewUser] = useState({
     username: '',
     email: '',
@@ -34,31 +35,47 @@ const SignUpPage = () => {
   let data = myNewUser
   const dispatch = useDispatch();
   let newUserState = useSelector((state) => state.users.user);
+  let createNewUserError = useSelector((state) => state.users.error);
+  const [doValidation, setDoValidation] = useState(false)
+  console.log(createNewUserError, 'createNewUserError')
   const signUp = () => {
     dispatch({type: CREATE_NEW_USER_REQUEST, payload: data});
+    setDoValidation(true)
   }
-  if(newUserState) return <Navigate replace to="/" />;
+  if (newUserState) return <Navigate replace to="/"/>;
 
   return (
     <main className='signPage'>
       <form className='sign__form' onSubmit={(event) => event.preventDefault()}>
         <FormControl className='formControl__name formControl'>
           <TextField
+            error={doValidation && Boolean(createNewUserError)}
             label="Name"
             type="text"
             variant="standard"
             value={myNewUser.username}
             onChange={(event) => setMyNewUser({...myNewUser, username: event.target.value})}
+            helperText={
+              doValidation && (
+                Boolean(createNewUserError) && (
+                  Object.keys(createNewUserError)[0] === 'email') && Object.keys(createNewUserError) + ' ' + Object.values(createNewUserError)
+              )}
           />
         </FormControl>
 
         <FormControl className='formControl__email formControl'>
           <TextField
+            error={doValidation && Boolean(createNewUserError)}
             label="Email"
             type="email"
             variant="standard"
             value={myNewUser.email}
             onChange={(event) => setMyNewUser({...myNewUser, email: event.target.value})}
+            helperText={
+              doValidation && (
+                Boolean(createNewUserError) && (
+                  Object.keys(createNewUserError)[0] === 'email') && Object.keys(createNewUserError) + ' ' + Object.values(createNewUserError)
+              )}
           />
         </FormControl>
 
@@ -66,6 +83,7 @@ const SignUpPage = () => {
           <InputLabel htmlFor="signUpUserPassword">Password</InputLabel>
           <Input
             id="signUpUserPassword"
+            error={doValidation && Boolean(createNewUserError)}
             type={showPassword ? 'text' : 'password'}
             onChange={(event) => setMyNewUser({...myNewUser, password: event.target.value})}
             value={myNewUser.password}
@@ -81,6 +99,13 @@ const SignUpPage = () => {
               </InputAdornment>
             }
           />
+
+          <FormHelperText error className='helperText'>
+            {doValidation && (
+              Boolean(createNewUserError) && (
+              Object.keys(createNewUserError)[0] !== 'email') && Object.keys(createNewUserError) + ' ' + Object.values(createNewUserError))
+            }
+          </FormHelperText>
         </FormControl>
 
         <Button

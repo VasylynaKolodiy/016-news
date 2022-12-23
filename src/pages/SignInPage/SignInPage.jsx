@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import TextField from "@mui/material/TextField";
 import FormControl from "@mui/material/FormControl";
 import InputAdornment from "@mui/material/InputAdornment";
@@ -33,10 +33,12 @@ const SignInPage = () => {
   let loginUserState = useSelector((state) => state.users.user);
   let loginError = useSelector((state) => state.users.error);
 
+  const [doValidation, setDoValidation] = useState(false)
   const signIn = async () => {
     dispatch({type: LOGIN_USER_REQUEST, payload: myLoginUser})
+    setDoValidation(true)
   }
-  if(loginUserState) return <Navigate replace to="/" />;
+  if (loginUserState) return <Navigate replace to="/"/>;
 
   return (
     <main className='signPage'>
@@ -44,35 +46,24 @@ const SignInPage = () => {
       <form className='sign__form' onSubmit={(event) => event.preventDefault()}>
         <FormControl className='formControl__email formControl'>
           <TextField
-            error={
-              Boolean(loginError) ||
-              (myLoginUser.email.length >= 1 && myLoginUser.email.length <= 7) ||
-              myLoginUser.email.length >= 100 ||
-              !myLoginUser.email.includes('@') ||
-              !myLoginUser.email.includes('.')
-            }
+            error={doValidation && Boolean(loginError)}
             label="Email"
             type="email"
             variant="standard"
             value={myLoginUser.email}
             onChange={(event) => setMyLoginUser({...myLoginUser, email: event.target.value})}
             helperText={
-              Boolean(loginError) ? (Object.keys(loginError)[0] === 'email') &&  Object.keys(loginError) + ' ' + Object.values(loginError)
-                : (myLoginUser.email.length >= 1 && myLoginUser.email.length <= 7) ? 'min length 8 symbols'
-                : myLoginUser.email.length >= 100 ? 'max length 100 symbols'
-                  : !myLoginUser.email.includes('@') ? 'incorrect email address'
-                    : !myLoginUser.email.includes('.') ? "incorrect email address" : ""
-            }
+              doValidation && (
+                Boolean(loginError) && (
+                  Object.keys(loginError)[0] === 'email') && Object.keys(loginError) + ' ' + Object.values(loginError)
+            )}
           />
         </FormControl>
 
         <FormControl className='formControl__password formControl'>
           <InputLabel htmlFor="signInUserPassword">Password</InputLabel>
           <Input
-            error={
-              Boolean(loginError) ||
-              (myLoginUser.password.length >= 1 && myLoginUser.password.length <= 4) ||
-              myLoginUser.password.length >= 12}
+            error={doValidation && Boolean(loginError)}
             id="signInUserPassword"
             type={showPassword ? 'text' : 'password'}
             onChange={(event) => setMyLoginUser({...myLoginUser, password: event.target.value})}
@@ -90,16 +81,20 @@ const SignInPage = () => {
             }
           />
           <FormHelperText error className='helperText'>
-            {Boolean(loginError) ? (Object.keys(loginError)[0] !== 'email') &&  Object.keys(loginError) + ' ' + Object.values(loginError)
-              : (myLoginUser.password.length >= 1 && myLoginUser.password.length <= 3) ? 'min length 4 symbols'
-                : myLoginUser.password.length >= 12 ? 'max length 12 symbols' : ''}
+            {doValidation && (
+              Boolean(loginError) && (
+                Object.keys(loginError)[0] !== 'email') && Object.keys(loginError) + ' ' + Object.values(loginError))
+            }
           </FormHelperText>
         </FormControl>
 
         <Button
           type='submit'
           variant="outlined"
-          onClick={() => signIn(myLoginUser)}>Sign In</Button>
+          onClick={() => signIn(myLoginUser)}
+        >
+          Sign In
+        </Button>
       </form>
     </main>
   );
