@@ -5,8 +5,12 @@ export const getHeaders = (token) => {
 
 export const convertNumber = (num) => {
   if (num < 1000) {return num}
-  if (num > 999 && num < 1000000) {return Math.floor(num/1000) + 'k'}
-  if (num > 999999 && num < 1000000000) {return Math.floor(num/1000000) + 'm'}
+  if (num > 999 && num < 1000000) {
+    return `${(num / 1000).toFixed(1).replace(/\.0$/, "")}K`
+  }
+  if (num > 999999 && num < 1000000000) {
+    return  `${(num / 1000000).toFixed(1).replace(/\.0$/, "")}M`
+  }
   return num
 }
 
